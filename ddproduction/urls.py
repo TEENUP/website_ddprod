@@ -19,4 +19,8 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('home.urls')),
+    url(r'^contact_us/', include('home.urls')),
+    url(r'^sign_up/', include('home.urls')),
+    url(r'^about_us/', include('home.urls')),
+    url(r'^dashboard/', include('home.urls')),
 ]
