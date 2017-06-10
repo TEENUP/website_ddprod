@@ -1,6 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+
+from django.contrib.auth import (
+	authenticate,
+	get_user_model,
+	login,
+	logout,
+
+	)
+
+#from .forms import UserLoginForm
+
+
+
 from django.shortcuts import render
 
 def home_list(request):
@@ -19,4 +32,7 @@ def dashboard(request):
     return render(request, 'home/dashboard.html', {})
 
 
-# Create your views here.
+# Create your views here .
+#sign up views
+
+        
