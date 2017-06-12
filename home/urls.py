@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^sign_up', views.sign_up, name='sign_up'),
     url(r'^about_us', views.about_us, name='about_us'),
     url(r'^dashboard', views.dashboard, name='dashboard'),
-
+    url(r'^plans', views.plans, name='plans'),
 ]

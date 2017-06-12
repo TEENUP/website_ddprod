@@ -58,7 +58,6 @@
 </head>
 
 <body id="page-top">
-
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -66,23 +65,23 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Home</a>
+                <a class="navbar-brand page-scroll" href="{{home}}">Home</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#about">About</a>
+                        <a class="page-scroll" href="{{about}}">About</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#services">Services</a>
+                        <a class="page-scroll" href="{{plans}}">Plans</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#portfolio">Portfolio</a>
+                        <a class="page-scroll" href="{{contact}}">Contact</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
+                        <a class="page-scroll" href="{{signup}}">Sign Up</a>
                     </li>
                 </ul>
             </div>
@@ -107,6 +106,12 @@
 
     <!-- Theme JavaScript -->
     <script src="{% static 'js/creative.min.js' %}"></script>
+    <script src={% static 'js/jquery-1.11.1.min_contact_us.js' %}></script>
+    <script src={% static 'bootstrap/js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/jquery.backstretch.min_contact_us.js' %}></script>
+    <script src={% static 'js/wow.min_contact_us.js' %}></script>
+    <script src={% static 'js/scripts_contact_us.js' %}></script>
+        
 
 </body>
 
