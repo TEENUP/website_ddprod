@@ -6,7 +6,6 @@ from .models import User
 from .models import UserDetails
 from .models import UserAccount
 from .models import UserRelation
-from .models import Level
  
 # Register your models here.
  
@@ -14,4 +13,3 @@ admin.site.register(User)
 admin.site.register(UserDetails)
 admin.site.register(UserAccount)
 admin.site.register(UserRelation)
-admin.site.register(Level)
