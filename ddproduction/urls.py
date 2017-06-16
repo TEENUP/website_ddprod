@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^about_us/', include('home.urls')),
     url(r'^dashboard/', include('home.urls')),
     url(r'^plans/', include('home.urls')),
+    url(r'^user_profile/', include('home.urls')),
 ]

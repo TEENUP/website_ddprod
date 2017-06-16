@@ -64,3 +64,6 @@ def dashboard(request):
 def plans(request):
 	return render(request,'home/plans.html',{})
 
+def user_profile(request):
+	return render(request,'home/user_profile.html',{})
+
