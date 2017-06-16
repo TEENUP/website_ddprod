@@ -21,8 +21,10 @@ urlpatterns = [
     url(r'', include('home.urls')),
     url(r'^contact_us/', include('home.urls')),
     url(r'^sign_up/', include('home.urls')),
+    url(r'^login/', include('home.urls')),
     url(r'^about_us/', include('home.urls')),
     url(r'^dashboard/', include('home.urls')),
     url(r'^plans/', include('home.urls')),
     url(r'^user_profile/', include('home.urls')),
+    url(r'^contact/' , include('home.urls')),
 ]
