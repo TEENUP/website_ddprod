@@ -5,18 +5,18 @@ from phonenumber_field.modelfields import PhoneNumberField
 class User(models.Model):
     sponserId = models.CharField(max_length=10,primary_key=True)
     username = models.CharField(unique= True,max_length=20)
-    password = models.CharField(max_length=50)
-    plan = models.IntegerField()
+    password = models.CharField(max_length=50,blank=True)
+    plan = models.IntegerField(blank=True)
     joiningDate = models.DateTimeField(
-            default=timezone.now)
-    amount = models.FloatField()
+            default=timezone.now,blank=True)
+    amount = models.FloatField(blank=True)
 
     def saveUser(self):
         # self.published_date = timezone.now()
         self.save()
 
 class UserDetails(models.Model):
-    username = models.ForeignKey(User,to_field='username')#foreign key
+    username = models.CharField(max_length=10)#foreign key
     phoneNo = PhoneNumberField()
     address = models.TextField()
     email = models.EmailField()
@@ -26,7 +26,7 @@ class UserDetails(models.Model):
         self.save()
 
 class UserAccount(models.Model):
-    username = models.ForeignKey(User,to_field='username')#foreign key
+    username = models.CharField(max_length=10)#foreign key
     accountNo = models.CharField(max_length=200)
     IFSCCode = models.CharField(max_length=200)
     holderName = models.CharField(max_length=100)
@@ -39,16 +39,11 @@ class UserAccount(models.Model):
         self.save()
 
 class UserRelation(models.Model):
-    sponserId = models.ForeignKey(User,to_field='username')
+    sponserId = models.CharField(max_length=10)
     parentId = models.CharField(max_length=10)
-    lChild = models.CharField(max_length=10)
-    rChild = models.CharField(max_length=10)
-    level = models.IntegerField()
+
     def saveRelation(self):
         # self.published_date = timezone.now()
         self.save()
 
-class Level(models.Model):
-    level = models.IntegerField()
-    count = models.IntegerField()
         
