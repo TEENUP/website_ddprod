@@ -17,6 +17,8 @@ class User(models.Model):
 
 class UserDetails(models.Model):
     username = models.CharField(max_length=10)#foreign key
+    firstName= models.CharField(max_length=100,default="Blank")
+    lastName=models.CharField(max_length=100,default="Blank")
     phoneNo = PhoneNumberField()
     address = models.TextField()
     email = models.EmailField()
@@ -31,8 +33,12 @@ class UserAccount(models.Model):
     IFSCCode = models.CharField(max_length=200)
     holderName = models.CharField(max_length=100)
     bankName = models.CharField(max_length=200)
+    branchName = models.CharField(max_length=200,default="Blank")
     accountType = models.BooleanField()
-    panNo = models.CharField(max_length=200)
+    panNo = models.CharField(max_length=200,default="Blank")
+    aadhaarNo = models.CharField(max_length=200,default="Blank")
+    panCard = models.BinaryField(default="Blank")
+    aadhaarCard = models.BinaryField(default="Blank")
 
     def saveAccountDetails(self):
         # self.published_date = timezone.now()

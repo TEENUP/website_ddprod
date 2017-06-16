@@ -40,6 +40,8 @@
 </head>
 <body>
 
+
+
 <div class="wrapper">
     <div class="sidebar" data-background-color="white" data-active-color="danger">
 
@@ -366,6 +368,12 @@
 
     </div>
 </div>
+
+
+{%for obj in objs%}
+    <h1> {{ obj.sponserId }} </h1>
+{%endfor%}     
+
 
 
 </body>
