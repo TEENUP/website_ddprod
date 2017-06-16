@@ -47,16 +47,16 @@ def treeGenerate(sponserId):
 
 
 def home_list(request):
-	return render(request, 'home/index.html', {'home':'#page-top','about':'#about','plans':'#plans','contact':'#contact','signup':'/sign_up'})
+	return render(request, 'home/index.html', {'home':'#page-top','about':'#about','products':'#products','contact':'#contact','signup':'/sign_up'})
 
 def contact_us(request):
-	return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','plans':'/plans','contact':'/contact_us','signup':'/sign_up'})
+	return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'})
 
 def sign_up(request):
-	return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','plans':'/plans','contact':'/contact_us','signup':'/sign_up'})
+	return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'})
 
 def login(request):
-    return render(request, 'home/login.html',{}) #{'home':'/','about':'/about_us','plans':'/plans','contact':'/contact_us','signup':'/sign_up'}) 
+    return render(request, 'home/login.html',{}) #{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'}) 
 
 def about_us(request):
 	return render(request, 'home/about_us.html', {})
@@ -72,8 +72,8 @@ def dashboard(request):
 
 	return render(request, 'home/dashboard.html', {})
 
-def plans(request):
-	return render(request,'home/plans.html',{})
+def products(request):
+	return render(request,'home/products.html',{})
 
 def user_profile(request):
 	return render(request,'home/user_profile.html',{})
