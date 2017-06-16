@@ -3,35 +3,11 @@
 
 {% load staticfiles %}
 
+ <link href={% static 'css/round-about_about.css' %} rel="stylesheet">
 
 
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Round About - Start Bootstrap Template</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href={% static 'css/bootstrap.min_about.css' %}rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href={% static 'css/round-about_about.css' %} rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
-
+<div class="about-body">
+   
     
 
     <!-- Page Content -->
@@ -54,21 +30,16 @@
                 <small>It's Nice to Meet You!</small>
             </h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, explicabo dolores ipsam aliquam inventore corrupti eveniet quisquam quod totam laudantium repudiandae obcaecati ea consectetur debitis velit facere nisi expedita vel?</p>
-    </div> 
+        </div> 
     </div>
 
         
-     
 
-        
-    <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src={% static 'js/jquery_about.js' %}></script>
+</div>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src={% static 'js/bootstrap.min_about.js' %}></script>
 
-</body>
+
+
 
 {% endblock %}

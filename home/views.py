@@ -59,7 +59,7 @@ def login(request):
     return render(request, 'home/login.html',{}) #{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'}) 
 
 def about_us(request):
-	return render(request, 'home/about_us.html', {})
+	return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'})
 
 def dashboard(request):
 	parentId='1'
