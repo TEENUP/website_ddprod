@@ -43,7 +43,7 @@
                 
                 <div class="row register-form">
                     <div class="col-sm-4 col-sm-offset-1">
-						<form role="form" action="" method="post" class="r-form">
+						<form role="form" action="/sign_up" method="POST" class="r-form">{% csrf_token %}
                              <h1>Account Details</h1>
                              <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Sponsor Id</label>
