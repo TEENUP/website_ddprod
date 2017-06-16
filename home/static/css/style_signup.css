@@ -7,6 +7,7 @@ body {
     color: #888;
     line-height: 28px;
     text-align: center;
+    background-image: url("/static/img/backgrounds/bg.jpg");
 }
 
 strong { font-weight: 500; }
@@ -21,7 +22,7 @@ h1, h2 {
 	margin-top: 10px;
 	font-size: 34px;
     font-weight: 100;
-    color: #555;
+    color: #FFF;
     line-height: 48px;
 }
 
@@ -68,15 +69,15 @@ img { max-width: 100%; }
 .top-content .description a:focus { border: 0; }
 
 .show-forms { padding-top: 40px; font-size: 20px; color: #fff; line-height: 26px; text-align: left; }
-.show-register-form, .show-forms-divider, .show-login-form { opacity: 0.6; }
-.show-register-form, .show-login-form {
+/*.show-register-form, .show-forms-divider, .show-login-form { opacity: 0.6; }*/
+/*.show-register-form, .show-login-form {
 	cursor: pointer;
 	-o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
-}
-.show-register-form.active, .show-login-form.active,
-.show-register-form:hover, .show-login-form:hover { opacity: 1; }
+}*/
+/*.show-register-form.active, .show-login-form.active,*/
+/*.show-register-form:hover, .show-login-form:hover { opacity: 1; }*/
 
-.login-form { display: none; }
+/*.login-form { display: none; }*/
 
 .r-form { padding-top: 40px; }
 .r-form .form-group { margin-bottom: 25px; }
