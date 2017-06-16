@@ -40,106 +40,104 @@
                 
                 <div class="row register-form">
                     <div class="col-sm-4 col-sm-offset-1">
-						<form role="form" action="" method="post" class="r-form">
+						<form role="form" action="/sign_up" method="POST" class="r-form">{% csrf_token %}
                              <h1>Account Details</h1>
                              <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Sponsor Id</label>
-                                <input type="text" name="r-form-first-name" placeholder="Sponsor Id..." class="r-form-first-name form-control" id="sponserId">
+                                <input type="text" name="sponserId" placeholder="Sponsor Id..." class="r-form-first-name form-control" id="sponserId" required="false">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">User Name</label>
-                                <input type="text" name="r-form-first-name" placeholder="User Name..." class="r-form-first-name form-control" id="userName">
+                                <input type="text" name="userName" placeholder="User Name..." class="r-form-first-name form-control" id="userName" required="false">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Enter Password</label>
-                                <input type="password" name="r-form-first-name" placeholder="Enter Password..." class="r-form-first-name form-control" id="password">
+                                <input type="password" name="password" placeholder="Enter Password..." class="r-form-first-name form-control" id="password"required="false">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Confirm Password</label>
-                                <input type="text" name="r-form-first-name" placeholder="Confirm Password..." class="r-form-first-name form-control" id="confirmPassword">
+                                <input type="password" name="confirmPassword" placeholder="Confirm Password..." class="r-form-first-name form-control" id="confirmPassword" required="false">
                             </div>
                             <div class="form-group">
-                                <label for="r-form-first-name">Choose Plan</label>
+                                <!-- <label for="r-form-first-name">Choose Plan</label> -->
                                 <!-- <input type="text" name="r-form-first-name" placeholder="Choose Plan..." class="r-form-first-name form-control" id="r-form-first-name"> -->
-                                <select class="form-control">
-                                  <option>1</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
+                                <select name="product" class="form-control">
+                                  <option selected="selected" disabled>PRODUCTS</option>
+                                  <option value="1000">1000</option>
+                                  <option value="2000">2000</option>
                                 </select>
                             </div>
                             <h1>Personal Details</h1>
 
 	                    	<div class="form-group">
 	                    		<label class="sr-only" for="r-form-first-name">First name</label>
-	                        	<input type="text" name="r-form-first-name" placeholder="First name..." class="r-form-first-name form-control" id="firstName">
+	                        	<input type="text" name="firstName" placeholder="First name..." class="r-form-first-name form-control" id="firstName" required="false">
 	                        </div>
 	                        <div class="form-group">
 	                        	<label class="sr-only" for="r-form-last-name">Last name</label>
-	                        	<input type="text" name="r-form-last-name" placeholder="Last name..." class="r-form-last-name form-control" id="lastName">
+	                        	<input type="text" name="lastName" placeholder="Last name..." class="r-form-last-name form-control" id="lastName" required="false">
 	                        </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Mobile No.</label>
-                                <input type="number" name="r-form-first-name" placeholder="Mobile No...." class="r-form-first-name form-control" id="mobNumber">
+                                <input type="number" name="mobNumber" placeholder="Mobile No...." class="r-form-first-name form-control" id="mobNumber" required="false">
                             </div>
 	                        <div class="form-group">
 	                        	<label class="sr-only" for="r-form-email">Email</label>
-	                        	<input type="email" name="r-form-email" placeholder="Email..." class="r-form-email form-control" id="email">
+	                        	<input type="email" name="email" placeholder="Email..." class="r-form-email form-control" id="email" required="false">
 	                        </div>
 	                        <div class="form-group">
 	                        	<label class="sr-only" for="r-form-about-yourself">Address</label>
-	                        	<textarea name="r-form-about-yourself" placeholder="Address..." 
-	                        				class="r-form-about-yourself form-control" id="address"></textarea>
+	                        	<textarea name="address" placeholder="Address..." 
+	                        				class="r-form-about-yourself form-control" id="address" required="false"></textarea>
 	                        </div>
                             <h1>Bank Details</h1>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Account Holder Name</label>
-                                <input type="text" name="r-form-first-name" placeholder="Account Holder Name..." class="r-form-first-name form-control" id="holderName">
+                                <input type="text" name="holderName" placeholder="Account Holder Name..." class="r-form-first-name form-control" id="holderName" required="false">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Bank Name</label>
-                                <input type="text" name="r-form-first-name" placeholder="Bank Name..." class="r-form-first-name form-control" id="bankName">
+                                <input type="text" name="bankName" placeholder="Bank Name..." class="r-form-first-name form-control" id="bankName" required="false">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Branch Name</label>
-                                <input type="text" name="r-form-first-name" placeholder="Branch Name..." class="r-form-first-name form-control" id="branchName">
+                                <input type="text" name="branchName" placeholder="Branch Name..." class="r-form-first-name form-control" id="branchName" required="false">
                             </div>
                             <div class="form-group">
-                                <label for="r-form-first-name">Account Type</label>
-                                <select class="form-control">
-                                  <option>Savings</option>
-                                  <option>Current</option>
+                                <!-- <label for="r-form-first-name">Account Type</label> -->
+                                <select name="accountType" class="form-control">
+                                  <option selected="selected" disabled>Account Type</option>
+                                  <option value="Savings">Savings</option>
+                                  <option value="Current">Current</option>
                                 </select>
-                                <input type="text" name="r-form-first-name" placeholder="Account Type..." class="r-form-first-name form-control" id="accountType">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Account No.</label>
-                                <input type="text" name="r-form-first-name" placeholder="Account No...." class="r-form-first-name form-control" id="accNumber">
+                                <input type="text" name="accNumber" placeholder="Account No...." class="r-form-first-name form-control" id="accNumber" required="false">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">IFSC Code</label>
-                                <input type="text" name="r-form-first-name" placeholder="IFSC Code..." class="r-form-first-name form-control" id="ifscCode">
+                                <input type="text" name="ifscCode" placeholder="IFSC Code..." class="r-form-first-name form-control" id="ifscCode" required="false">
                             </div>
                             <div class="form-group">
                                 <!-- <label class="sr-only" for="r-form-first-name">Pan Card</label> -->
                                 <label class="control-label">Select PAN Card</label>
-                                <input id="panCard" type="file" class="file">
+                                <input id="panCard" name="panCard" type="file" class="file" required="false">
                                 <!-- <input type="text" name="r-form-first-name" placeholder="Pan Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Pan Card No.</label>
-                                <input type="text" name="r-form-first-name" placeholder="Pan Card No...." class="r-form-first-name form-control" id="panCardNumber">
+                                <input type="text" name="panCardNumber" placeholder="Pan Card No...." class="r-form-first-name form-control" id="panCardNumber" required="false">
                             </div>
                             <div class="form-group">
                                 <!-- <label class="sr-only" for="r-form-first-name">Aadhaar Card</label>
                                 <input type="text" name="r-form-first-name" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
                                 <label class="control-label">Select Aadhaar Card</label>
-                                <input id="aadhaarCard" type="file" class="file">
+                                <input id="aadhaarCard" name="aadhaarCard" type="file" class="file" required="false">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Aadhaar Card No.</label>
-                                <input type="text" name="r-form-first-name" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="aadhaarCardNumber">
+                                <input type="text" name="aadhaarCardNumber" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="aadhaarCardNumber" required="false">
                             </div>
 				            <button type="submit" class="btn">Submit</button>
 						</form>
