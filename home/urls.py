@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^login', views.login, name='login'),
     url(r'^about_us', views.about_us, name='about_us'),
     url(r'^dashboard', views.dashboard, name='dashboard'),
-    url(r'^plans', views.plans, name='plans'),
+    url(r'^products', views.products, name='plans'),
     url(r'^user_profile',views.user_profile,name = 'user_profile'),
     url(r'^contact/$', views.contact, name='contact'),
 ]
