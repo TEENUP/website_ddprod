@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^dashboard', views.dashboard, name='dashboard'),
     url(r'^products', views.products, name='plans'),
     url(r'^user_profile',views.user_profile,name = 'user_profile'),
-    url(r'^contact/$', views.contact, name='contact'),
+    url(r'^contact', views.contact, name='contact'),
+    url(r'^logout', views.logout, name='logout'),
 ]

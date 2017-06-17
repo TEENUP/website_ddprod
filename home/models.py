@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class User(models.Model):
     sponserId = models.CharField(max_length=10,primary_key=True)
     username = models.CharField(unique= True,max_length=20)
-    password = models.CharField(max_length=50,blank=True)
+    password = models.CharField(max_length=1000,blank=True)
     plan = models.IntegerField(blank=True)
     joiningDate = models.DateTimeField(
             default=timezone.now,blank=True)

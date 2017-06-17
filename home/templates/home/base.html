@@ -82,7 +82,10 @@
                         <a class="page-scroll" href="{{contact}}">Contact</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="{{signup}}">Sign Up</a>
+                        {{greet|safe}}
+                    </li>
+                    <li>
+                        {{logout|safe}}<!-- <a class="page-scroll" href="{{signup}}">Sign Up</a> -->
                     </li>
                 </ul>
             </div>
