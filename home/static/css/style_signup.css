@@ -33,6 +33,9 @@ h3 {
     line-height: 26px;
 }
 
+h4{
+	color: red;
+}
 img { max-width: 100%; }
 
 ::-moz-selection { background: #42c5ea; color: #fff; text-shadow: none; }

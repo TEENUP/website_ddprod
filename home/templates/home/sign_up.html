@@ -44,19 +44,22 @@
                              <h1>Account Details</h1>
                              <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Sponsor Id</label>
-                                <input type="text" name="sponserId" placeholder="Sponsor Id..." class="r-form-first-name form-control" id="sponserId" required="false">
+                                <input type="text" name="sponserId" placeholder="Sponsor Id..." class="r-form-first-name form-control" id="sponserId" required>
+                                <h4>{{errorSponserId}}</h4>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">User Name</label>
-                                <input type="text" name="userName" placeholder="User Name..." class="r-form-first-name form-control" id="userName" required="false">
+                                <input type="text" name="userName" placeholder="User Name..." class="r-form-first-name form-control" id="userName" required>
+                                <h4>{{errorUsername}}</h4>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Enter Password</label>
-                                <input type="password" name="password" placeholder="Enter Password..." class="r-form-first-name form-control" id="password"required="false">
+                                <input type="password" name="password" placeholder="Enter Password..." class="r-form-first-name form-control" id="password" required>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Confirm Password</label>
-                                <input type="password" name="confirmPassword" placeholder="Confirm Password..." class="r-form-first-name form-control" id="confirmPassword" required="false">
+                                <input type="password" name="confirmPassword" placeholder="Confirm Password..." class="r-form-first-name form-control" id="confirmPassword" required>
+                                <h4>{{errorPassword}}</h4>
                             </div>
                             <div class="form-group">
                                 <!-- <label for="r-form-first-name">Choose Plan</label> -->

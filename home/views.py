@@ -4,6 +4,9 @@ from . import models
 from models import *
 import random
 import string
+import hashlib
+import hmac
+
 
 from django.contrib.auth import (
 	authenticate,
@@ -16,12 +19,44 @@ from django.contrib.auth import (
 
 from .forms import ContactForm
 from django.shortcuts import render
+# from django.template import RequestContext
 
 from models import *
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 from django.template import Context
 from django.template.loader import get_template
+import re
+
+regexForSponserId="^[A-Z0-9]*$"
+SECRET="qwerty"
+
+def make_salt():
+    return "".join(random.choice(string.letters) for x in range (0,5))
+
+def make_pw_hash(name,pw,salt=None):
+    if not salt:
+        salt=make_salt()
+    h=hashlib.sha256(name+pw+salt).hexdigest()
+    return "%s,%s"%(h,salt)
+
+def hash_str(s):
+	return hmac.new(str(SECRET),str(s)).hexdigest()
+
+def make_secure_val(s):
+	print "SPONSER ID "+s
+	return "%s|%s"%(s,hash_str(s))
+
+def check_secure_val(h):
+    check_value=h.split('|')
+    if hash_str(check_value[0])==check_value[1]:
+        return check_value[0]
+    return None
+
+def valid_pw(name,pw,h):
+    salt=h.split(',')[1]
+    return h==make_pw_hash(name,pw,salt)
+
 
 def insertUser(parentId,childId):
 	# obj= UserRelation.objects.get(sponserId=parentId)
@@ -54,33 +89,86 @@ def treeGenerate(sponserId):
 	#     print usr.username
 	# return render(request, 'home/dashboard.html', {'objs':objs})
 
+def isLoggedIn(request):
+	user_id=""
+	if 'user_id' in request.COOKIES:
+		user_id= request.COOKIES['user_id']
+	if user_id:
+		sponserId=check_secure_val(user_id)
+		if sponserId:
+			return True
+	return False
 
 def home_list(request):
-	return render(request, 'home/index.html', {'home':'#page-top','about':'#about','products':'#products','contact':'#contact','signup':'/sign_up'})
+	if isLoggedIn(request):
+		# usr=User.objects.get(sponserId=sponserId)
+		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		# Logout link
+		return render(request, 'home/index.html', {'home':'#page-top','about':'#about','products':'#products','contact':'#contact','greet':greet,'logout':logout})
+	else:
+			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+			return render(request, 'home/index.html', {'home':'#page-top','about':'#about','products':'#products','contact':'#contact','greet':greet})
+
 
 def contact_us(request):
 	return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'})
 
+def validateSponserId(sponserId):
+	if len(sponserId)!=6:
+		return False
+	isValid = not not re.match(regexForSponserId,sponserId)
+	if not isValid:
+		return False
+	else:
+		user=User.objects.filter(sponserId=sponserId)
+		if user.count()>0:
+			return True
+		else:
+			return False
+	return False
+
+def validateUsername(username):
+	user=User.objects.filter(username=username)
+	if user.count()>0:
+		return False
+	return True
+
+def validatePassword(password,confirmPassword):
+	if password == confirmPassword:
+		return True
+	return False
+
 def sign_up(request):
 	if request.method == "POST":
+		parentId=request.POST.get('sponserId')
+		isSponserIdValid=validateSponserId(parentId)
+		errorSponserId=""
+		if not isSponserIdValid:
+			errorSponserId="Invalid Sponser Id"
+
 		sponserId="".join(random.choice(string.ascii_uppercase+string.digits) for x in range (0,6))
+		
 		username=request.POST.get('userName')
-		password=password,=request.POST.get('password')
+		isUsernameValid = validateUsername(username)
+		errorUsername=""
+		if(not isUsernameValid):
+			errorUsername="User Already Exists"
+
+		password=request.POST.get('password')
 		confirmPassword=request.POST.get('confirmPassword')
+
+		isPasswordValid = validatePassword(password,confirmPassword)
+		errorPassword=""
+		if(not isPasswordValid):
+			errorPassword="Passwords didn't match"
+
 		product = int(request.POST.get('product'))
-		# print username
-
-		User.objects.create(sponserId=sponserId,username=username,password=password, plan=product,amount=0.00)
-
-
 		firstName= request.POST.get('firstName')
 		lastName=request.POST.get('lastName')
 		phoneNo=request.POST.get('mobNumber')
 		email= request.POST.get('email')
 		address= request.POST.get('address')
-		UserDetails.objects.create(username=username,firstName=firstName,lastName=lastName, phoneNo=phoneNo,email=email,address=address)
-		
-
 		holderName=request.POST.get('holderName')
 		IFSCCode=request.POST.get('ifscCode')
 		bankName=request.POST.get('bankName')
@@ -95,56 +183,132 @@ def sign_up(request):
 		panNo=request.POST.get('panCardNumber')
 		aadhaarCard = request.POST.get('aadhaarCard')
 		aadhaarNo = request.POST.get('aadhaarCardNumber')
-
-		UserAccount.objects.create(username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
-			accountType=accountType,accountNo=accountNo,panCard=panCard,panNo=panNo,aadhaarCard=aadhaarCard,aadhaarNo=aadhaarNo)
-
-		parentId=request.POST.get('sponserId')
-		UserRelation.objects.create(sponserId=sponserId,parentId=parentId)
-		# print firstName,username,lastName,phoneNo,email,address
-
-		insertUser(parentId,sponserId)
-
-
-		return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'})
+		
+		#validation
+		if isSponserIdValid and isUsernameValid and isPasswordValid:
+			h_password=make_pw_hash(username,password)
+			User.objects.create(sponserId=sponserId,username=username,password=h_password, plan=product,amount=0.00)
+			UserDetails.objects.create(username=username,firstName=firstName,lastName=lastName, phoneNo=phoneNo,email=email,address=address)
+			UserAccount.objects.create(username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
+				accountType=accountType,accountNo=accountNo,panCard=panCard,panNo=panNo,aadhaarCard=aadhaarCard,aadhaarNo=aadhaarNo)
+			UserRelation.objects.create(sponserId=sponserId,parentId=parentId)
+			# Payment
+			insertUser(parentId,sponserId)
+			#set Cookie
+			# redirect to homepage
+			id_to_send=make_secure_val(str(sponserId))
+			# print "ID TO SEND"+id_to_send
+			# print "SPONSERID"+sponserId
+			response = redirect('/')
+			response.set_cookie('user_id', id_to_send)
+			return response
+		else:
+			# Render The page with errors
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword})
 	else:
-		return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'})
+		if isLoggedIn(request):
+			return redirect('/')
+		else:
+			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+
 
 def login(request):
 	if request.method == "POST":
 		username=request.POST.get('username')
 		password=request.POST.get('password')
-		print username
-		# validation 
 
-		usr=User.objects.get(username=username)
-		objs=treeGenerate(usr.sponserId)
-		return render(request, 'home/dashboard.html', {'objs':objs})
+		user=User.objects.filter(username=username)
+		errorLogin="Incorrect Username OR Password"
+		if user.count()>0:
+			usr=User.objects.get(username=username)
+			h_value=usr.password
+			if valid_pw(username,password,h_value):
+				user_id=usr.sponserId
+				id_to_send=make_secure_val(str(user_id))
+				response = redirect('/dashboard')
+				response.set_cookie('user_id', id_to_send)
+				return response
+			else:
+
+				# Incorrect Password But Write Incorrect Username OR password
+				return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','name':username,'password':password,'errorLogin':errorLogin})
+		else:
+			# Incorrect Username but Write Incorrect Username OR password
+				return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','name':username,'password':password,'errorLogin':errorLogin})
+
+		
 
 		# return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'}) #{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'}) 
 	else:
-	    return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'}) #{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'}) 
+		if isLoggedIn(request):
+			return redirect('/')
+		else:
+			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+			return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
 
 def about_us(request):
-	return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'})
+	if isLoggedIn(request):
+		# usr=User.objects.get(sponserId=sponserId)
+		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		# Logout link
+		return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
+	else:
+		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+		return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+
 
 def dashboard(request):
-	parentId='1'
-	childObj=UserRelation.objects.create(sponserId='3',parentId='1')
-	User.objects.create(sponserId='3',username='rishabhdtu',amount=10000.00,password="asd",plan=1000)
+	# parentId='1'
+	# childObj=UserRelation.objects.create(sponserId='3',parentId='1')
+	# User.objects.create(sponserId='3',username='rishabhdtu',amount=10000.00,password="asd",plan=1000)
 
-	insertUser(parentId,childObj)
-	UserRelation.objects.filter(sponserId='3').delete()
-	User.objects.filter(sponserId='3').delete()
+	# insertUser(parentId,childObj)
+	# UserRelation.objects.filter(sponserId='3').delete()
+	# User.objects.filter(sponserId='3').delete()
+	if isLoggedIn(request):
+		# usr=User.objects.get(sponserId=sponserId)
+		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		# Logout link
+		user_id= request.COOKIES['user_id']
+		sponserId=check_secure_val(user_id)
+		usr=User.objects.get(sponserId=sponserId)
+		objs=treeGenerate(usr.sponserId)
+		return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'objs':objs})
+	else:
+		return redirect('/')
 
-	return render(request, 'home/dashboard.html', {})
 
 def products(request):
-	return render(request,'home/products.html',{})
+	if isLoggedIn(request):
+		# usr=User.objects.get(sponserId=sponserId)
+		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		# Logout link
+		return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
+	else:
+		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+		return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+
 
 def user_profile(request):
-	return render(request,'home/user_profile.html',{})
+	if isLoggedIn(request):
+		# usr=User.objects.get(sponserId=sponserId)
+		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		# Logout link
+		return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
+	else:
+		return redirect('/')
 
+def logout(request):
+	greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+	# response=render(request, 'home/index.html', {'home':'#page-top','about':'#about','products':'#products','contact':'#contact','greet':greet}) 
+	response=redirect('/')
+	response.set_cookie('user_id', '')
+	return response
 
 def contact(request):
 	form_class = ContactForm
