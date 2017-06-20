@@ -122,9 +122,11 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR , 'static')
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'ddproductions.2017@gmail.com'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-EMAIL_PORT = 1025
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#DEFAULT_FROM_EMAIL = 'ddproductions.2017@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ddproductions.2017@gmail.com'
+#EMAIL_HOST_PASSWORD = 'db7403ba56e5cbb6f8f2af8fe0eed1b51c6ed90e'
+EMAIL_HOST_PASSWORD = '9873779876'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 2525

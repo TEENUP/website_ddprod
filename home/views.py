@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.conf import settings
 from . import models
 from models import *
 import random
@@ -23,6 +24,7 @@ from django.shortcuts import render
 
 from models import *
 from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.template import Context
 from django.template.loader import get_template
@@ -267,7 +269,7 @@ def dashboard(request):
 	# insertUser(parentId,childObj)
 	# UserRelation.objects.filter(sponserId='3').delete()
 	# User.objects.filter(sponserId='3').delete()
-	if isLoggedIn(request):
+	"""if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
@@ -278,8 +280,8 @@ def dashboard(request):
 		objs=treeGenerate(usr.sponserId)
 		return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'objs':objs})
 	else:
-		return redirect('/')
-
+		return redirect('/')"""
+	return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
 
 def products(request):
 	if isLoggedIn(request):
@@ -323,6 +325,12 @@ def contact(request):
 			form_content = request.POST.get('content','')
 
 
+			#to_email = [contact_email]
+			#from_email = settings.EMAIL_HOST_USER
+			#enquiry_message = """New contact form submission"""
+			#send_mail(subject = contact_subject, from_email= from_email, recipient_list = to_email, message = enquiry_message, fail_silently = False)
+
+
 			template = get_template('home/contact_template.txt')
 			context = {
 					'contact_name': contact_name,
@@ -339,7 +347,7 @@ def contact(request):
 				['ddproductions.2017@gmail.com'],
 				headers = {'Reply-To': contact_email }
 				)
-			email.send()
+			email.send(fail_silently=False)
 			return redirect('contact')
 	return render(request,'home/contact.html', {'form': form_class,})
 
