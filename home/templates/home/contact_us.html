@@ -3,6 +3,8 @@
 
 {% load staticfiles %}
 
+<link rel="stylesheet" href={% static 'css/animate_contact_us.css' %}>
+        <link rel="stylesheet" href={% static 'css/style_contact_us.css' %}>
 		<!-- Contact Form -->
 		<div class="c-form-container section-container section-container-image-bg">
 	        <div class="container">
@@ -29,34 +31,35 @@
                     		</div>
                         </div>
                         <div class="c-form-bottom">
-		                    <form role="form" action="assets/contact.php" method="post">
+		                    <form role="form" action="/contact_us" method="POST">
+		                    	{% csrf_token %}
 		                    	<div class="form-group">
 		                    		<label for="c-form-name">
 		                    			<span class="label-text">Name:</span> 
 		                    			<span class="contact-error"></span>
 		                    		</label>
-		                        	<input type="text" name="name" placeholder="Your name..." class="c-form-name form-control" id="c-form-name">
+		                        	<input type="text" name="name" placeholder="Your name..." class="c-form-name form-control" id="c-form-name" required>
 		                        </div>
 		                    	<div class="form-group">
 		                    		<label for="c-form-email">
 		                    			<span class="label-text">Email:</span> 
 		                    			<span class="contact-error"></span>
 		                    		</label>
-		                        	<input type="text" name="email" placeholder="Your email address..." class="c-form-email form-control" id="c-form-email">
+		                        	<input type="text" name="email" placeholder="Your email address..." class="c-form-email form-control" id="c-form-email" required>
 		                        </div>
 		                        <div class="form-group">
 		                        	<label for="c-form-subject">
 		                    			<span class="label-text">Subject:</span> 
 		                    			<span class="contact-error"></span>
 		                    		</label>
-		                        	<input type="text" name="subject" placeholder="Message subject..." class="c-form-subject form-control" id="c-form-subject">
+		                        	<input type="text" name="subject" placeholder="Message subject..." class="c-form-subject form-control" id="c-form-subject" required>
 		                        </div>
 		                        <div class="form-group">
 		                        	<label for="c-form-message">
 		                    			<span class="label-text">Message:</span> 
 		                    			<span class="contact-error"></span>
 		                    		</label>
-		                        	<textarea name="message" placeholder="Message text..." class="c-form-message form-control" id="c-form-message"></textarea>
+		                        	<textarea name="message" placeholder="Message text..." class="c-form-message form-control" id="c-form-message" required></textarea>
 		                        </div>
 		                        <button type="submit" class="btn">Send message</button>
 		                    </form>
@@ -100,7 +103,9 @@
 	            
 	        </div>
         </div>
-        
-
+         <script src={% static 'js/jquery-1.11.1.min_contact_us.js' %}></script>
+    <!-- <script src={% static 'js/jquery.backstretch.min_contact_us.js' %}></script> -->
+    <script src={% static 'js/wow.min_contact_us.js' %}></script>
+    <script src={% static 'js/scripts_contact_us.js' %}></script>
 
 {% endblock %}

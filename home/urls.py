@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^user_profile',views.user_profile,name = 'user_profile'),
     url(r'^contact', views.contact, name='contact'),
     url(r'^logout', views.logout, name='logout'),
+    url(r'^thanks/', views.thanks, name='thanks'),
 ]

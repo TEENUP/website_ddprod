@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^user_profile/', include('home.urls')),
     url(r'^contact/' , include('home.urls')),
     url(r'^logout/' , include('home.urls')),
+    url(r'^thanks/' , include('home.urls')),
 ]

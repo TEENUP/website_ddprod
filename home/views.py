@@ -29,6 +29,9 @@ from django.shortcuts import redirect
 from django.template import Context
 from django.template.loader import get_template
 import re
+from django.core.mail import send_mail
+from django.conf import settings
+
 
 regexForSponserId="^[A-Z0-9]*$"
 SECRET="qwerty"
@@ -114,7 +117,24 @@ def home_list(request):
 
 
 def contact_us(request):
-	return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'})
+	if request.method == 'POST':
+		subject= request.POST.get('subject')
+		message= '%s %s' %(request.POST.get('message'),request.POST.get('name')+"("+request.POST.get('email')+")")
+		emailFrom=request.POST.get('email')
+		emailTo= [settings.EMAIL_HOST_USER]
+		send_mail(subject,message,emailFrom,emailTo,fail_silently=False)
+		return redirect('/thanks')
+		
+	else:	
+		if isLoggedIn(request):
+			# usr=User.objects.get(sponserId=sponserId)
+			greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+			logout='<a class="page-scroll" href="/logout">Logout</a>'
+			# Can take email and name
+			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
+		else:
+			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
 
 def validateSponserId(sponserId):
 	if len(sponserId)!=6:
@@ -312,6 +332,18 @@ def logout(request):
 	response.set_cookie('user_id', '')
 	return response
 
+def thanks(request):
+	if isLoggedIn(request):
+		# usr=User.objects.get(sponserId=sponserId)
+		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		# Logout link
+		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
+	else:
+		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+
+"""
 def contact(request):
 	form_class = ContactForm
 
@@ -353,6 +385,18 @@ def contact(request):
 
 
 
+"""
+def contact(request):
+	form=ContactForm(request.POST or None)
+	if form.is_valid():
+		subject= form.cleaned_data['contact_subject']
+		message= '%s %s' %(form.cleaned_data['cotent'],form.cleaned_data['contact_name'])
+		emailFrom=form.cleaned_data['contact_email']
+		emailTo= [settings.EMAIL_HOST_USER]
 
-
-
+		send_mail(subject,message,emailFrom,emailTo,fail_silently=False)
+		print form.cleaned_data['contact_email']
+	context=locals()
+	template='home/newContact.html'
+	return render(request,template,context)
+	
