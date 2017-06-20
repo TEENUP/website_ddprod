@@ -1,5 +1,5 @@
 from django import forms
-from .models import User,UserDetails,UserAccount,UserRelation
+# from .models import User,UserDetails,UserAccount,UserRelation
 
 class ContactForm(forms.Form):
 	contact_name = forms.CharField(required = True)
