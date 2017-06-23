@@ -34,6 +34,10 @@ from django.conf import settings
 
 
 regexForSponserId="^[A-Z0-9]*$"
+regexForEmail = "^a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+regexForPanCard = "^[A-Z]{5}[0-9]{4}[A-Z]$"
+regexForMobileNumber ="^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$"
+regexForAadharCard = "^\d{4}\s\d{4}\s\d{4}$"
 SECRET="qwerty"
 
 def make_salt():
@@ -115,27 +119,6 @@ def home_list(request):
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 			return render(request, 'home/index.html', {'home':'#page-top','about':'#about','products':'#products','contact':'#contact','greet':greet})
 
-
-def contact_us(request):
-	if request.method == 'POST':
-		subject= request.POST.get('subject')
-		message= '%s %s' %(request.POST.get('message'),request.POST.get('name')+"("+request.POST.get('email')+")")
-		emailFrom=request.POST.get('email')
-		emailTo= [settings.EMAIL_HOST_USER]
-		send_mail(subject,message,emailFrom,emailTo,fail_silently=False)
-		return redirect('/thanks')
-		
-	else:	
-		if isLoggedIn(request):
-			# usr=User.objects.get(sponserId=sponserId)
-			greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
-			logout='<a class="page-scroll" href="/logout">Logout</a>'
-			# Can take email and name
-			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
-		else:
-			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
-
 def validateSponserId(sponserId):
 	if len(sponserId)!=6:
 		return False
@@ -150,6 +133,37 @@ def validateSponserId(sponserId):
 			return False
 	return False
 
+def validateMobileNumber(phoneNo):
+	if len(phoneNo)!=10:
+		return False
+	isMobileNumberValid = not not re.match(regexForMobileNumber,phoneNo)
+	if not isMobileNumberValid:
+		return False
+	return True
+
+def validatePanCArd(panNo):
+	if len(panNo)!=10:
+		return False
+	isPanCardValid = not not re.match(regexForPanCard,panNo)
+	if not isPanCardValid:
+		return False
+	return True
+
+def validateAadharCard(aadhaarNo):
+	if len(aadhaarNo)!=12:
+		return False
+	isAadharCardValid = not not re.match(regexForAadharCard,aadhaarNo)
+	if not isAadharCardValid:
+		return False
+	return True
+
+def validateEmail(email):
+	isEmailValid = not not re.match(regexForEmail,email)
+	if not isEmailValid:
+		return False
+	return True
+
+
 def validateUsername(username):
 	user=User.objects.filter(username=username)
 	if user.count()>0:
@@ -161,6 +175,33 @@ def validatePassword(password,confirmPassword):
 		return True
 	return False
 
+def contact_us(request):
+	if request.method == 'POST':
+		subject= request.POST.get('subject')
+		message= '%s %s' %(request.POST.get('message'),request.POST.get('name')+"("+request.POST.get('email')+")")
+		emailFrom=request.POST.get('email')
+		isEmailValid = validateEmail(emailFrom)
+		errorEmail = ""
+		if(not isEmailValid):
+			errorEmail = "Please Enter A valid Email Id"
+
+		emailTo= [settings.EMAIL_HOST_USER]
+		send_mail(subject,message,emailFrom,emailTo,fail_silently=False)
+		return redirect('/thanks')
+		
+	else:	
+		if isLoggedIn(request):
+			# usr=User.objects.get(sponserId=sponserId)
+			greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+			logout='<a class="page-scroll" href="/logout">Logout</a>'
+			# Can take email and name
+			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'errorEmail':errorEmail})
+		else:
+			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,})
+
+
+
 def sign_up(request):
 	if request.method == "POST":
 		parentId=request.POST.get('sponserId')
@@ -168,6 +209,7 @@ def sign_up(request):
 		errorSponserId=""
 		if not isSponserIdValid:
 			errorSponserId="Invalid Sponser Id"
+
 
 		sponserId="".join(random.choice(string.ascii_uppercase+string.digits) for x in range (0,6))
 		
@@ -188,8 +230,14 @@ def sign_up(request):
 		product = int(request.POST.get('product'))
 		firstName= request.POST.get('firstName')
 		lastName=request.POST.get('lastName')
+		
 		phoneNo=request.POST.get('mobNumber')
-		email= request.POST.get('email')
+		isPhoneNumberValid = validateMobileNumber(phoneNo)
+		errorPhoneNumber = ""
+		if(not isPhoneNumberValid):
+			errorPhoneNumber = "Invalid Phone Number"
+
+		email= request.POST.get('email')		
 		address= request.POST.get('address')
 		holderName=request.POST.get('holderName')
 		IFSCCode=request.POST.get('ifscCode')
@@ -202,9 +250,20 @@ def sign_up(request):
 			accountType=False
 		accountNo=request.POST.get('accNumber')
 		panCard=request.POST.get('panCard')
+		
 		panNo=request.POST.get('panCardNumber')
+		isPanNumberValid = validatePanCArd(panNo)
+		errorPanNumber= ""
+		if(not isPanNumberValid):
+			errorPanNumber = "Invalid Pan Number"
+
 		aadhaarCard = request.POST.get('aadhaarCard')
+		
 		aadhaarNo = request.POST.get('aadhaarCardNumber')
+		isAadharNumberValid = validateAadharCard(aadhaarNo)
+		errorAdharNumber = ""
+		if(not isAadharNumberValid):
+			errorAdharNumber = "Invalid Aadhar Number"
 		
 		#validation
 		if isSponserIdValid and isUsernameValid and isPasswordValid:
@@ -226,7 +285,7 @@ def sign_up(request):
 			return response
 		else:
 			# Render The page with errors
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword})
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	else:
 		if isLoggedIn(request):
 			return redirect('/')
@@ -341,7 +400,7 @@ def thanks(request):
 		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
 	else:
 		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'errorEmail':errorEmail})
 
 """
 def contact(request):
@@ -359,7 +418,7 @@ def contact(request):
 
 			#to_email = [contact_email]
 			#from_email = settings.EMAIL_HOST_USER
-			#enquiry_message = """New contact form submission"""
+			#enquiry_message = New contact form submission
 			#send_mail(subject = contact_subject, from_email= from_email, recipient_list = to_email, message = enquiry_message, fail_silently = False)
 
 

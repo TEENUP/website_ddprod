@@ -74,37 +74,38 @@
 
 	                    	<div class="form-group">
 	                    		<label class="sr-only" for="r-form-first-name">First name</label>
-	                        	<input type="text" name="firstName" placeholder="First name..." class="r-form-first-name form-control" id="firstName" required="false">
+	                        	<input type="text" name="firstName" placeholder="First name..." class="r-form-first-name form-control" id="firstName" required>
 	                        </div>
 	                        <div class="form-group">
 	                        	<label class="sr-only" for="r-form-last-name">Last name</label>
-	                        	<input type="text" name="lastName" placeholder="Last name..." class="r-form-last-name form-control" id="lastName" required="false">
+	                        	<input type="text" name="lastName" placeholder="Last name..." class="r-form-last-name form-control" id="lastName" required>
 	                        </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Mobile No.</label>
-                                <input type="number" name="mobNumber" placeholder="Mobile No...." class="r-form-first-name form-control" id="mobNumber" required="false">
+                                <input type="number" name="mobNumber" placeholder="Mobile No...." class="r-form-first-name form-control" id="mobNumber" required>
+                                <h4>{{errorPhoneNumber}}</h4>
                             </div>
 	                        <div class="form-group">
 	                        	<label class="sr-only" for="r-form-email">Email</label>
-	                        	<input type="email" name="email" placeholder="Email..." class="r-form-email form-control" id="email" required="false">
+	                        	<input type="email" name="email" placeholder="Email..." class="r-form-email form-control" id="email" required>
 	                        </div>
 	                        <div class="form-group">
 	                        	<label class="sr-only" for="r-form-about-yourself">Address</label>
 	                        	<textarea name="address" placeholder="Address..." 
-	                        				class="r-form-about-yourself form-control" id="address" required="false"></textarea>
+	                        				class="r-form-about-yourself form-control" id="address" required></textarea>
 	                        </div>
                             <h1>Bank Details</h1>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Account Holder Name</label>
-                                <input type="text" name="holderName" placeholder="Account Holder Name..." class="r-form-first-name form-control" id="holderName" required="false">
+                                <input type="text" name="holderName" placeholder="Account Holder Name..." class="r-form-first-name form-control" id="holderName" required>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Bank Name</label>
-                                <input type="text" name="bankName" placeholder="Bank Name..." class="r-form-first-name form-control" id="bankName" required="false">
+                                <input type="text" name="bankName" placeholder="Bank Name..." class="r-form-first-name form-control" id="bankName" required>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Branch Name</label>
-                                <input type="text" name="branchName" placeholder="Branch Name..." class="r-form-first-name form-control" id="branchName" required="false">
+                                <input type="text" name="branchName" placeholder="Branch Name..." class="r-form-first-name form-control" id="branchName" required>
                             </div>
                             <div class="form-group">
                                 <!-- <label for="r-form-first-name">Account Type</label> -->
@@ -116,31 +117,33 @@
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Account No.</label>
-                                <input type="text" name="accNumber" placeholder="Account No...." class="r-form-first-name form-control" id="accNumber" required="false">
+                                <input type="text" name="accNumber" placeholder="Account No...." class="r-form-first-name form-control" id="accNumber" required>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">IFSC Code</label>
-                                <input type="text" name="ifscCode" placeholder="IFSC Code..." class="r-form-first-name form-control" id="ifscCode" required="false">
+                                <input type="text" name="ifscCode" placeholder="IFSC Code..." class="r-form-first-name form-control" id="ifscCode" required>
                             </div>
                             <div class="form-group">
                                 <!-- <label class="sr-only" for="r-form-first-name">Pan Card</label> -->
                                 <label class="control-label">Select PAN Card</label>
-                                <input id="panCard" name="panCard" type="file" class="file" required="false">
+                                <input id="panCard" name="panCard" type="file" class="file" required>
                                 <!-- <input type="text" name="r-form-first-name" placeholder="Pan Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Pan Card No.</label>
-                                <input type="text" name="panCardNumber" placeholder="Pan Card No...." class="r-form-first-name form-control" id="panCardNumber" required="false">
+                                <input type="text" name="panCardNumber" placeholder="Pan Card No...." class="r-form-first-name form-control" id="panCardNumber" required>
+                                <h4>{{errorPanNumber}}</h4>
                             </div>
                             <div class="form-group">
                                 <!-- <label class="sr-only" for="r-form-first-name">Aadhaar Card</label>
                                 <input type="text" name="r-form-first-name" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
                                 <label class="control-label">Select Aadhaar Card</label>
-                                <input id="aadhaarCard" name="aadhaarCard" type="file" class="file" required="false">
+                                <input id="aadhaarCard" name="aadhaarCard" type="file" class="file" required>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Aadhaar Card No.</label>
-                                <input type="text" name="aadhaarCardNumber" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="aadhaarCardNumber" required="false">
+                                <input type="text" name="aadhaarCardNumber" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="aadhaarCardNumber" required = "true">
+                                <h4>{{errorAadharNumber}}</h4>
                             </div>
 				            <button type="submit" class="btn">Submit</button>
 						</form>

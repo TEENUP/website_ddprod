@@ -4,7 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class User(models.Model):
     sponserId = models.CharField(max_length=10,primary_key=True)
-    username = models.CharField(unique= True,max_length=20)
+    username = models.CharField(unique= False,max_length=20)
     password = models.CharField(max_length=1000,blank=True)
     plan = models.IntegerField(blank=True)
     joiningDate = models.DateTimeField(
@@ -39,6 +39,7 @@ class UserAccount(models.Model):
     aadhaarNo = models.CharField(max_length=200,default="Blank")
     panCard = models.BinaryField(default="Blank")
     aadhaarCard = models.BinaryField(default="Blank")
+    photo = models.BinaryField(default="Blank")
 
     def saveAccountDetails(self):
         # self.published_date = timezone.now()
