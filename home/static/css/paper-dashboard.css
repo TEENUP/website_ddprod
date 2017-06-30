@@ -14,6 +14,16 @@
  
  */
 /*      light colors - used for select dropdown         */
+.downFromTop{
+  margin-top: 5%;
+}
+.image{
+  background-color: grey !important;
+}
+/*.navbar-default{
+  background-color: transparent !important;
+  border-color: rgba(255,255,255,.3) !important;
+}*/
 .ct-blue {
   stroke: #7A9E9F !important; }
 

@@ -232,10 +232,13 @@ def sign_up(request):
 		lastName=request.POST.get('lastName')
 		
 		phoneNo=request.POST.get('mobNumber')
+		# print phoneNo
 		isPhoneNumberValid = validateMobileNumber(phoneNo)
 		errorPhoneNumber = ""
 		if(not isPhoneNumberValid):
 			errorPhoneNumber = "Invalid Phone Number"
+		else:
+			phoneNo='+91'+phoneNo
 
 		email= request.POST.get('email')		
 		address= request.POST.get('address')
@@ -348,7 +351,7 @@ def dashboard(request):
 	# insertUser(parentId,childObj)
 	# UserRelation.objects.filter(sponserId='3').delete()
 	# User.objects.filter(sponserId='3').delete()
-	"""if isLoggedIn(request):
+	if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
@@ -357,10 +360,28 @@ def dashboard(request):
 		sponserId=check_secure_val(user_id)
 		usr=User.objects.get(sponserId=sponserId)
 		objs=treeGenerate(usr.sponserId)
-		return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'objs':objs})
+		listOfUserObjects=[]
+		listOfUserDetailsObjects=[]
+		for obj in objs:
+			sid,pid=obj.sponserId,obj.parentId
+			u=User.objects.get(sponserId=sid)
+			ud=UserDetails.objects.get(username=u.username)
+			listOfUserObjects.append(u)
+			listOfUserDetailsObjects.append(ud)
+		objsTemp=[listOfUserObjects,listOfUserDetailsObjects]
+		temp=[]
+		for i in range(0,len(objsTemp[0])):
+			t=[]
+			t.append(objsTemp[1][i].firstName)
+			t.append(objsTemp[1][i].lastName)
+			t.append(objsTemp[1][i].username)
+			t.append(objsTemp[0][i].plan)
+			t.append(objsTemp[1][i].email)
+			temp.append(t)
+		return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'temp':temp,'user':usr,'num':len(objs)})
 	else:
-		return redirect('/')"""
-	return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
+		return redirect('/')
+	# return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
 
 def products(request):
 	if isLoggedIn(request):
@@ -379,8 +400,13 @@ def user_profile(request):
 		# usr=User.objects.get(sponserId=sponserId)
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
-		# Logout link
-		return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
+		user_id= request.COOKIES['user_id']
+		sponserId=check_secure_val(user_id)
+		user=User.objects.get(sponserId=sponserId)
+		userDetails=UserDetails.objects.get(username=user.username)
+		userAccount=UserAccount.objects.get(username=user.username)
+		return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount})
+
 	else:
 		return redirect('/')
 
