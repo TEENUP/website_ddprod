@@ -288,13 +288,42 @@ def sign_up(request):
 			return response
 		else:
 			# Render The page with errors
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
+			options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
+			options+='<option value="10000">10000</option><option value="10000">30000</option>'
+			options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'selectOptions':options})
 	else:
 		if isLoggedIn(request):
 			return redirect('/')
 		else:
+			prod=request.GET.get("productId",None)
+			if prod=='1':
+				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000" selected="selected">5000</option>'
+				options+='<option value="10000">10000</option><option value="30000">30000</option>'
+				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+			elif prod=='2':
+				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+				options+='<option value="10000" selected="selected">10000</option><option value="30000">30000</option>'
+				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+			elif prod=='3':
+				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+				options+='<option value="10000">10000</option><option value="30000" selected="selected">30000</option>'
+				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+			elif prod=='4':
+				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+				options+='<option value="10000">10000</option><option value="30000">30000</option>'
+				options+='<option value="50000" selected="selected">50000</option><option value="90000">90000</option></select>'
+			elif prod=='5':
+				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+				options+='<option value="10000">10000</option><option value="30000">30000</option>'
+				options+='<option value="50000">50000</option><option value="90000" selected="selected">90000</option></select>'
+			else:
+				options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
+				options+='<option value="10000">10000</option><option value="30000">30000</option>'
+				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+			# print options
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'selectOptions':options})
 
 
 def login(request):

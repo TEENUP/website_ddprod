@@ -64,11 +64,9 @@
                             <div class="form-group">
                                 <!-- <label for="r-form-first-name">Choose Plan</label> -->
                                 <!-- <input type="text" name="r-form-first-name" placeholder="Choose Plan..." class="r-form-first-name form-control" id="r-form-first-name"> -->
-                                <select name="product" class="form-control">
-                                  <option selected="selected" disabled>PRODUCTS</option>
-                                  <option value="1000">1000</option>
-                                  <option value="2000">2000</option>
-                                </select>
+                                
+                                  {{selectOptions|safe}}
+
                             </div>
                             <h1>Personal Details</h1>
 
