@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^contact', views.contact, name='contact'),
     url(r'^logout', views.logout, name='logout'),
     url(r'^thanks/', views.thanks, name='thanks'),
+    url(r'^buyAnotherProduct/', views.buyAnotherProduct, name='buyAnotherProduct')
 ]

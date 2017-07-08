@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^contact/' , include('home.urls')),
     url(r'^logout/' , include('home.urls')),
     url(r'^thanks/' , include('home.urls')),
+    url(r'^buyAnotherProduct/', include('home.urls')),
 ]

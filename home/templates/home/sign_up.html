@@ -66,8 +66,11 @@
                                 <!-- <input type="text" name="r-form-first-name" placeholder="Choose Plan..." class="r-form-first-name form-control" id="r-form-first-name"> -->
                                 <select name="product" class="form-control">
                                   <option selected="selected" disabled>PRODUCTS</option>
-                                  <option value="1000">1000</option>
-                                  <option value="2000">2000</option>
+                                  <option value="Category1">Category1</option>
+                                  <option value="Category2">Category2</option>
+                                  <option value="Category3">Category3</option>
+                                  <option value="Category4">Category4</option>
+                                  <option value="Category5">Category5</option>
                                 </select>
                             </div>
                             <h1>Personal Details</h1>
@@ -144,6 +147,12 @@
                                 <label class="sr-only" for="r-form-first-name">Aadhaar Card No.</label>
                                 <input type="text" name="aadhaarCardNumber" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="aadhaarCardNumber" required = "true">
                                 <h4>{{errorAadharNumber}}</h4>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label class="sr-only" for="r-form-first-name">Aadhaar Card</label>
+                                <input type="text" name="r-form-first-name" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
+                                <label class="control-label">Select Photo</label>
+                                <input id="photo" name="photo" type="file" class="file" required>
                             </div>
 				            <button type="submit" class="btn">Submit</button>
 						</form>

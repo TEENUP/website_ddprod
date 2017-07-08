@@ -1,0 +1,59 @@
+{% extends 'home/base.html' %}
+{% block content %}
+
+{% load staticfiles %}
+
+<link rel="stylesheet" href={% static 'css/animate_contact_us.css' %}>
+        <link rel="stylesheet" href={% static 'css/style_contact_us.css' %}>
+		<!-- Contact Form -->
+		<div class="c-form-container section-container section-container-image-bg">
+	        <div class="container">
+	        	
+	            <div class="row">
+	                <div class="col-sm-8 col-sm-offset-2 c-form section-description wow fadeIn">
+	                    <h1><strong>Add Another Product</strong></h1>
+	                    <p></p>
+	                </div>
+	            </div>
+	            
+	            <div class="row">
+	            	<div class="col-sm-6 col-sm-offset-3 c-form-box wow fadeInUp">
+	            		
+	                    <div class="c-form-top">
+                    		<div class="c-form-top-left">
+								<p>Fill in the desired sponsorID in the form below </p>
+                    		</div>
+                    		<div class="c-form-top-right">
+                    			<div class="c-form-top-right-icon">
+                    				<i class="fa fa-paper-plane"></i>
+                    			</div>
+                    		</div>
+                        </div>
+                        <div class="c-form-bottom">
+		                    <form role="form" action="/buyAnotherProduct" method="POST">
+		                    	{% csrf_token %}
+		                    	<div class="form-group">
+                                	<label class="sr-only" for="r-form-first-name">Sponsor Id</label>
+                                	<input type="text" name="sponserId" placeholder="Sponsor Id..." class="r-form-first-name form-control" id="sponserId" required>
+                                	<h4>{{errorSponserId}}</h4>
+                            	</div>
+                            	<div class="form-group">
+                                	<label class="sr-only" for="r-form-first-name">Product Selected</label>
+                                	<input type="text" name="sponserId" placeholder="Selected Product..." class="r-form-first-name form-control" id="Selected Product" required>
+                            	</div>
+		                   
+		                        <button type="submit" class="btn">BUY Product</button>
+		                    </form>
+	                    </div>
+	                    
+	                </div>
+	            </div>
+	            
+	        </div>
+        </div>
+         <script src={% static 'js/jquery-1.11.1.min_contact_us.js' %}></script>
+    <!-- <script src={% static 'js/jquery.backstretch.min_contact_us.js' %}></script> -->
+    <script src={% static 'js/wow.min_contact_us.js' %}></script>
+    <script src={% static 'js/scripts_contact_us.js' %}></script>
+
+{% endblock %}
