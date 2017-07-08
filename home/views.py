@@ -552,4 +552,6 @@ def buyAnotherProduct(request):
 	'''
 	return render(request,'home/buyAnotherProduct.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
 
+def slide(request):
+	return render(request, 'home/slide.html')
 	

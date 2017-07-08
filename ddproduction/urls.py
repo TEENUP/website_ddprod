@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^logout/' , include('home.urls')),
     url(r'^thanks/' , include('home.urls')),
     url(r'^buyAnotherProduct/', include('home.urls')),
+    url(r'^slide/', include('home.urls')),
 ]
