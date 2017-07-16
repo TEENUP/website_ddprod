@@ -31,4 +31,6 @@ urlpatterns = [
     url(r'^thanks/' , include('home.urls')),
     url(r'^buyAnotherProduct/', include('home.urls')),
     url(r'^slide/', include('home.urls')),
+    url(r'^all/', include('home.urls')),
+    url(r'^single/', include('home.urls')),
 ]

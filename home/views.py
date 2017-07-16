@@ -19,7 +19,7 @@ from django.contrib.auth import (
 
 
 from .forms import ContactForm
-from django.shortcuts import render
+from django.shortcuts import render, Http404
 # from django.template import RequestContext
 
 from models import *
@@ -555,3 +555,29 @@ def buyAnotherProduct(request):
 def slide(request):
 	return render(request, 'home/slide.html')
 	
+
+
+
+
+
+#Product APP 
+def all(request):
+	products = Product.objects.all()
+	context = {'products': products}
+	template = 'home/all.html'
+	return render (request, template, context)
+
+def single(request):
+	try:
+		x = request.GET.get("q",None)
+		print x
+		product = Product.objects.get(productId = x)
+		print product
+
+		#images = product.productimage_set.all()
+		images = ProductImage.objects.filter(product=product)
+		context = {'product': product, "images": images}
+		template = 'home/single.html'
+		return render (request, template, context)
+	except:
+		raise Http404 

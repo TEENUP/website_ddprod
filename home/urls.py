@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^thanks/', views.thanks, name='thanks'),
     url(r'^buyAnotherProduct/', views.buyAnotherProduct, name='buyAnotherProduct'),
     url(r'^slide/', views.slide, name='slide'),
+    url(r'^all/', views.all, name='all'),
+    url(r'^single/', views.single, name='single'),
 ]
