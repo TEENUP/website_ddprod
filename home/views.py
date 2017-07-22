@@ -204,14 +204,6 @@ def contact_us(request):
 
 def sign_up(request):
 	if request.method == "POST":
-		parentId=request.POST.get('sponserId')
-		isSponserIdValid=validateSponserId(parentId)
-		errorSponserId=""
-		if not isSponserIdValid:
-			errorSponserId="Invalid Sponser Id"
-
-
-		sponserId="".join(random.choice(string.ascii_uppercase+string.digits) for x in range (0,6))
 		
 		username=request.POST.get('userName')
 		isUsernameValid = validateUsername(username)
@@ -227,7 +219,6 @@ def sign_up(request):
 		if(not isPasswordValid):
 			errorPassword="Passwords didn't match"
 
-		product = int(request.POST.get('product'))
 		firstName= request.POST.get('firstName')
 		lastName=request.POST.get('lastName')
 		
@@ -242,56 +233,21 @@ def sign_up(request):
 
 		email= request.POST.get('email')		
 		address= request.POST.get('address')
-		holderName=request.POST.get('holderName')
-		IFSCCode=request.POST.get('ifscCode')
-		bankName=request.POST.get('bankName')
-		branchName=request.POST.get('branchName')
-		a=request.POST.get('accountType')
-		if(a=="Saving"):
-			accountType=True
-		else:
-			accountType=False
-		accountNo=request.POST.get('accNumber')
-		panCard=request.POST.get('panCard')
-		
-		panNo=request.POST.get('panCardNumber')
-		isPanNumberValid = validatePanCArd(panNo)
-		errorPanNumber= ""
-		if(not isPanNumberValid):
-			errorPanNumber = "Invalid Pan Number"
-
-		aadhaarCard = request.POST.get('aadhaarCard')
-		
-		aadhaarNo = request.POST.get('aadhaarCardNumber')
-		isAadharNumberValid = validateAadharCard(aadhaarNo)
-		errorAdharNumber = ""
-		if(not isAadharNumberValid):
-			errorAdharNumber = "Invalid Aadhar Number"
 		
 		#validation
-		if isSponserIdValid and isUsernameValid and isPasswordValid:
+		if isUsernameValid and isPasswordValid:
 			h_password=make_pw_hash(username,password)
-			User.objects.create(sponserId=sponserId,username=username,password=h_password, plan=product,amount=0.00)
+			User.objects.create(username=username,password=h_password)
 			UserDetails.objects.create(username=username,firstName=firstName,lastName=lastName, phoneNo=phoneNo,email=email,address=address)
-			UserAccount.objects.create(username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
-				accountType=accountType,accountNo=accountNo,panCard=panCard,panNo=panNo,aadhaarCard=aadhaarCard,aadhaarNo=aadhaarNo)
-			UserRelation.objects.create(sponserId=sponserId,parentId=parentId)
-			# Payment
-			insertUser(parentId,sponserId)
-			#set Cookie
-			# redirect to homepage
-			id_to_send=make_secure_val(str(sponserId))
-			# print "ID TO SEND"+id_to_send
-			# print "SPONSERID"+sponserId
 			response = redirect('/')
-			response.set_cookie('user_id', id_to_send)
+			#response.set_cookie('user_id', id_to_send)
 			return response
 		else:
 			# Render The page with errors
 			options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
 			options+='<option value="10000">10000</option><option value="10000">30000</option>'
 			options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'selectOptions':options})
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber,'selectOptions':options})
 	else:
 		if isLoggedIn(request):
 			return redirect('/')
@@ -550,6 +506,131 @@ def buyAnotherProduct(request):
 			# Render The page with errors
 			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	'''
+	'''if request.method == "POST":
+		parentId=request.POST.get('sponserId')
+		isSponserIdValid=validateSponserId(parentId)
+		errorSponserId=""
+		if not isSponserIdValid:
+			errorSponserId="Invalid Sponser Id"
+
+
+		sponserId="".join(random.choice(string.ascii_uppercase+string.digits) for x in range (0,6))
+		
+		username=request.POST.get('userName')
+		isUsernameValid = validateUsername(username)
+		errorUsername=""
+		if(not isUsernameValid):
+			errorUsername="User Already Exists"
+
+		password=request.POST.get('password')
+		confirmPassword=request.POST.get('confirmPassword')
+
+		isPasswordValid = validatePassword(password,confirmPassword)
+		errorPassword=""
+		if(not isPasswordValid):
+			errorPassword="Passwords didn't match"
+
+		product = int(request.POST.get('product'))
+		firstName= request.POST.get('firstName')
+		lastName=request.POST.get('lastName')
+		
+		phoneNo=request.POST.get('mobNumber')
+		# print phoneNo
+		isPhoneNumberValid = validateMobileNumber(phoneNo)
+		errorPhoneNumber = ""
+		if(not isPhoneNumberValid):
+			errorPhoneNumber = "Invalid Phone Number"
+		else:
+			phoneNo='+91'+phoneNo
+
+		email= request.POST.get('email')		
+		address= request.POST.get('address')
+		holderName=request.POST.get('holderName')
+		IFSCCode=request.POST.get('ifscCode')
+		bankName=request.POST.get('bankName')
+		branchName=request.POST.get('branchName')
+		a=request.POST.get('accountType')
+		if(a=="Saving"):
+			accountType=True
+		else:
+			accountType=False
+		accountNo=request.POST.get('accNumber')
+		panCard=request.POST.get('panCard')
+		
+		panNo=request.POST.get('panCardNumber')
+		isPanNumberValid = validatePanCArd(panNo)
+		errorPanNumber= ""
+		if(not isPanNumberValid):
+			errorPanNumber = "Invalid Pan Number"
+
+		aadhaarCard = request.POST.get('aadhaarCard')
+		
+		aadhaarNo = request.POST.get('aadhaarCardNumber')
+		isAadharNumberValid = validateAadharCard(aadhaarNo)
+		errorAdharNumber = ""
+		if(not isAadharNumberValid):
+			errorAdharNumber = "Invalid Aadhar Number"
+		
+		#validation
+		if isSponserIdValid and isUsernameValid and isPasswordValid:
+			h_password=make_pw_hash(username,password)
+			User.objects.create(sponserId=sponserId,username=username,password=h_password, plan=product,amount=0.00)
+			UserDetails.objects.create(username=username,firstName=firstName,lastName=lastName, phoneNo=phoneNo,email=email,address=address)
+			UserAccount.objects.create(username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
+				accountType=accountType,accountNo=accountNo,panCard=panCard,panNo=panNo,aadhaarCard=aadhaarCard,aadhaarNo=aadhaarNo)
+			UserRelation.objects.create(sponserId=sponserId,parentId=parentId)
+			# Payment
+			insertUser(parentId,sponserId)
+			#set Cookie
+			# redirect to homepage
+			id_to_send=make_secure_val(str(sponserId))
+			# print "ID TO SEND"+id_to_send
+			# print "SPONSERID"+sponserId
+			response = redirect('/')
+			response.set_cookie('user_id', id_to_send)
+			return response
+		else:
+			# Render The page with errors
+			options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
+			options+='<option value="10000">10000</option><option value="10000">30000</option>'
+			options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'selectOptions':options})
+	else:
+		if isLoggedIn(request):
+			return redirect('/')
+		else:
+			prod=request.GET.get("productId",None)
+			if prod=='1':
+				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000" selected="selected">5000</option>'
+				options+='<option value="10000">10000</option><option value="30000">30000</option>'
+				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+			elif prod=='2':
+				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+				options+='<option value="10000" selected="selected">10000</option><option value="30000">30000</option>'
+				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+			elif prod=='3':
+				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+				options+='<option value="10000">10000</option><option value="30000" selected="selected">30000</option>'
+				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+			elif prod=='4':
+				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+				options+='<option value="10000">10000</option><option value="30000">30000</option>'
+				options+='<option value="50000" selected="selected">50000</option><option value="90000">90000</option></select>'
+			elif prod=='5':
+				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+				options+='<option value="10000">10000</option><option value="30000">30000</option>'
+				options+='<option value="50000">50000</option><option value="90000" selected="selected">90000</option></select>'
+			else:
+				options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
+				options+='<option value="10000">10000</option><option value="30000">30000</option>'
+				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+			# print options
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'selectOptions':options})
+			'''
+
+
+
 	return render(request,'home/buyAnotherProduct.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
 
 def slide(request):
@@ -563,12 +644,12 @@ def slide(request):
 #Product APP 
 def all(request):
 	products = Product.objects.all()
-	context = {'products': products}
+	#primaryImages = Product.objects.all()
+	context = {'products': products} #"primaryImages": primaryImages}
 	template = 'home/all.html'
 	return render (request, template, context)
 
 def single(request):
-	try:
 		x = request.GET.get("q",None)
 		print x
 		product = Product.objects.get(productId = x)
@@ -578,6 +659,4 @@ def single(request):
 		images = ProductImage.objects.filter(product=product)
 		context = {'product': product, "images": images}
 		template = 'home/single.html'
-		return render (request, template, context)
-	except:
-		raise Http404 
+		return render (request, template, context) 

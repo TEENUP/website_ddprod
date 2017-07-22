@@ -41,6 +41,84 @@
                                 	<label class="sr-only" for="r-form-first-name">Product Selected</label>
                                 	<input type="text" name="sponserId" placeholder="Selected Product..." class="r-form-first-name form-control" id="Selected Product" required>
                             	</div>
+
+                            	<div class="form-group">
+                                <!-- <label for="r-form-first-name">Choose Plan</label> -->
+                                <!-- <input type="text" name="r-form-first-name" placeholder="Choose Plan..." class="r-form-first-name form-control" id="r-form-first-name"> -->
+<<<<<<< HEAD
+                                <select name="product" class="form-control">
+                                  <option selected="selected" disabled>PRODUCTS</option>
+                                  <option value="Category1">Category1</option>
+                                  <option value="Category2">Category2</option>
+                                  <option value="Category3">Category3</option>
+                                  <option value="Category4">Category4</option>
+                                  <option value="Category5">Category5</option>
+                                </select>
+=======
+                                
+                                  {{selectOptions|safe}}
+
+>>>>>>> dad612665391d4786b87b7acb082c969b0f49b14
+                            </div>
+
+
+                            <h1>Bank Details</h1>
+                            <div class="form-group">
+                                <label class="sr-only" for="r-form-first-name">Account Holder Name</label>
+                                <input type="text" name="holderName" placeholder="Account Holder Name..." class="r-form-first-name form-control" id="holderName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="r-form-first-name">Bank Name</label>
+                                <input type="text" name="bankName" placeholder="Bank Name..." class="r-form-first-name form-control" id="bankName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="r-form-first-name">Branch Name</label>
+                                <input type="text" name="branchName" placeholder="Branch Name..." class="r-form-first-name form-control" id="branchName" required>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="r-form-first-name">Account Type</label> -->
+                                <select name="accountType" class="form-control">
+                                  <option selected="selected" disabled>Account Type</option>
+                                  <option value="Savings">Savings</option>
+                                  <option value="Current">Current</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="r-form-first-name">Account No.</label>
+                                <input type="text" name="accNumber" placeholder="Account No...." class="r-form-first-name form-control" id="accNumber" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="r-form-first-name">IFSC Code</label>
+                                <input type="text" name="ifscCode" placeholder="IFSC Code..." class="r-form-first-name form-control" id="ifscCode" required>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label class="sr-only" for="r-form-first-name">Pan Card</label> -->
+                                <label class="control-label">Select PAN Card</label>
+                                <input id="panCard" name="panCard" type="file" class="file" required>
+                                <!-- <input type="text" name="r-form-first-name" placeholder="Pan Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="r-form-first-name">Pan Card No.</label>
+                                <input type="text" name="panCardNumber" placeholder="Pan Card No...." class="r-form-first-name form-control" id="panCardNumber" required>
+                                <h4>{{errorPanNumber}}</h4>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label class="sr-only" for="r-form-first-name">Aadhaar Card</label>
+                                <input type="text" name="r-form-first-name" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
+                                <label class="control-label">Select Aadhaar Card</label>
+                                <input id="aadhaarCard" name="aadhaarCard" type="file" class="file" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="r-form-first-name">Aadhaar Card No.</label>
+                                <input type="text" name="aadhaarCardNumber" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="aadhaarCardNumber" required = "true">
+                                <h4>{{errorAadharNumber}}</h4>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label class="sr-only" for="r-form-first-name">Aadhaar Card</label>
+                                <input type="text" name="r-form-first-name" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
+                                <label class="control-label">Select Photo</label>
+                                <input id="photo" name="photo" type="file" class="file" required>
+                            </div>
 		                   
 		                        <button type="submit" class="btn">BUY Product</button>
 		                    </form>

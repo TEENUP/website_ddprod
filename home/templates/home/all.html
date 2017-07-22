@@ -1,19 +1,7 @@
 {% extends 'home/base.html' %}
 
-
 {% load staticfiles %}
 
-{% block head_title %}
-Products ||
-{% endblock %}
-
-
-{% block styles %}
-.jumbotron {
-	/*color:red;*/
-}
-      
-{% endblock %}
 
 
 {# comments here #}
@@ -29,6 +17,7 @@ Products ||
         <div class="thumbnail">
           {% if product.productimage_set.all %}
             {% for item in product.productimage_set.all %} 
+              
               
             {% if item.featured %}
             <div style="
