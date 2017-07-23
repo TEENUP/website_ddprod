@@ -239,8 +239,9 @@ def sign_up(request):
 			h_password=make_pw_hash(username,password)
 			User.objects.create(username=username,password=h_password)
 			UserDetails.objects.create(username=username,firstName=firstName,lastName=lastName, phoneNo=phoneNo,email=email,address=address)
+			id_to_send=make_secure_val(str(username))
 			response = redirect('/')
-			#response.set_cookie('user_id', id_to_send)
+			response.set_cookie('user_id', id_to_send)
 			return response
 		else:
 			# Render The page with errors
@@ -293,7 +294,7 @@ def login(request):
 			usr=User.objects.get(username=username)
 			h_value=usr.password
 			if valid_pw(username,password,h_value):
-				user_id=usr.sponserId
+				user_id=usr.username
 				id_to_send=make_secure_val(str(user_id))
 				response = redirect('/dashboard')
 				response.set_cookie('user_id', id_to_send)
