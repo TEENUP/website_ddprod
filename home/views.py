@@ -646,9 +646,10 @@ def slide(request):
 def all(request):
 	products = Product.objects.all()
 	#primaryImages = Product.objects.all()
-	context = {'products': products} #"primaryImages": primaryImages}
+	specialProduct = SpecialProduct.objects.all()
+	context = {'products': products,'specialProduct': specialProduct} #"primaryImages": primaryImages}
 	template = 'home/all.html'
-	return render (request, template, context)
+	return render (request, template, context, {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
 
 def single(request):
 		x = request.GET.get("q",None)
