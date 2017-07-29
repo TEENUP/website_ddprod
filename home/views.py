@@ -41,13 +41,13 @@ regexForAadharCard = "^\d{4}\s\d{4}\s\d{4}$"
 SECRET="qwerty"
 
 def make_salt():
-    return "".join(random.choice(string.letters) for x in range (0,5))
+	return "".join(random.choice(string.letters) for x in range (0,5))
 
 def make_pw_hash(name,pw,salt=None):
-    if not salt:
-        salt=make_salt()
-    h=hashlib.sha256(name+pw+salt).hexdigest()
-    return "%s,%s"%(h,salt)
+	if not salt:
+		salt=make_salt()
+	h=hashlib.sha256(name+pw+salt).hexdigest()
+	return "%s,%s"%(h,salt)
 
 def hash_str(s):
 	return hmac.new(str(SECRET),str(s)).hexdigest()
@@ -57,14 +57,14 @@ def make_secure_val(s):
 	return "%s|%s"%(s,hash_str(s))
 
 def check_secure_val(h):
-    check_value=h.split('|')
-    if hash_str(check_value[0])==check_value[1]:
-        return check_value[0]
-    return None
+	check_value=h.split('|')
+	if hash_str(check_value[0])==check_value[1]:
+		return check_value[0]
+	return None
 
 def valid_pw(name,pw,h):
-    salt=h.split(',')[1]
-    return h==make_pw_hash(name,pw,salt)
+	salt=h.split(',')[1]
+	return h==make_pw_hash(name,pw,salt)
 
 
 def insertUser(parentId,childId):
@@ -94,7 +94,7 @@ def treeGenerate(sponserId):
 	# for obj in objs:
 	# 	sid=obj.sponserId
 	# 	print sid
-	    # usr=User.objects.get(obj.sponserId)
+		# usr=User.objects.get(obj.sponserId)
 	#     print usr.username
 	# return render(request, 'home/dashboard.html', {'objs':objs})
 
@@ -114,10 +114,10 @@ def home_list(request):
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
-		return render(request, 'home/index.html', {'home':'#page-top','about':'#about','products':'#products','contact':'#contact','greet':greet,'logout':logout})
+		return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
 	else:
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			return render(request, 'home/index.html', {'home':'#page-top','about':'#about','products':'#products','contact':'#contact','greet':greet})
+			return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
 
 def validateSponserId(sponserId):
 	if len(sponserId)!=6:
@@ -180,10 +180,10 @@ def contact_us(request):
 		subject= request.POST.get('subject')
 		message= '%s %s' %(request.POST.get('message'),request.POST.get('name')+"("+request.POST.get('email')+")")
 		emailFrom=request.POST.get('email')
-		isEmailValid = validateEmail(emailFrom)
-		errorEmail = ""
-		if(not isEmailValid):
-			errorEmail = "Please Enter A valid Email Id"
+		# isEmailValid = validateEmail(emailFrom)
+		# errorEmail = ""
+		# if(not isEmailValid):
+		# 	errorEmail = "Please Enter A valid Email Id"
 
 		emailTo= [settings.EMAIL_HOST_USER]
 		send_mail(subject,message,emailFrom,emailTo,fail_silently=False)
@@ -195,7 +195,7 @@ def contact_us(request):
 			greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 			logout='<a class="page-scroll" href="/logout">Logout</a>'
 			# Can take email and name
-			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'errorEmail':errorEmail})
+			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})#,'errorEmail':errorEmail})
 		else:
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,})
@@ -245,7 +245,7 @@ def sign_up(request):
 			return response
 		else:
 			# Render The page with errors
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber,'selectOptions':options})
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber})
 	else:
 		if isLoggedIn(request):
 			return redirect('/')
@@ -376,10 +376,17 @@ def user_profile(request):
 		username=check_secure_val(user_id)
 		user=User.objects.get(username=username)
 		userDetails=UserDetails.objects.get(username=user.username)
-		userAccount=UserAccount.objects.get(username=user.username)
-		#refferal=UserRefferal.objects.get(username=user.username)
-		return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount})#,'refferal':refferal})
-
+		accountDetails=UserAccount.objects.filter(username=username)
+		if accountDetails.count()>0:
+			userAccount=UserAccount.objects.get(username=user.username)
+			reff = UserRefferal.objects.filter(username=username)
+			if reff.count()>0:	
+				refferal=UserRefferal.objects.get(username=user.username)
+				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount,'refferal':refferal})
+			else:
+				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount})
+		else:
+			return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails})
 	else:
 		return redirect('/')
 
@@ -587,12 +594,12 @@ def buyAnotherProduct(request):
 			# options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
 			# options+='<option value="10000">10000</option><option value="10000">30000</option>'
 			# options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
-			return render(request, 'home/add.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'selectOptions':options})
+			return render(request, 'home/buyAnotherProduct.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	else:
 		if not isLoggedIn(request):
 			return redirect('/')
-		# else:
-		# 	prod=request.GET.get("productId",None)
+		else:
+			prod=request.GET.get("productId",None)
 		# 	# if prod=='1':
 		# 	# 	options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000" selected="selected">5000</option>'
 		# 	# 	options+='<option value="10000">10000</option><option value="30000">30000</option>'
@@ -619,12 +626,13 @@ def buyAnotherProduct(request):
 		# 	# 	options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
 		# 	# greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 		# 	# print options
-		 	return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'selectOptions':options})
-			
+			return render(request, 'home/buyAnotherProduct.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
+		
+		
 
 
 
-	return render(request,'home/buyAnotherProduct.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
+	#return render(request,'home/buyAnotherProduct.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
 
 def slide(request):
 	return render(request, 'home/slide.html')
