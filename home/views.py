@@ -198,7 +198,7 @@ def contact_us(request):
 			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})#,'errorEmail':errorEmail})
 		else:
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,})
+			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
 
 
 
@@ -659,6 +659,8 @@ def single(request):
 
 		#images = product.productimage_set.all()
 		images = ProductImage.objects.filter(product=product)
+		#images1 = roduct.objects.filter(product=product)
+
 		context = {'product': product, "images": images}
 		template = 'home/single.html'
 		return render (request, template, context) 

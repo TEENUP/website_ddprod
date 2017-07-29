@@ -11,8 +11,8 @@
 	        	
 	            <div class="row">
 	                <div class="col-sm-8 col-sm-offset-2 c-form section-description wow fadeIn">
-	                    <h1><strong>Add Another Product</strong></h1>
-	                    <p></p>
+	                    <h1><strong>To buy featured products enter the below details</strong></h1>
+	                    <p>Fill in the desired refferal ID in the form below </p>
 	                </div>
 	            </div>
 	            
@@ -21,8 +21,12 @@
 	            		
 	                    <div class="c-form-top">
                     		<div class="c-form-top-left">
-								<p>Fill in the desired sponsorID in the form below </p>
+								<div>
+                                <h4>Note: If you don't have refferal ID to use, you can use this one </h4>
+                                <h3> .....   <h3>
+                                </div>
                     		</div>
+
                     		<div class="c-form-top-right">
                     			<div class="c-form-top-right-icon">
                     				<i class="fa fa-paper-plane"></i>
@@ -45,24 +49,11 @@
                             	<div class="form-group">
                                 <!-- <label for="r-form-first-name">Choose Plan</label> -->
                                 <!-- <input type="text" name="r-form-first-name" placeholder="Choose Plan..." class="r-form-first-name form-control" id="r-form-first-name"> -->
-<<<<<<< HEAD
-                                <select name="product" class="form-control">
-                                  <option selected="selected" disabled>PRODUCTS</option>
-                                  <option value="Category1">Category1</option>
-                                  <option value="Category2">Category2</option>
-                                  <option value="Category3">Category3</option>
-                                  <option value="Category4">Category4</option>
-                                  <option value="Category5">Category5</option>
-                                </select>
-=======
-                                
-                                  {{selectOptions|safe}}
 
->>>>>>> dad612665391d4786b87b7acb082c969b0f49b14
                             </div>
 
 
-                            <h1>Bank Details</h1>
+                            <b><h1>Bank Details </h1><b><h4>(for cash back policies)</h4>
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Account Holder Name</label>
                                 <input type="text" name="holderName" placeholder="Account Holder Name..." class="r-form-first-name form-control" id="holderName" required>
@@ -91,34 +82,34 @@
                                 <label class="sr-only" for="r-form-first-name">IFSC Code</label>
                                 <input type="text" name="ifscCode" placeholder="IFSC Code..." class="r-form-first-name form-control" id="ifscCode" required>
                             </div>
-                            <div class="form-group">
-                                <!-- <label class="sr-only" for="r-form-first-name">Pan Card</label> -->
+                            <!-- <div class="form-group">
+                                <label class="sr-only" for="r-form-first-name">Pan Card</label> 
                                 <label class="control-label">Select PAN Card</label>
                                 <input id="panCard" name="panCard" type="file" class="file" required>
-                                <!-- <input type="text" name="r-form-first-name" placeholder="Pan Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
-                            </div>
+                                 <input type="text" name="r-form-first-name" placeholder="Pan Card No...." class="r-form-first-name form-control" id="r-form-first-name"> 
+                            </div> -->
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Pan Card No.</label>
                                 <input type="text" name="panCardNumber" placeholder="Pan Card No...." class="r-form-first-name form-control" id="panCardNumber" required>
                                 <h4>{{errorPanNumber}}</h4>
                             </div>
-                            <div class="form-group">
-                                <!-- <label class="sr-only" for="r-form-first-name">Aadhaar Card</label>
-                                <input type="text" name="r-form-first-name" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
+                           <!--  <div class="form-group">
+                                <label class="sr-only" for="r-form-first-name">Aadhaar Card</label>
+                                <input type="text" name="r-form-first-name" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="r-form-first-name">
                                 <label class="control-label">Select Aadhaar Card</label>
                                 <input id="aadhaarCard" name="aadhaarCard" type="file" class="file" required>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label class="sr-only" for="r-form-first-name">Aadhaar Card No.</label>
                                 <input type="text" name="aadhaarCardNumber" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="aadhaarCardNumber" required = "true">
                                 <h4>{{errorAadharNumber}}</h4>
                             </div>
-                            <div class="form-group">
-                                <!-- <label class="sr-only" for="r-form-first-name">Aadhaar Card</label>
-                                <input type="text" name="r-form-first-name" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="r-form-first-name"> -->
+                           <!--  <div class="form-group">
+                                <label class="sr-only" for="r-form-first-name">Aadhaar Card</label>
+                                <input type="text" name="r-form-first-name" placeholder="Aadhaar Card No...." class="r-form-first-name form-control" id="r-form-first-name">
                                 <label class="control-label">Select Photo</label>
                                 <input id="photo" name="photo" type="file" class="file" required>
-                            </div>
+                            </div> -->
 		                   
 		                        <button type="submit" class="btn">BUY Product</button>
 		                    </form>
@@ -129,6 +120,19 @@
 	            
 	        </div>
         </div>
+        <script>
+            $('#btnDialog').click(function ()
+        {
+              $(this).speedoPopup(
+     {
+        width:550,
+        height:265,
+        useFrame: TRUE,
+        href: '#divContentToPopup'
+    });
+        });
+
+        </script>
          <script src={% static 'js/jquery-1.11.1.min_contact_us.js' %}></script>
     <!-- <script src={% static 'js/jquery.backstretch.min_contact_us.js' %}></script> -->
     <script src={% static 'js/wow.min_contact_us.js' %}></script>
