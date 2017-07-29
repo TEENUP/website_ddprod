@@ -1,12 +1,10 @@
 {% extends 'home/base.html' %}
 
-<div class="page-header">
-  <h1>{{ product.title }}</h1>
-</div>
-
-
-
 {% block content %}
+
+{% load staticfiles %}
+
+
 
 <div class='row'>
 	<div class='col-sm-4'>	
@@ -16,7 +14,7 @@
 		{% if img.featured %}
 		<div class="col-xs-12 ">
 		<!--<h1>Featured</h1>-->
-			<img class='img-responsive' src="{{ MEDIA_URL }}{{ img.image }}" />
+			<img class='img-responsive' src="/media/{{ img.image }}" />
 		<hr/>	
 		</div>	
 		{% endif %}
@@ -26,7 +24,7 @@
 		{% if not img.featured %}
 		<div class="col-xs-6">
 	    <a href="#" class="thumbnail">
-	      <img class='img-responsive'src="{{ MEDIA_URL }}{{ img.image }}">
+	      <img class='img-responsive'src="/media/{{ img.image }}">
 	    </a>
 	  	</div>
 	  	{% endif %}

@@ -245,42 +245,14 @@ def sign_up(request):
 			return response
 		else:
 			# Render The page with errors
-			options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
-			options+='<option value="10000">10000</option><option value="10000">30000</option>'
-			options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
 			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber,'selectOptions':options})
 	else:
 		if isLoggedIn(request):
 			return redirect('/')
 		else:
-			prod=request.GET.get("productId",None)
-			if prod=='1':
-				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000" selected="selected">5000</option>'
-				options+='<option value="10000">10000</option><option value="30000">30000</option>'
-				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
-			elif prod=='2':
-				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
-				options+='<option value="10000" selected="selected">10000</option><option value="30000">30000</option>'
-				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
-			elif prod=='3':
-				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
-				options+='<option value="10000">10000</option><option value="30000" selected="selected">30000</option>'
-				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
-			elif prod=='4':
-				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
-				options+='<option value="10000">10000</option><option value="30000">30000</option>'
-				options+='<option value="50000" selected="selected">50000</option><option value="90000">90000</option></select>'
-			elif prod=='5':
-				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
-				options+='<option value="10000">10000</option><option value="30000">30000</option>'
-				options+='<option value="50000">50000</option><option value="90000" selected="selected">90000</option></select>'
-			else:
-				options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
-				options+='<option value="10000">10000</option><option value="30000">30000</option>'
-				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 			# print options
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'selectOptions':options})
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
 
 
 def login(request):
@@ -343,28 +315,40 @@ def dashboard(request):
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
 		user_id= request.COOKIES['user_id']
-		sponserId=check_secure_val(user_id)
-		usr=User.objects.get(sponserId=sponserId)
-		objs=treeGenerate(usr.sponserId)
-		listOfUserObjects=[]
-		listOfUserDetailsObjects=[]
-		for obj in objs:
-			sid,pid=obj.sponserId,obj.parentId
-			u=User.objects.get(sponserId=sid)
-			ud=UserDetails.objects.get(username=u.username)
-			listOfUserObjects.append(u)
-			listOfUserDetailsObjects.append(ud)
-		objsTemp=[listOfUserObjects,listOfUserDetailsObjects]
-		temp=[]
-		for i in range(0,len(objsTemp[0])):
-			t=[]
-			t.append(objsTemp[1][i].firstName)
-			t.append(objsTemp[1][i].lastName)
-			t.append(objsTemp[1][i].username)
-			t.append(objsTemp[0][i].plan)
-			t.append(objsTemp[1][i].email)
-			temp.append(t)
-		return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'temp':temp,'user':usr,'num':len(objs)})
+		username=check_secure_val(user_id)
+		usr=User.objects.get(username=username)
+#changed sponsorId to usernaem
+		refferal=UserRefferal.objects.filter(username=username)
+		if refferal.count()>0:
+			refferal=UserRefferal.objects.all(username=username)
+			reff = []
+			for refs in refferal:
+
+				objs=treeGenerate(refs.sponserId)
+				listOfUserObjects=[]
+				listOfUserDetailsObjects=[]
+				for obj in objs:
+					sid,pid=obj.sponserId,obj.parentId
+					u=User.objects.get(sponserId=sid)
+					ud=UserDetails.objects.get(username=u.username)
+					listOfUserObjects.append(u)
+					listOfUserDetailsObjects.append(ud)
+				objsTemp=[listOfUserObjects,listOfUserDetailsObjects]
+				temp=[]
+				for i in range(0,len(objsTemp[0])):
+					t=[]
+					t.append(objsTemp[1][i].firstName)
+					t.append(objsTemp[1][i].lastName)
+					t.append(objsTemp[1][i].username)
+					t.append(objsTemp[0][i].plan)
+					t.append(objsTemp[1][i].email)
+					temp.append(t)
+				reff.append(temp)	
+			return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'temp':temp,'user':usr,'num':len(objs)})
+		else:
+			return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':usr,'num':0})
+
+
 	else:
 		return redirect('/')
 	# return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
@@ -389,11 +373,12 @@ def user_profile(request):
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		user_id= request.COOKIES['user_id']
-		sponserId=check_secure_val(user_id)
-		user=User.objects.get(sponserId=sponserId)
+		username=check_secure_val(user_id)
+		user=User.objects.get(username=username)
 		userDetails=UserDetails.objects.get(username=user.username)
 		userAccount=UserAccount.objects.get(username=user.username)
-		return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount})
+		#refferal=UserRefferal.objects.get(username=user.username)
+		return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount})#,'refferal':refferal})
 
 	else:
 		return redirect('/')
@@ -507,7 +492,7 @@ def buyAnotherProduct(request):
 			# Render The page with errors
 			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	'''
-	'''if request.method == "POST":
+	if request.method == "POST":
 		parentId=request.POST.get('sponserId')
 		isSponserIdValid=validateSponserId(parentId)
 		errorSponserId=""
@@ -517,35 +502,35 @@ def buyAnotherProduct(request):
 
 		sponserId="".join(random.choice(string.ascii_uppercase+string.digits) for x in range (0,6))
 		
-		username=request.POST.get('userName')
-		isUsernameValid = validateUsername(username)
-		errorUsername=""
-		if(not isUsernameValid):
-			errorUsername="User Already Exists"
+		# username=request.POST.get('userName')
+		# isUsernameValid = validateUsername(username)
+		# errorUsername=""
+		# if(not isUsernameValid):
+		# 	errorUsername="User Already Exists"
 
-		password=request.POST.get('password')
-		confirmPassword=request.POST.get('confirmPassword')
+		# password=request.POST.get('password')
+		# confirmPassword=request.POST.get('confirmPassword')
 
-		isPasswordValid = validatePassword(password,confirmPassword)
-		errorPassword=""
-		if(not isPasswordValid):
-			errorPassword="Passwords didn't match"
+		# isPasswordValid = validatePassword(password,confirmPassword)
+		# errorPassword=""
+		# if(not isPasswordValid):
+		# 	errorPassword="Passwords didn't match"
 
 		product = int(request.POST.get('product'))
-		firstName= request.POST.get('firstName')
-		lastName=request.POST.get('lastName')
+		# firstName= request.POST.get('firstName')
+		# lastName=request.POST.get('lastName')
 		
-		phoneNo=request.POST.get('mobNumber')
-		# print phoneNo
-		isPhoneNumberValid = validateMobileNumber(phoneNo)
-		errorPhoneNumber = ""
-		if(not isPhoneNumberValid):
-			errorPhoneNumber = "Invalid Phone Number"
-		else:
-			phoneNo='+91'+phoneNo
+		# phoneNo=request.POST.get('mobNumber')
+		# # print phoneNo
+		# isPhoneNumberValid = validateMobileNumber(phoneNo)
+		# errorPhoneNumber = ""
+		# if(not isPhoneNumberValid):
+		# 	errorPhoneNumber = "Invalid Phone Number"
+		# else:
+		# 	phoneNo='+91'+phoneNo
 
-		email= request.POST.get('email')		
-		address= request.POST.get('address')
+		# email= request.POST.get('email')		
+		# address= request.POST.get('address')
 		holderName=request.POST.get('holderName')
 		IFSCCode=request.POST.get('ifscCode')
 		bankName=request.POST.get('bankName')
@@ -573,17 +558,24 @@ def buyAnotherProduct(request):
 			errorAdharNumber = "Invalid Aadhar Number"
 		
 		#validation
-		if isSponserIdValid and isUsernameValid and isPasswordValid:
-			h_password=make_pw_hash(username,password)
-			User.objects.create(sponserId=sponserId,username=username,password=h_password, plan=product,amount=0.00)
-			UserDetails.objects.create(username=username,firstName=firstName,lastName=lastName, phoneNo=phoneNo,email=email,address=address)
-			UserAccount.objects.create(username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
+		if isSponserIdValid:
+			# h_password=make_pw_hash(username,password)
+			# User.objects.create(sponserId=sponserId,username=username,password=h_password, plan=product,amount=0.00)
+			# UserDetails.objects.create(username=username,firstName=firstName,lastName=lastName, phoneNo=phoneNo,email=email,address=address)
+			
+#cookies for username
+			user_id= request.COOKIES['user_id']
+			username=check_secure_val(user_id)
+			UserRefferal.objects.create(username=username,sponserId=sponserId)
+			UserAccount.objects.create(sponsorId=sponserId,username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
 				accountType=accountType,accountNo=accountNo,panCard=panCard,panNo=panNo,aadhaarCard=aadhaarCard,aadhaarNo=aadhaarNo)
 			UserRelation.objects.create(sponserId=sponserId,parentId=parentId)
 			# Payment
 			insertUser(parentId,sponserId)
 			#set Cookie
 			# redirect to homepage
+
+#link payment gateway over here under insert user
 			id_to_send=make_secure_val(str(sponserId))
 			# print "ID TO SEND"+id_to_send
 			# print "SPONSERID"+sponserId
@@ -592,43 +584,43 @@ def buyAnotherProduct(request):
 			return response
 		else:
 			# Render The page with errors
-			options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
-			options+='<option value="10000">10000</option><option value="10000">30000</option>'
-			options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'selectOptions':options})
+			# options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
+			# options+='<option value="10000">10000</option><option value="10000">30000</option>'
+			# options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
+			return render(request, 'home/add.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'selectOptions':options})
 	else:
-		if isLoggedIn(request):
+		if not isLoggedIn(request):
 			return redirect('/')
-		else:
-			prod=request.GET.get("productId",None)
-			if prod=='1':
-				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000" selected="selected">5000</option>'
-				options+='<option value="10000">10000</option><option value="30000">30000</option>'
-				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
-			elif prod=='2':
-				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
-				options+='<option value="10000" selected="selected">10000</option><option value="30000">30000</option>'
-				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
-			elif prod=='3':
-				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
-				options+='<option value="10000">10000</option><option value="30000" selected="selected">30000</option>'
-				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
-			elif prod=='4':
-				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
-				options+='<option value="10000">10000</option><option value="30000">30000</option>'
-				options+='<option value="50000" selected="selected">50000</option><option value="90000">90000</option></select>'
-			elif prod=='5':
-				options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
-				options+='<option value="10000">10000</option><option value="30000">30000</option>'
-				options+='<option value="50000">50000</option><option value="90000" selected="selected">90000</option></select>'
-			else:
-				options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
-				options+='<option value="10000">10000</option><option value="30000">30000</option>'
-				options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
-			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			# print options
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'selectOptions':options})
-			'''
+		# else:
+		# 	prod=request.GET.get("productId",None)
+		# 	# if prod=='1':
+		# 	# 	options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000" selected="selected">5000</option>'
+		# 	# 	options+='<option value="10000">10000</option><option value="30000">30000</option>'
+		# 	# 	options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+		# 	# elif prod=='2':
+		# 	# 	options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+		# 	# 	options+='<option value="10000" selected="selected">10000</option><option value="30000">30000</option>'
+		# 	# 	options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+		# 	# elif prod=='3':
+		# 	# 	options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+		# 	# 	options+='<option value="10000">10000</option><option value="30000" selected="selected">30000</option>'
+		# 	# 	options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+		# 	# elif prod=='4':
+		# 	# 	options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+		# 	# 	options+='<option value="10000">10000</option><option value="30000">30000</option>'
+		# 	# 	options+='<option value="50000" selected="selected">50000</option><option value="90000">90000</option></select>'
+		# 	# elif prod=='5':
+		# 	# 	options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000">5000</option>'
+		# 	# 	options+='<option value="10000">10000</option><option value="30000">30000</option>'
+		# 	# 	options+='<option value="50000">50000</option><option value="90000" selected="selected">90000</option></select>'
+		# 	# else:
+		# 	# 	options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
+		# 	# 	options+='<option value="10000">10000</option><option value="30000">30000</option>'
+		# 	# 	options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
+		# 	# greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+		# 	# print options
+		 	return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'selectOptions':options})
+			
 
 
 
@@ -647,9 +639,9 @@ def all(request):
 	products = Product.objects.all()
 	#primaryImages = Product.objects.all()
 	specialProduct = SpecialProduct.objects.all()
-	context = {'products': products,'specialProduct': specialProduct} #"primaryImages": primaryImages}
+	context = {'showProducts': products,'specialProduct': specialProduct,'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'} #"primaryImages": primaryImages}
 	template = 'home/all.html'
-	return render (request, template, context, {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
+	return render (request, template, context)
 
 def single(request):
 		x = request.GET.get("q",None)

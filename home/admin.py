@@ -9,6 +9,7 @@ from .models import UserRelation
 from .models import Product
 from .models import SpecialProduct
 from .models import ProductImage
+from .models import UserRefferal
 
  
 # Register your models here.
@@ -20,6 +21,6 @@ admin.site.register(UserRelation)
 admin.site.register(Product)
 admin.site.register(SpecialProduct)
 admin.site.register(ProductImage)
-
+admin.site.register(UserRefferal)
 
 

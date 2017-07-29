@@ -5,7 +5,7 @@
 {% load staticfiles %}
 
     <div class='row'>
-      {% for product in products %}
+      {% for product in showProducts %}
       <div class='col-sm-2'>
 
         <div class="thumbnail">
@@ -14,14 +14,14 @@
               
               
             {% if item.featured %}  
-            <img class='img-responsive'src="{{ MEDIA_URL }}{{ item.image }}" />
+            <img class='img-responsive'src="/media/{{ item.image }}" />
             <div style="width:150px; margin: 0 auto;">
 
               <a href='/single?q={{product.productId}}'>
-                <div class='background_img_thumb' style="height:100px; background-image: url('{{ MEDIA_URL }}{{ item.image }}');"></div>
+                <div class='background_img_thumb' style="height:100px; background-image: url('/media/{{ item.image }}');"></div>
               </a>
             </div>
-              <img class='img-responsive'src="{{ MEDIA_URL }}{{ item.image }}" />
+              <img class='img-responsive'src="/media/{{ item.image }}" />
             {% endif %}
                 
             {%  endfor %}

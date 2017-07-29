@@ -4,8 +4,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.core.urlresolvers import reverse
 
 class User(models.Model):
-    sponserId = models.CharField(max_length=10,primary_key=True)
-    username = models.CharField(unique= False,max_length=20)
+    #sponserId = models.CharField(max_length=10,primary_key=True)
+    username = models.CharField(max_length=20)
     password = models.CharField(max_length=1000,blank=True)
     #plan = models.IntegerField(blank=True)
     joiningDate = models.DateTimeField(
@@ -30,6 +30,7 @@ class UserDetails(models.Model):
 
 class UserAccount(models.Model):
     username = models.CharField(max_length=10)#foreign key
+    sponserId = models.CharField(max_length=10,primary_key=True)
     accountNo = models.CharField(max_length=200)
     IFSCCode = models.CharField(max_length=200)
     holderName = models.CharField(max_length=100)
@@ -53,6 +54,13 @@ class UserRelation(models.Model):
     def saveRelation(self):
         # self.published_date = timezone.now()
         self.save()
+class UserRefferal(models.Model):
+    username = models.CharField(max_length=10)
+    sponserId = models.CharField(max_length=10)
+
+    def saveRefferal(self):
+        self.save()
+
 
 class Product(models.Model):
     title = models.CharField(max_length=120)
