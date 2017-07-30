@@ -8,22 +8,56 @@
 body {
     background-image: url({% static 'img/backgrounds/1.jpg' %});
 }
+.preview {
+width:100%;
+height:100%}
+ 
+.thumb {
+width:100%;
+height:50%;
+margin-right:3px;}
+ 
+.normal {
+border:3px solid #000000;}
+ 
+.selected {
+border:3px solid #ff0000;}
 
 </style>
-
+<br>
 <br>
 <br>
 <div class='row'>
 	<div class='col-sm-4'>	
 
 	
-		<div class="col-xs-12 ">
-			<img class='img-responsive' src="/media/{{ spProd.primaryImage }}" />
-		<hr/>	
+		<div  class="col-xs-12 ">
+			<img id="0" class="preview normal" src="" alt="preview" /><br />
 		</div>
 		
-	
-	</div>
+    <div class='row'>
+
+      <div class='col-sm-2'>
+          <!--  <img onclick="myFunction1()"  type="image" class='img-responsive' src="/media/{{ spProd.primaryImage }}" />  -->
+          
+          <img id="1" class='img-responsive' src="/media/{{ spProd.primaryImage }}" alt="image1" onmouseover="preview(this)"/>
+       </div>
+      <div  class='col-sm-2'>
+          <!-- <img onclick="myFunction2()" type="image" class='img-responsive' src="/media/{{ spProd.secondaryImage }}" />  -->
+          <img id="2" class="thumb normal" src="/media/{{ spProd.secondaryImage }}" alt="image2" onmouseover="preview(this)"/>
+      </div>
+      <div  class='col-sm-2'>
+          <!-- <img onclick="myFunction2()" type="image" class='img-responsive' src="/media/{{ spProd.additionalImage }}" />  -->
+          <img id="3" class="thumb normal" src="/media/{{ spProd.additionalImage }}" alt="image3" onmouseover="preview(this)"/>
+      </div>
+    </div> 
+  </div>
+	 
+   <!-- <img id="0" class="preview normal" src="" alt="preview" /><br />
+<img id="1" class="thumb normal" src="/media/{{ spProd.primaryImage }}" alt="image1" onmouseover="preview(this)"/>
+<img id="2" class="thumb normal" src="/media/{{ spProd.secondaryImage }}" alt="image2" onmouseover="preview(this)"/>
+<img id="3" class="thumb normal" src="/media/{{ spProd.additionalImage }}" alt="image3" onmouseover="preview(this)"/>
+	 -->
 	<div class='col-sm-5'>
 		<div class='col-sm-8 pull-left'>
 			<h1>{{ spProd.title }}
@@ -50,6 +84,23 @@ body {
 
 
 </div>
+
+<meta charset="utf-8" />
+
+
+<script>
+ 
+    var lastImg = 1; //Set initial thumbnail and preview
+    document.getElementById(0).src = document.getElementById(lastImg).src;
+    document.getElementById(lastImg).className = "thumb selected";
+ 
+    function preview(img) {
+        document.getElementById(lastImg).className = "thumb normal";
+        img.className = "thumb selected";
+        document.getElementById(0).src = img.src;
+        lastImg = img.id
+    }
+</script>
 
 
 {% endblock %}
