@@ -25,7 +25,7 @@ SECRET_KEY = '0@b@#6jnix=m*ta5gcew*0@ns8=6ol0te3*#kk4o%ma4=ei$6g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1' , '.pythonanywhere.com' ,'petalsart.in']
+ALLOWED_HOSTS = ['127.0.0.1' , '.pythonanywhere.com' ,'www.petalsart.in']
 
 
 # Application definition
