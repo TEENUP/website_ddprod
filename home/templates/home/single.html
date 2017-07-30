@@ -75,11 +75,11 @@ h1{
   -webkit-filter: grayscale(1);
   cursor: pointer;
   transition: all .5s ease;
-}
+}*/
 img:hover{
   -webkit-filter: grayscale(0);
   transform: scale(1.2,1.2);
-}*/
+}
 
 @keyframes rotation{
   from{
@@ -94,15 +94,15 @@ img:hover{
 <br>
   <div class="container">
         <div id="carousel">
-      <figure><img src="/media/{{ product.primaryImage }}" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/2" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/3" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/4" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/5" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/6" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/7" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/8" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/people/9" alt=""></figure>
+      <figure><img src="/media/{{ product.primaryImage }}" style="width:100%; height:150px;"alt=""></figure>
+      <figure><img src="/media/{{ product.secondaryImage }}" style="width:100%; height:150px;" alt=""></figure>
+      <figure><img src="/media/{{ product.additionalImage }}" style="width:100%; height:150px;" alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/nature/4"  style="width:100%; height:150px;" alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/nature/5"  style="width:100%; height:150px;" alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/nature/6"  style="width:100%; height:150px;" alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/nature/7"   style="width:100%; height:150px;"alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/nature/8"   style="width:100%; height:150px;"alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/people/9"  style="width:100%; height:100px;" alt=""></figure>
     </div>
   </div>
 
@@ -111,7 +111,7 @@ img:hover{
 
 	
 		<div class="col-xs-12 ">
-			<img class='img-responsive' src="/media/{{ product.primaryImage }}" />
+			<img class='img-responsive' src="/media/{{ product.additionalImage }}" />
 		<hr/>	
 		</div>
 		

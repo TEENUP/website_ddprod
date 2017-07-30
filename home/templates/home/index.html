@@ -146,7 +146,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Products</h2>
+                    <h2 class="section-heading">Trending Products</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -156,15 +156,22 @@
         <!--<section id="portfolio" class="bg-light-gray">-->
         <div class="container">
             <div class="row">
+                {% for sp in spProd %}
                 <div class="col-md-4 col-sm-6 portfolio-item">
                     <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                        <img src={% static 'img/portfolio/fullsize/6.jpg' %} class="img-responsive" alt="">
+                        <img src="/media/{{ sp.primaryImage }}" style="width:100%; height:200px;" class="img-responsive" alt="">
                     </a>
-                    <div class="portfolio-caption">
-                        <h4>Pants</h4>
+                    <div class="caption">
+                    <a href='/singles?q={{sp.productId}}'> 
+                    <h3>{{ sp.title }}</h3>
+                    <p>{{ sp.description|truncatewords:15}}</p>
+                    <p><a href="/singles?q={{sp.productId}}" 
+                     class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Button</a>
+                    </p>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
+                </div>    
+                {% endfor %}
+                <!-- <div class="col-md-4 col-sm-6 portfolio-item">
                     <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
                         <img src={% static 'img/portfolio/fullsize/5.jpg' %} class="img-responsive" alt="">
                     </a>
@@ -203,19 +210,92 @@
                     <div class="portfolio-caption">
                         <h4>Suit's</h4>
                     </div>
+                </div> -->
+            </div>
+        </div>
+    </section> 
+
+    <section id="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Products</h2>
+                    <hr class="primary">
                 </div>
             </div>
         </div>
-    <!--</section> -->
+        <!-- Write Plans Here -->
+
+        <!--<section id="portfolio" class="bg-light-gray">-->
+        <div class="container">
+            <div class="row">
+                {% for p in products %}
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                        <img src="/media/{{ p.primaryImage }}" style="width:100%; height:200px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="caption">
+                    <a href='/single?q={{p.productId}}'> 
+                    <h3>{{ p.title }}</h3>
+                    <p>{{ p.description|truncatewords:15}}</p>
+                    <p><a href="/single?q={{p.productId}}" 
+                     class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Button</a>
+                    </p>
+                    </div>
+                </div>    
+                {% endfor %}
+                <!-- <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/5.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>T shirt's</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/4.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Shoes</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/3.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Jacket's</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/2.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Shirt's</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/1.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Suit's</h4>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section> 
 
 
-     <div class="container">
+    <!--  <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <a href="/products" class="btn btn-primary btn-xl page-scroll">Explore Different Products</a>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
 

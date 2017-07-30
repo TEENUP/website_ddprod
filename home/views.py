@@ -109,15 +109,20 @@ def isLoggedIn(request):
 	return False
 
 def home_list(request):
+
+	spProd = SpecialProduct.objects.all()
+	products = Product.objects.all()
+
+
 	if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
-		return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
+		return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'spProd':spProd,'products':products})
 	else:
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+			return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'spProd':spProd,'products':products})
 
 def validateSponserId(sponserId):
 	if len(sponserId)!=6:
@@ -655,12 +660,30 @@ def single(request):
 		x = request.GET.get("q",None)
 		print x
 		product = Product.objects.get(productId = x)
+		#spProd = SpecialProduct.objects.get(productId = x)
+		#print spProd
 		print product
 
-		#images = product.productimage_set.all()
-		images = ProductImage.objects.filter(product=product)
+		images = product.productimage_set.all()
+		#images = ProductImage.objects.filter(product=product)
 		#images1 = roduct.objects.filter(product=product)
 
-		context = {'product': product, "images": images}
+		context = {'product':product,'images':images,'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'}
 		template = 'home/single.html'
+		return render (request, template, context) 
+
+def singles(request):
+		x = request.GET.get("q",None)
+		print x
+		#product = Product.objects.get(productId = x)
+		spProd = SpecialProduct.objects.get(productId = x)
+		print spProd
+		#print product
+
+		#images = product.productimage_set.all()
+		#images = ProductImage.objects.filter(product=product)
+		#images1 = roduct.objects.filter(product=product)
+
+		context = {'spProd':spProd,'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'}
+		template = 'home/singles.html'
 		return render (request, template, context) 

@@ -40,4 +40,5 @@ urlpatterns = [
     url(r'^slide/', include('home.urls')),
     url(r'^all/', include('home.urls')),
     url(r'^single/', include('home.urls')),
+    url(r'^singles/', include('home.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

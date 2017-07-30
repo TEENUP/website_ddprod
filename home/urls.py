@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^slide/', views.slide, name='slide'),
     url(r'^all/', views.all, name='all'),
     url(r'^single/', views.single, name='single'),
+    url(r'^singles/', views.singles, name='singles'),
 ]
