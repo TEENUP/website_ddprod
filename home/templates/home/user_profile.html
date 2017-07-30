@@ -51,7 +51,7 @@
             <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4 col-md-5">
+                    <div class="col-lg-8">
                         <div class="card card-user">
                             <!-- <div class="image"></div> -->
                             <div class="content">
@@ -62,7 +62,7 @@
                                   </h4>
                                 </div>
                                 <p class="description text-center">
-                                Hello {{user.username}}, here you can see your details.
+                                <h1>Hello {{user.username}},</h1> here you can see your details.
                                 </p>
                             </div>
                             <hr>
@@ -81,46 +81,50 @@
                             </div> -->
                         </div>
                     </div>
-                    <div class="col-lg-8 col-md-7">
-                        <div class="card">
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card ">
                             <div class="header">
-                                <h4 class="title">User Profile</h4>
+                                <h4 class="title"><b>USER PROFILE</b></h4>
                             </div>
                             <div class="content">
                                     <div class="row">
-                                        <div class="col-md-4">
-                                        	<h5 class="title">Username<br />
+                                         <div class="header">
+                                        	<h5 class="title"><b>Username</b><br />
 		                                    	<small>{{user.username}}</small>
 		                                  	</h5>
+                
                                         </div>
-                                        <div class="col-md-4">
-                                            <h5 class="title">First Name<br />
+                                         <div class="header">
+                                            <h5 class="title"><b>First Name</b><br />
 		                                    	<small>{{userDetails.firstName}}</small>
 		                                  	</h5>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h5 class="title">Last Name<br />
+                                            </div>
+                        
+                                            <div class="header">
+                                            <h5 class="title"><b>Last Name</b><br />
 		                                    	<small>{{userDetails.lastName}}</small>
 		                                  	</h5>
-                                        </div>
+                                          </div>
+                                
                                     </div>
-
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <h5 class="title">Phone Number<br />
+                                         <div class="header">
+                                            <h5 class="title"><b>Phone Number</b><br />
 		                                    	<small>{{userDetails.phoneNo}}</small>
 		                                  	</h5>
                                         </div>
-                                        <div class="col-md-6">
-                                            <h5 class="title">Email<br />
+                                         <div class="header">
+                                            <h5 class="title"><b>Email</b><br />
 		                                    	<small>{{userDetails.email}}</small>
 		                                  	</h5>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <h5 class="title">Address<br />
+                                         <div class="header">
+                                            <h5 class="title"><b>Address</b><br />
 		                                    	<small>{{userDetails.address}}</small>
 		                                  	</h5>
                                         </div>
@@ -128,51 +132,57 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8 col-md-7">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Account Details</h4>
+                                <h4 class="title"><b>ACCOUNT DETAILS</b></h4>
                             </div>
                             <div class="content">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                        	<h5 class="title">Account Holder Name<br />
+                                         <div class="header">
+                                        	<h5 class="title"><b>Account Holder Name</b><br />
 		                                    	<small>{{userAccount.holderName}}</small>
 		                                  	</h5>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h5 class="title">Account Number<br />
+                                          </div>
+                                     <div class="header">
+                                            <h5 class="title"><b>Account Number</b><br />
 		                                    	<small>{{userAccount.accountNo}}</small>
 		                                  	</h5>
-                                        </div>
+                                          </div>
+                                        
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <h5 class="title">IFSC Code<br />
+                                        
+                                         <div class="header">
+                                            <h5 class="title"><b>IFSC Code</b><br />
 		                                    	<small>{{userAccount.IFSCCode}}</small>
 		                                  	</h5>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h5 class="title">Bank<br />
+                                          </div>
+                                        
+                                         <div class="header">
+                                            <h5 class="title"><b>Bank</b><br />
 		                                    	<small>{{userAccount.bankName}}</small>
 		                                  	</h5>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h5 class="title">Branch<br />
+                                          </div>
+                                        
+                                         <div class="header">
+                                            <h5 class="title"><b>Branch</b><br />
 		                                    	<small>{{userAccount.branchName}}</small>
 		                                  	</h5>
-                                        </div>
+                                          </div>
+                                        
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <h5 class="title">PAN Number<br />
+                                        
+                                         <div class="header">
+                                            <h5 class="title"><b>PAN Number</b><br />
 		                                    	<small>{{userAccount.panNo}}</small>
 		                                  	</h5>
                                         </div>
-                                        <div class="col-md-6">
-                                            <h5 class="title">Aadhaar Number<br />
+                                         <div class="header">
+                                            <h5 class="title"><b>Aadhaar Number</b><br />
 		                                    	<small>{{userAccount.aadhaarNo}}</small>
 		                                  	</h5>
                                         </div>

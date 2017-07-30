@@ -359,16 +359,16 @@ def dashboard(request):
 	# return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
 
 def products(request):
-	return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','buyAnotherProduct':'/buyAnotherProduct'})
+	return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','buy':'/buy'})
 	"""if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
-		return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','buyAnotherProduct':'/buyAnotherProduct','greet':greet,'logout':logout})
+		return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','buy':'/buy','greet':greet,'logout':logout})
 	else:
 		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-		return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','buyAnotherProduct':'/buyAnotherProduct','greet':greet})
+		return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','buy':'/buy','greet':greet})
 
 """
 
@@ -471,7 +471,7 @@ def contact(request):
 	return render(request,template,context)
 
 
-def buyAnotherProduct(request):
+def buy(request):
 	#you have to write view for adding product into the user
 	#return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
 
@@ -599,7 +599,7 @@ def buyAnotherProduct(request):
 			# options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
 			# options+='<option value="10000">10000</option><option value="10000">30000</option>'
 			# options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
-			return render(request, 'home/buyAnotherProduct.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
+			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	else:
 		if not isLoggedIn(request):
 			return redirect('/')
@@ -631,19 +631,20 @@ def buyAnotherProduct(request):
 		# 	# 	options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
 		# 	# greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 		# 	# print options
-			return render(request, 'home/buyAnotherProduct.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
+			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
 		
 		
 
 
 
-	#return render(request,'home/buyAnotherProduct.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
+	#return render(request,'home/buy.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
 
 def slide(request):
 	return render(request, 'home/slide.html')
 	
 
-
+def TermsAndConditions(request):
+	return render(request, 'home/TermsAndConditions.html')
 
 
 

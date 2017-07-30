@@ -13,9 +13,10 @@ urlpatterns = [
     url(r'^contact', views.contact, name='contact'),
     url(r'^logout', views.logout, name='logout'),
     url(r'^thanks/', views.thanks, name='thanks'),
-    url(r'^buyAnotherProduct/', views.buyAnotherProduct, name='buyAnotherProduct'),
+    url(r'^buy/', views.buy, name='buy'),
     url(r'^slide/', views.slide, name='slide'),
     url(r'^all/', views.all, name='all'),
     url(r'^single/', views.single, name='single'),
     url(r'^singles/', views.singles, name='singles'),
+    url(r'^TermsAndConditions/', views.TermsAndConditions, name='TermsAndConditions'),
 ]

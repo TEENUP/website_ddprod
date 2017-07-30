@@ -82,7 +82,10 @@
 	                        				class="r-form-about-yourself form-control" id="address" required></textarea>
 	                        </div>
                             
-				            <button type="submit" class="btn">Submit</button>
+                            <p align='justify'><input type="checkbox" name="checkbox" value="check"  /> 
+                             I/we agree to abide by the terms, conditions, rules, regulations and take note of the risk factors of the respective  <a href="/TermsAndConditions">TermsAndConditions</a></p>
+                                 <!-- <input type="submit" name="email_submit" value="submit" onclick="if(!this.form.checkbox.checked){alert('You must agree to the terms first.');return false}"  /> -->
+				            <button type="submit" class="btn" onclick="if(!this.form.checkbox.checked){alert('You must agree to the terms first.');return false}" >Submit</button>
 						</form>
                     </div>
                     <div class="col-sm-6 forms-right-icons">

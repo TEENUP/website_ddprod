@@ -20,9 +20,12 @@
 html,
 body{
   min-height: 100%;
+
 }
 body{
+  
   background-image: radial-gradient(mintcream 0%, lightgray 100%);
+
 }
 h1{
   display: table;
@@ -94,47 +97,47 @@ img:hover{
 <br>
   <div class="container">
         <div id="carousel">
-      <figure><img src="/media/{{ product.primaryImage }}" style="width:100%; height:150px;"alt=""></figure>
-      <figure><img src="/media/{{ product.secondaryImage }}" style="width:100%; height:150px;" alt=""></figure>
-      <figure><img src="/media/{{ product.additionalImage }}" style="width:100%; height:150px;" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/4" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/5" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/6" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/7" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/nature/8" alt=""></figure>
-      <figure><img src="http://lorempixel.com/186/116/people/9" alt=""></figure>
+      <figure><img src="/media/{{ spProd.primaryImage }}" style="width:100%; height:150px;"alt=""></figure>
+      <figure><img src="/media/{{ spProd.secondaryImage }}" style="width:100%; height:150px;" alt=""></figure>
+      <figure><img src="/media/{{ spProd.additionalImage }}" style="width:100%; height:150px;" alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/nature/4" style="width:100%; height:150px; "alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/nature/5"style="width:100%; height:150px; "alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/nature/6"style="width:100%; height:150px; "alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/nature/7"style="width:100%; height:150px; "alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/nature/8"style="width:100%; height:150px; "alt=""></figure>
+      <figure><img src="http://lorempixel.com/186/116/people/9"style="width:100%; height:150px;" alt=""></figure>
     </div>
   </div>
 
+
+<br>
+<br>
 <div class='row'>
 	<div class='col-sm-4'>	
 
 	
-		<div class="col-xs-12 ">
+		<!-- <div class="col-xs-12 ">
 			<img class='img-responsive' src="/media/{{ product.additionalImage }}" />
 		<hr/>	
-		</div>
+		</div> -->
 		
-		
-		
-
 	
 	</div>
-	<div class='col-sm-8'>
+	<div class='col-sm-5'>
 		<div class='col-sm-8 pull-left'>
-			<h1>{{ product.title }}
+			<h1>{{ spProd.title }}
 			</h1>
 		</div>
 		
 		
 		<div class='col-sm-12'>
 			<hr/>
-			Price: {{ product.price }} <br/>
+			Price: {{ spProd.price }} <br/>
 			Shipping: Free with $25+ purchase.
 			<hr/>
 		</div>	
 			<div class='col-sm-12'>
-			{{ product.description|linebreaks }}
+			{{ spProd.description|linebreaks }}
 		    </div>
 	</div>
 

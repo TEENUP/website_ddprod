@@ -36,9 +36,10 @@ urlpatterns = [
     url(r'^contact/' , include('home.urls')),
     url(r'^logout/' , include('home.urls')),
     url(r'^thanks/' , include('home.urls')),
-    url(r'^buyAnotherProduct/', include('home.urls')),
+    url(r'^buy/', include('home.urls')),
     url(r'^slide/', include('home.urls')),
     url(r'^all/', include('home.urls')),
     url(r'^single/', include('home.urls')),
     url(r'^singles/', include('home.urls')),
+    url(r'^TermsAndConditions/', include('home.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
