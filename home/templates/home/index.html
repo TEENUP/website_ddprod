@@ -158,7 +158,7 @@
             <div class="row">
                 {% for sp in spProd %}
                 <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                    <a href="/singles" class="portfolio-link" data-toggle="modal">
                         <img src="/media/{{ sp.primaryImage }}" style="width:100%; height:200px;" class="img-responsive" alt="">
                     </a>
                     <div class="caption">
@@ -231,15 +231,15 @@
             <div class="row">
                 {% for p in products %}
                 <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                    <a href="/single" class="portfolio-link" data-toggle="modal">
                         <img src="/media/{{ p.primaryImage }}" style="width:100%; height:200px;" class="img-responsive" alt="">
                     </a>
                     <div class="caption">
                     <a href='/single?q={{p.productId}}'> <br>
                     <h4 class="mbr-section-lead lead" style="color:black;">{{ p.title }}</h4>
                     <p  class="mbr-section-lead lead" style="color:black;">{{ p.description|truncatewords:15}}</p>
-                    <p><a href="/single?q={{p.productId}}" 
-                     class="btn btn-primary" role="button">View</a>
+                    <p style="color:black;"><a href="/single?q={{p.productId}}" 
+                     class="btn btn-primary " role="button">View</a>
                     </p>
                     </div>
                 </div>    
