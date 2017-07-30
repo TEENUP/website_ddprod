@@ -60,19 +60,19 @@ border:3px solid #ff0000;}
 	 -->
 	<div class='col-sm-5'>
 		<div class='col-sm-8 pull-left'>
-			<h1>{{ spProd.title }}
+			<h1 style="color:white;">{{ spProd.title }}
 			</h1>
 		</div>
 		
 		
 		<div class='col-sm-12'>
-			<hr/>
-			Price: {{ spProd.price }} <br/>
-			Shipping: Free with $25+ purchase.
-			<hr/>
+			
+			<p style="color:white;">Price: {{ spProd.price }}</p> <br/>
+			<p style="color:white;">Shipping: Free with $25+ purchase.</p>
+			
 		</div>	
 			<div class='col-sm-12'>
-			{{ spProd.description|linebreaks }}
+			<p style="color:white;">{{ spProd.description|linebreaks }}</p>
 		    </div>
 
       <div class='col-sm-12'>

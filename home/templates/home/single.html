@@ -51,25 +51,25 @@ border:3px solid #ff0000;}
           <img id="3" class="thumb normal" src="/media/{{ product.additionalImage }}" alt="image3" onmouseover="preview(this)"/>
       </div>
 	
-		
+		</div>
 	
 	
 	</div>
 	<div class='col-sm-8'>
 		<div class='col-sm-5 pull-left'>
-			<h1>{{ product.title }}
+			<h1 style="color:white;">{{ product.title }}
 			</h1>
 		</div>
 		
 		
 		<div class='col-sm-12'>
-			<hr/>
-			Price: {{ product.price }} <br/>
-			Shipping: Free with $25+ purchase.
-			<hr/>
+			
+			<p style="color:white;">Price: {{ product.price }} </p><br/>
+			<p style="color:white;">Shipping: Free with $25+ purchase.</p>
+			
 		</div>	
 			<div class='col-sm-12'>
-			{{ product.description|linebreaks }}
+			<p style="color:white;">{{ product.description|linebreaks }}</p>
 		    </div>
         <div class='col-sm-12'>
       <form action="/buy">
