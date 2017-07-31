@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^single/', views.single, name='single'),
     url(r'^singles/', views.singles, name='singles'),
     url(r'^TermsAndConditions/', views.TermsAndConditions, name='TermsAndConditions'),
+    url(r'^buyProducts/', views.buyProducts, name='buyProducts'),
 ]

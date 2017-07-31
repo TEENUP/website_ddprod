@@ -111,7 +111,7 @@ def isLoggedIn(request):
 def home_list(request):
 
 	spProd = SpecialProduct.objects.all()
-	products = Product.objects.all()
+	prod = Product.objects.all()
 
 
 	if isLoggedIn(request):
@@ -119,10 +119,10 @@ def home_list(request):
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
-		return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'spProd':spProd,'products':products})
+		return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'spProd':spProd,'prod':prod})
 	else:
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'spProd':spProd,'products':products})
+			return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'spProd':spProd,'prod':prod})
 
 def validateSponserId(sponserId):
 	if len(sponserId)!=6:
@@ -200,10 +200,10 @@ def contact_us(request):
 			greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 			logout='<a class="page-scroll" href="/logout">Logout</a>'
 			# Can take email and name
-			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})#,'errorEmail':errorEmail})
+			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout})#,'errorEmail':errorEmail})
 		else:
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet})
 
 
 
@@ -250,14 +250,14 @@ def sign_up(request):
 			return response
 		else:
 			# Render The page with errors
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber})
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber})
 	else:
 		if isLoggedIn(request):
 			return redirect('/')
 		else:
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 			# print options
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet})
 
 
 def login(request):
@@ -279,20 +279,20 @@ def login(request):
 			else:
 
 				# Incorrect Password But Write Incorrect Username OR password
-				return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','name':username,'password':password,'errorLogin':errorLogin})
+				return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','name':username,'password':password,'errorLogin':errorLogin})
 		else:
 			# Incorrect Username but Write Incorrect Username OR password
-				return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','name':username,'password':password,'errorLogin':errorLogin})
+				return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','name':username,'password':password,'errorLogin':errorLogin})
 
 		
 
-		# return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'}) #{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'}) 
+		# return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up'}) #{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up'}) 
 	else:
 		if isLoggedIn(request):
 			return redirect('/')
 		else:
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+			return render(request, 'home/login.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet})
 
 def about_us(request):
 	if isLoggedIn(request):
@@ -300,10 +300,10 @@ def about_us(request):
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
-		return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
+		return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout})
 	else:
 		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-		return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet})
+		return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet})
 
 
 def dashboard(request):
@@ -349,26 +349,26 @@ def dashboard(request):
 					t.append(objsTemp[1][i].email)
 					temp.append(t)
 				reff.append(temp)	
-			return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'temp':temp,'user':usr,'num':len(objs)})
+			return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'temp':temp,'user':usr,'num':len(objs)})
 		else:
-			return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':usr,'num':0})
+			return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':usr,'num':0})
 
 
 	else:
 		return redirect('/')
-	# return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
+	# return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 
 def products(request):
-	return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','buy':'/buy'})
+	return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','buy':'/buy'})
 	"""if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
-		return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','buy':'/buy','greet':greet,'logout':logout})
+		return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','buy':'/buy','greet':greet,'logout':logout})
 	else:
 		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-		return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','buy':'/buy','greet':greet})
+		return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','buy':'/buy','greet':greet})
 
 """
 
@@ -387,11 +387,11 @@ def user_profile(request):
 			reff = UserRefferal.objects.filter(username=username)
 			if reff.count()>0:	
 				refferal=UserRefferal.objects.get(username=user.username)
-				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount,'refferal':refferal})
+				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount,'refferal':refferal})
 			else:
-				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount})
+				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount})
 		else:
-			return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails})
+			return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails})
 	else:
 		return redirect('/')
 
@@ -408,10 +408,10 @@ def thanks(request):
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
-		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'logout':logout})
+		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout})
 	else:
 		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','greet':greet,'errorEmail':errorEmail})
+		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'errorEmail':errorEmail})
 
 """
 def contact(request):
@@ -473,7 +473,7 @@ def contact(request):
 
 def buy(request):
 	#you have to write view for adding product into the user
-	#return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
+	#return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 
 	'''if request.method == "POST":
 		parentId=request.POST.get('sponserId')
@@ -502,7 +502,7 @@ def buy(request):
 			return response
 		else:
 			# Render The page with errors
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	'''
 	if request.method == "POST":
 		parentId=request.POST.get('sponserId')
@@ -599,7 +599,7 @@ def buy(request):
 			# options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
 			# options+='<option value="10000">10000</option><option value="10000">30000</option>'
 			# options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
-			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
+			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	else:
 		if not isLoggedIn(request):
 			return redirect('/')
@@ -631,13 +631,18 @@ def buy(request):
 		# 	# 	options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
 		# 	# greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 		# 	# print options
-			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
+			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 		
 		
 
 
 
-	#return render(request,'home/buy.html', {'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'})
+	#return render(request,'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
+
+
+def buyProducts(request):
+	return render(request,'home/buyProducts.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
+
 
 def slide(request):
 	return render(request, 'home/slide.html')
@@ -653,7 +658,7 @@ def all(request):
 	products = Product.objects.all()
 	#primaryImages = Product.objects.all()
 	specialProduct = SpecialProduct.objects.all()
-	context = {'showProducts': products,'specialProduct': specialProduct,'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'} #"primaryImages": primaryImages}
+	context = {'showProducts': products,'specialProduct': specialProduct,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'} #"primaryImages": primaryImages}
 	template = 'home/all.html'
 	return render (request, template, context)
 
@@ -669,7 +674,7 @@ def single(request):
 		#images = ProductImage.objects.filter(product=product)
 		#images1 = roduct.objects.filter(product=product)
 
-		context = {'product':product,'images':images,'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'}
+		context = {'product':product,'images':images,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'}
 		template = 'home/single.html'
 		return render (request, template, context) 
 
@@ -685,6 +690,6 @@ def singles(request):
 		#images = ProductImage.objects.filter(product=product)
 		#images1 = roduct.objects.filter(product=product)
 
-		context = {'spProd':spProd,'home':'/','about':'/about_us','products':'/products','contact':'/contact_us'}
+		context = {'spProd':spProd,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'}
 		template = 'home/singles.html'
 		return render (request, template, context) 

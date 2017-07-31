@@ -68,14 +68,14 @@ margin-top:20px;
     <div class='col-sm-12'>
       
       <p style="color:white;">Price: {{ product.price }} </p><br/>
-      <p style="color:white;">Shipping: Free with $25+ purchase.</p>
+      <p style="color:white;">Shipping: with 10-15 working days fromthe day of purchase.</p>
       
     </div>  
       <div class='col-sm-12'>
-      <p style="color:white;">{{ product.description|linebreaks }}</p>
+      <p align="justify" style="color:white;">{{ product.description}}</p>
         </div>
         <div class='col-sm-12'>
-      <form action="/buy">
+      <form action="/buyProducts">
      <input type="submit" class="btn" value="Buy" />
       </form>
       </div>
@@ -162,7 +162,7 @@ margin-top:20px;
 </div>
   
 	
-	</div>
+	<!-- </div>
 	<div class='col-sm-8'>
 		<div class='col-sm-5 pull-left'>
 			<h1 style="color:white;">{{ product.title }}
@@ -186,7 +186,7 @@ margin-top:20px;
       </div>
 	</div>
 
-</div>
+</div> -->
 
 
 <script>
