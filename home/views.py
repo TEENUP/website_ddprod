@@ -602,8 +602,10 @@ def buy(request):
 			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	else:
 		if not isLoggedIn(request):
-			return redirect('/')
+			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+			return redirect('/sign_up')
 		else:
+			
 			prod=request.GET.get("productId",None)
 		# 	# if prod=='1':
 		# 	# 	options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000" selected="selected">5000</option>'
@@ -641,7 +643,11 @@ def buy(request):
 
 
 def buyProducts(request):
-	return render(request,'home/buyProducts.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
+	if not isLoggedIn(request):
+			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+			return redirect('/sign_up')
+	else:
+		return render(request,'home/buyProducts.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 
 
 def slide(request):
