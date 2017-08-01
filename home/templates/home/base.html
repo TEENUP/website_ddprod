@@ -54,7 +54,17 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+<style>
+/*.navbar{
+  background:transparent;
+  background-color:lightgrey;
+  border-color:black;
+  margin-bottom:0px;
+  font-family: 'Droid Serif', serif;
+  font-size:20px;
+}*/
 
+</style>
 </head>
 
 <body id="page-top">
@@ -100,6 +110,23 @@
     
 
     <!-- jQuery -->
+
+ <script> 
+
+    // $(document).on('scroll', function (e) {
+    // $('.navbar').css('opacity', ($(document).scrollTop() / 500));
+    //     });
+$(window).scroll(function () {
+if ($(window).scrollTop() >= 500) {
+$('.navbar').css('background','lightgrey');
+} else {
+$('.navbar').css('background','transparent');
+}
+});
+
+
+
+ </script>
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 
     <!-- Bootstrap Core JavaScript -->
