@@ -15,6 +15,8 @@ class User(models.Model):
     def saveUser(self):
         # self.published_date = timezone.now()
         self.save()
+    def __unicode__(self):
+        return 'User: ' + self.username
 
 class UserDetails(models.Model):
     username = models.CharField(max_length=10)#foreign key
@@ -27,6 +29,8 @@ class UserDetails(models.Model):
     def saveDetails(self):
         # self.published_date = timezone.now()
         self.save()
+    def __unicode__(self):
+        return 'UserDetails: ' + self.username
 
 class UserAccount(models.Model):
     username = models.CharField(max_length=10)#foreign key
@@ -46,6 +50,8 @@ class UserAccount(models.Model):
     def saveAccountDetails(self):
         # self.published_date = timezone.now()
         self.save()
+    def __unicode__(self):
+        return 'UserAccount: ' + self.username
 
 class UserRelation(models.Model):
     sponserId = models.CharField(max_length=10)
@@ -54,12 +60,19 @@ class UserRelation(models.Model):
     def saveRelation(self):
         # self.published_date = timezone.now()
         self.save()
+    def __unicode__(self):
+        return 'saveRelation: ' + self.sponserId + self.parentId
+
+
 class UserRefferal(models.Model):
     username = models.CharField(max_length=10)
     sponserId = models.CharField(max_length=10)
 
     def saveRefferal(self):
         self.save()
+    def __unicode__(self):
+        return 'UserRefferal: ' + self.username + self.sponserId
+
 
 
 class Product(models.Model):
@@ -81,6 +94,8 @@ class Product(models.Model):
     def saveProduct(self):
         self.save()
 
+    def __unicode__(self):
+        return 'Product: ' + self.productId
    
     """ def __unicode__(self):
         return self.title
@@ -113,6 +128,9 @@ class SpecialProduct(models.Model):
     def saveSpecialProduct(self):
         self.save()
 
+    def __unicode__(self):
+        return 'SpecialProduct: ' + self.productId
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product)
@@ -123,4 +141,7 @@ class ProductImage(models.Model):
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     def saveproductImage(self):
-        return self.product.title        
+        return self.product.title  
+
+    def __unicode__(self):
+        return 'ProductImage: ' + self.product      
