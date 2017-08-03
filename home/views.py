@@ -411,7 +411,7 @@ def thanks(request):
 		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout})
 	else:
 		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'errorEmail':errorEmail})
+		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet})
 
 """
 def contact(request):
