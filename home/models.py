@@ -43,8 +43,8 @@ class UserAccount(models.Model):
     accountType = models.BooleanField()
     panNo = models.CharField(max_length=200,default="Blank")
     aadhaarNo = models.CharField(max_length=200,default="Blank")
-    panCard = models.BinaryField(default="Blank")
-    aadhaarCard = models.BinaryField(default="Blank")
+    #panCard = models.BinaryField(default="Blank")
+    #aadhaarCard = models.BinaryField(default="Blank")
     photo = models.BinaryField(default="Blank")
 
     def saveAccountDetails(self):
@@ -123,6 +123,7 @@ class SpecialProduct(models.Model):
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     active = models.BooleanField(default=True)
     update_defaults = models.BooleanField(default=False)
+    cashBack = models.IntegerField(null=True,default = 0)
 
 
     def saveSpecialProduct(self):

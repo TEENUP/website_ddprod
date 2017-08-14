@@ -13,6 +13,10 @@ list-style:none;
 margin-left: -40px;
 margin-top:20px;
 }
+
+body { float:left;}
+.success { background-color: #ccffcc;}
+
 </style>
 <br>
 <br>
@@ -30,6 +34,9 @@ margin-top:20px;
                             <div class="col-sm-8" id="carousel-bounding-box">
                                 <div class="carousel slide" id="myCarousel">
                                     <!-- Carousel items -->
+                                    <div class="success">
+                                    <center><b>Get cashback of {{ spProd.cashBack }}%</b></center>
+                                    </div>
                                     <div class="carousel-inner">
                                         <div class="active item" data-slide-number="0">
                                         <img src="/media/{{ spProd.primaryImage }}"></div>

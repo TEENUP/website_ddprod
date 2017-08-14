@@ -1,0 +1,42 @@
+{% extends 'home/base.html' %}
+{% block content %}
+
+{% load staticfiles %}
+
+
+<div>
+   
+    
+
+        
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="page-header">Payment Gateway
+                <br>
+                <small>It's nice that you visited our site and enjoy shopping</small>
+            </h1>
+            <p>come back again for more products</p>
+        </div> 
+    </div>
+
+        
+<button type="submit" class="btn">BUY Product</button>
+
+</div>
+
+ <script>
+            $('#btnDialog').click(function ()
+        {
+              $(this).speedoPopup(
+     {
+        width:550,
+        height:265,
+        useFrame: TRUE,
+        href: '#divContentToPopup'
+    });
+        });
+
+        </script>
+
+
+{% endblock %}

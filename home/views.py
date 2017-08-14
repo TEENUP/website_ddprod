@@ -73,12 +73,12 @@ def insertUser(parentId,childId):
 	calculate(parentId,childId)
 	
 def calculate(rootSponserId,sponserId):
-	parentObj=User.objects.get(sponserId=rootSponserId)
-	childObj=User.objects.get(sponserId=sponserId)
+	parentObj=UserAccount.objects.get(sponserId=rootSponserId)
+	childObj=UserAccount.objects.get(sponserId=sponserId)
 	amountAdd=0
-	parentObj.amount+=(childObj.plan)*0.1
-	parentObj.saveUser()
-	print parentObj.amount
+	#parentObj.amount+=(childObj.plan)*0.1
+	#parentObj.saveUser()
+	#print parentObj.amount
 
 # tree generation
 
@@ -131,7 +131,7 @@ def validateSponserId(sponserId):
 	if not isValid:
 		return False
 	else:
-		user=User.objects.filter(sponserId=sponserId)
+		user=UserAccount.objects.filter(sponserId=sponserId)
 		if user.count()>0:
 			return True
 		else:
@@ -272,7 +272,9 @@ def login(request):
 			h_value=usr.password
 			if valid_pw(username,password,h_value):
 				user_id=usr.username
+				print "qwertyqwerty" + user_id
 				id_to_send=make_secure_val(str(user_id))
+				print "asdsasdsad" + id_to_send
 				response = redirect('/dashboard')
 				response.set_cookie('user_id', id_to_send)
 				return response
@@ -322,7 +324,7 @@ def dashboard(request):
 		user_id= request.COOKIES['user_id']
 		username=check_secure_val(user_id)
 		usr=User.objects.get(username=username)
-#changed sponsorId to usernaem
+#changed sponserId to username
 		refferal=UserRefferal.objects.filter(username=username)
 		if refferal.count()>0:
 			refferal=UserRefferal.objects.all(username=username)
@@ -506,14 +508,16 @@ def buy(request):
 	'''
 	if request.method == "POST":
 		parentId=request.POST.get('sponserId')
+		print "1"+parentId
 		isSponserIdValid=validateSponserId(parentId)
+		print isSponserIdValid
 		errorSponserId=""
 		if not isSponserIdValid:
 			errorSponserId="Invalid Sponser Id"
 
 
 		sponserId="".join(random.choice(string.ascii_uppercase+string.digits) for x in range (0,6))
-		
+		print "2"+ sponserId
 		# username=request.POST.get('userName')
 		# isUsernameValid = validateUsername(username)
 		# errorUsername=""
@@ -528,7 +532,8 @@ def buy(request):
 		# if(not isPasswordValid):
 		# 	errorPassword="Passwords didn't match"
 
-		product = int(request.POST.get('product'))
+		product = request.POST.get('product')
+		print "4"+product
 		# firstName= request.POST.get('firstName')
 		# lastName=request.POST.get('lastName')
 		
@@ -577,10 +582,14 @@ def buy(request):
 			
 #cookies for username
 			user_id= request.COOKIES['user_id']
+			#print "6 "+ user_id
 			username=check_secure_val(user_id)
+			print "5"+ username
+			#return redirect('/')
+			print "hello world???"
 			UserRefferal.objects.create(username=username,sponserId=sponserId)
-			UserAccount.objects.create(sponsorId=sponserId,username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
-				accountType=accountType,accountNo=accountNo,panCard=panCard,panNo=panNo,aadhaarCard=aadhaarCard,aadhaarNo=aadhaarNo)
+			UserAccount.objects.create(sponserId=sponserId,username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
+				accountType=accountType,accountNo=accountNo,panNo=panNo,aadhaarNo=aadhaarNo)
 			UserRelation.objects.create(sponserId=sponserId,parentId=parentId)
 			# Payment
 			insertUser(parentId,sponserId)
@@ -592,14 +601,14 @@ def buy(request):
 			# print "ID TO SEND"+id_to_send
 			# print "SPONSERID"+sponserId
 			response = redirect('/')
-			response.set_cookie('user_id', id_to_send)
+			#response.set_cookie('user_id', id_to_send)
 			return response
 		else:
 			# Render The page with errors
 			# options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
 			# options+='<option value="10000">10000</option><option value="10000">30000</option>'
 			# options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
-			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
+			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	else:
 		if not isLoggedIn(request):
 			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
@@ -657,7 +666,11 @@ def slide(request):
 def TermsAndConditions(request):
 	return render(request, 'home/TermsAndConditions.html')
 
+def paymentGateway(request):
+	return render(request, 'home/paymentGateway.html')
 
+def popup(request):
+	return render(request, 'home/popup.html')
 
 #Product APP 
 def all(request):

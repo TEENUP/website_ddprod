@@ -42,5 +42,7 @@ urlpatterns = [
     url(r'^single/', include('home.urls')),
     url(r'^singles/', include('home.urls')),
     url(r'^TermsAndConditions/', include('home.urls')),
-     url(r'^buyProducts/', include('home.urls')),
+    url(r'^buyProducts/', include('home.urls')),
+    url(r'^paymentGateway/', include('home.urls')),
+    url(r'^popup/', include('home.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

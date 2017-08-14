@@ -1,0 +1,146 @@
+ {% extends 'home/base.html' %}
+{% block content %}
+
+{% load staticfiles %}
+<!--
+<script src="jquery-1.11.3.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+
+<style>
+
+/* Fullscreen overlay for modal background */
+#active-popup {
+  background-color: rgba(52,73,94, 0.7);
+  position: absolute;
+  width: 100%;
+  heighT: 100% !important;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+/* Modal container */
+#popup-container {
+  width: 45%;
+  height: 65%;
+  margin: 0 auto;
+  margin-top: 5%;
+  position: fixed;
+  left: 28%;
+  z-index: 999;
+  top: 0;
+  display: none;
+  background: #E74C3C;
+}
+
+.modal-content {
+  position: relative;
+  text-align: center;
+}
+
+#popup-window { position: relative; }
+
+.modal-content h1,
+.modal-content p { color: #fff; }
+
+.modal-content p { padding: 20% 5% 0 5%; }
+
+/* Close button */
+#popup-container a.close {
+  position: relative;
+  float: right;
+  top: -15px;
+  right: -7px;
+  z-index: 99;
+  font-weight: bold;
+  font-size: 16px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding: 2px 5px 2px 6px;
+  line-height: 1em;
+  text-align: center;
+  background: #E74C3C;
+  border: 4px solid #fff;
+  cursor: pointer;
+  color:#fff;
+}
+
+</style>
+
+<div id="popup-container">
+  <a class="close">x</a>
+    <div id="popup-window">
+      <div class="splash-bg">
+        <a href="#" class="your-class"></a>
+      <h1><a href="http://www.jqueryscript.net/tags.php?/Modal/">Modal</a> Popup Window</h1>
+      <p>hey welcome to petals art jewellery</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+
+jQuery(document).ready(function(){  
+  jQuery('#popup-container a.close').click(function(){
+      jQuery('#popup-container').fadeOut();
+      jQuery('#active-popup').fadeOut();
+  });
+  
+  var visits = jQuery.cookie('visits') || 0;
+  visits++;
+  
+  jQuery.cookie('visits', visits, { expires: 1, path: '/' });
+    
+  console.debug(jQuery.cookie('visits'));
+    
+  if ( jQuery.cookie('visits') > 1 ) {
+    jQuery('#active-popup').hide();
+    jQuery('#popup-container').hide();
+  } else {
+      var pageHeight = jQuery(document).height();
+      jQuery('<div id="active-popup"></div>').insertBefore('body');
+      jQuery('#active-popup').css("height", pageHeight);
+      jQuery('#popup-container').show();
+  }
+
+  if (jQuery.cookie('noShowWelcome')) { jQuery('#popup-container').hide(); jQuery('#active-popup').hide(); }
+}); 
+
+jQuery(document).mouseup(function(e){
+  var container = jQuery('#popup-container');
+  
+  if( !container.is(e.target)&& container.has(e.target).length === 0)
+  {
+    container.fadeOut();
+    jQuery('#active-popup').fadeOut();
+  }
+
+});
+
+</script>
+-->
+<br>
+<br>
+<br>
+
+<style>
+body { float:left;}
+.success { background-color: #ccffcc;}
+</style>
+<h1> fggcgvvhvhgv</h1>
+<div class="success">
+<nobr>This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line. This is a very long line.</nobr>
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+

@@ -34,16 +34,16 @@
                     		</div>
                         </div>
                         <div class="c-form-bottom">
-		                    <form role="form" action="/buyAnotherProduct" method="POST">
+		                    <form role="form" action="/buy/" method="POST">
 		                    	{% csrf_token %}
 		                    	<div class="form-group">
-                                	<label class="sr-only" for="r-form-first-name">Sponsor Id</label>
-                                	<input type="text" name="sponserId" placeholder="Sponsor Id..." class="r-form-first-name form-control" id="sponserId" required>
+                                	<label class="sr-only" for="r-form-first-name">Sponser Id</label>
+                                	<input type="text" name="sponserId" placeholder="Sponser Id..." class="r-form-first-name form-control" id="sponserId" required>
                                 	<h4>{{errorSponserId}}</h4>
                             	</div>
                             	<div class="form-group">
                                 	<label class="sr-only" for="r-form-first-name">Product Selected</label>
-                                	<input type="text" name="sponserId" placeholder="Selected Product..." class="r-form-first-name form-control" id="Selected Product" required>
+                                	<input type="text" name="product" placeholder="Selected Product..." class="r-form-first-name form-control" id="Selected Product" required>
                             	</div>
 
                             	<div class="form-group">
