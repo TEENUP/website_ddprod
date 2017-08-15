@@ -15,7 +15,8 @@ margin-top:20px;
 }
 
 body { float:left;}
-.success { background-color: #ffffff;}
+.success { background-color: black;
+            color: #ffffff;}
 
 </style>
 <br>
@@ -34,8 +35,8 @@ body { float:left;}
                             <div class="col-sm-8" id="carousel-bounding-box">
                                 <div class="carousel slide" id="myCarousel">
                                     <!-- Carousel items -->
-                                    <div class="success">
-                                    <center><b>+{{ spProd.cashBack }}% Cashback</b></center>
+                                    <div class="success" >
+                                    <center><b style="font-size: 25px;">+{{ spProd.cashBack }}% Cashback</b></center>
                                     </div>
                                     <div class="carousel-inner">
                                         <div class="active item" data-slide-number="0">
@@ -68,17 +69,17 @@ body { float:left;}
                                 </div>
   <div class='col-sm-3'>
     
-      <h1 style="color:grey;">{{ spProd.title }}
+      <h1 style="color:black;">{{ spProd.title }}
       </h1>
     
     
     
    
       
-      <p style="color:grey;">Price: {{ spProd.price }} </p><br/>
-      <p style="color:grey;">Shipping: with 10-15 working days fromthe day of purchase.</p>
-      
-   <p align="justify" style="color:grey;"> {{spProd.description}}</p>
+      <p style="color:black;">Price: {{ spProd.price }} </p><br/>
+   <p align="justify" style="color:black;"> {{spProd.description}}</p>
+   <p style="color:black;">Shipping: within 20-25 working days from the date of purchase.</p>
+   <p style="color:black;">Cashback Period: In 15 months</p>
       <!-- <p style="color:red;">{{ spProd.description|linebreaks }}</p>
        -->
       
