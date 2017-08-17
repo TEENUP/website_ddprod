@@ -26,7 +26,7 @@ margin-top:20px;
                     <div class="col-xs-12" id="slider">
                         <!-- Top part of the slider -->
                         <div class="row">
-                            <div class="col-sm-8" id="carousel-bounding-box">
+                            <div class="col-sm-7" id="carousel-bounding-box">
                                 <div class="carousel slide" id="myCarousel">
                                     <!-- Carousel items -->
                                     <div class="carousel-inner">
@@ -58,7 +58,7 @@ margin-top:20px;
                             </div>
                             <div class="col-sm-1" id="carousel-bounding-box">
                                 </div>
-  <div class='col-sm-2'>
+  <!-- <div class='col-sm-2'>
     <div class='col-sm-5 pull-left'>
       <h1 style="color:black;">{{ product.title }}
       </h1>
@@ -72,14 +72,32 @@ margin-top:20px;
       <div class='col-sm-12'>
       <p align="justify" style="color:black;"><b>Description:</b>{{ product.description}}</p>
        <p style="color:black;"><b>Shipping:</b> within 20-25 working days from the date of purchase.</p>
-        <p style="color:black;"><b>Cashback Period:</b> In 15 months</p>
         </div>
         <div class='col-sm-12'>
       <form action="/buyProducts">
      <input type="submit" class="btn" value="Buy" />
       </form>
       </div>
-  </div>
+  </div> -->
+   <div class='col-sm-3'>
+    
+      <h1 style="color:black;">{{ product.title }}
+      </h1>
+    
+    
+    
+   
+      
+      <p style="color:black;"><b>Price:</b> {{ product.price }} </p><br/>
+   <p align="justify" style="color:black;"><b>Description:</b> {{product.description}}</p>
+   <p style="color:black;"><b>Shipping:</b> within 20-25 working days from the date of purchase.</p>
+      <!-- <p style="color:red;">{{ spProd.description|linebreaks }}</p>
+       -->
+      
+      <form action="/buy">
+     <input type="submit" class="btn" value="Buy" />
+      </form>
+       </div>
 
 </div>
                             </div>

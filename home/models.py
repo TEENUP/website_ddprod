@@ -124,6 +124,7 @@ class SpecialProduct(models.Model):
     active = models.BooleanField(default=True)
     update_defaults = models.BooleanField(default=False)
     cashBack = models.IntegerField(null=True,default = 0)
+    cashBackDescription = models.TextField(null=True, blank=True)
 
 
     def saveSpecialProduct(self):
