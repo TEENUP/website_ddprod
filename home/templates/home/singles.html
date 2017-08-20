@@ -29,7 +29,7 @@ body { float:left;}
         <div id="main_area">
                 <!-- Slider -->
                 <div class="row">
-                    <div class="col-xs-12" id="slider">
+                    <div class="col-xs-10" id="slider">
                         <!-- Top part of the slider -->
                         <div class="row">
                             <div class="col-sm-6" id="carousel-bounding-box">
@@ -67,7 +67,7 @@ body { float:left;}
                             </div>
                             <div class="col-sm-1" id="carousel-bounding-box">
                                 </div>
-  <div class='col-sm-4'>
+  <div class='col-sm-6'>
     
       <h1 style="color:black;">{{ spProd.title }}
       </h1>
@@ -76,7 +76,7 @@ body { float:left;}
     
    
       
-   <p style="color:black;"><b>Price:</b> Rs {{ spProd.price }} </p><br/>
+   <p style="color:black;"><b>Price:</b> Rs {{ spProd.price }} </p>
    <p align="justify" style="color:black;"><b>Description:</b> {{spProd.description}}</p>
    <p style="color:black;"><b>Shipping:</b> within 20-25 working days from the date of purchase.</p>
    <p style="color:black;"><b>Cashback Period:</b> In 15 months</p>
@@ -87,7 +87,7 @@ body { float:left;}
       <form action="/buy">
      <input type="submit" class="btn" value="Buy" />
       </form>
-       </div>
+     </div>
 
 </div>
                             </div>
@@ -141,15 +141,15 @@ body { float:left;}
                 <div class="row hidden-xs" id="slider-thumbs">
                         <!-- Bottom switcher of slider -->
                         <ul class="hide-bullets">
-                            <li class="col-sm-2">
+                            <li class="col-sm-1">
                                 <a class="thumbnail" id="carousel-selector-0"><img src="/media/{{ spProd.primaryImage }}"></a>
                             </li>
 
-                            <li class="col-sm-2">
+                            <li class="col-sm-1">
                                 <a class="thumbnail" id="carousel-selector-1"><img src="/media/{{ spProd.secondaryImage }}"></a>
                             </li>
 
-                            <li class="col-sm-2">
+                            <li class="col-sm-1">
                                 <a class="thumbnail" id="carousel-selector-2"><img src="/media/{{ spProd.additionalImage }}"></a>
                             </li>
 

@@ -23,7 +23,7 @@ margin-top:20px;
         <div id="main_area">
                 <!-- Slider -->
                 <div class="row">
-                    <div class="col-xs-12" id="slider">
+                    <div class="col-xs-10" id="slider">
                         <!-- Top part of the slider -->
                         <div class="row">
                             <div class="col-sm-6" id="carousel-bounding-box">
@@ -79,7 +79,7 @@ margin-top:20px;
       </form>
       </div>
   </div> -->
-   <div class='col-sm-4'>
+   <div class='col-sm-6'>
     
       <h1 style="color:black;">{{ product.title }}
       </h1>
@@ -88,7 +88,7 @@ margin-top:20px;
     
    
       
-      <p style="color:black;"><b>Price:</b> Rs {{ product.price }} </p><br/>
+      <p style="color:black;"><b>Price:</b> Rs {{ product.price }} </p>
    <p align="justify" style="color:black;"><b>Description:</b> {{product.description}}</p>
    <p style="color:black;"><b>Shipping:</b> within 20-25 working days from the date of purchase.</p>
       <!-- <p style="color:red;">{{ spProd.description|linebreaks }}</p>
@@ -151,15 +151,15 @@ margin-top:20px;
                 <div class="row hidden-xs" id="slider-thumbs">
                         <!-- Bottom switcher of slider -->
                         <ul class="hide-bullets">
-                            <li class="col-sm-2">
+                            <li class="col-sm-1">
                                 <a class="thumbnail" id="carousel-selector-0"><img src="/media/{{ product.primaryImage }}"></a>
                             </li>
 
-                            <li class="col-sm-2">
+                            <li class="col-sm-1">
                                 <a class="thumbnail" id="carousel-selector-1"><img src="/media/{{ product.secondaryImage }}"></a>
                             </li>
 
-                            <li class="col-sm-2">
+                            <li class="col-sm-1">
                                 <a class="thumbnail" id="carousel-selector-2"><img src="/media/{{ product.additionalImage }}"></a>
                             </li>
 
