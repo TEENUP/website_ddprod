@@ -13,7 +13,7 @@ from .models import UserRefferal
 
  
 # Register your models here.
- 
+admin.site.site_header = 'Petals Art Jewellery Administration'
 admin.site.register(User)	
 admin.site.register(UserDetails)
 admin.site.register(UserAccount)

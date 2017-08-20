@@ -19,7 +19,7 @@ class User(models.Model):
         return 'User: ' + self.username
 
 class UserDetails(models.Model):
-    username = models.CharField(max_length=10)#foreign key
+    username = models.CharField(max_length=20)#foreign key
     firstName= models.CharField(max_length=100,default="Blank")
     lastName=models.CharField(max_length=100,default="Blank")
     phoneNo = PhoneNumberField()
@@ -33,7 +33,7 @@ class UserDetails(models.Model):
         return 'UserDetails: ' + self.username
 
 class UserAccount(models.Model):
-    username = models.CharField(max_length=10)#foreign key
+    username = models.CharField(max_length=20)#foreign key
     sponserId = models.CharField(max_length=10,primary_key=True)
     accountNo = models.CharField(max_length=200)
     IFSCCode = models.CharField(max_length=200)
@@ -51,17 +51,19 @@ class UserAccount(models.Model):
         # self.published_date = timezone.now()
         self.save()
     def __unicode__(self):
-        return 'UserAccount: ' + self.username
+        return 'UserAccount: ' + self.username + ' || ' + self.sponserId
 
 class UserRelation(models.Model):
+    childUsername = models.CharField(max_length=20)
     sponserId = models.CharField(max_length=10)
+    parentUsername = models.CharField(max_length=20)
     parentId = models.CharField(max_length=10)
 
     def saveRelation(self):
         # self.published_date = timezone.now()
         self.save()
     def __unicode__(self):
-        return 'saveRelation: ' + self.sponserId + self.parentId
+        return 'saveRelation: ' + self.childUsername+ ' || ' + self.sponserId + ' || ' + self.parentUsername + ' || ' + self.parentId
 
 
 class UserRefferal(models.Model):
@@ -71,7 +73,7 @@ class UserRefferal(models.Model):
     def saveRefferal(self):
         self.save()
     def __unicode__(self):
-        return 'UserRefferal: ' + self.username + self.sponserId
+        return 'UserRefferal: ' + self.username +' || '+ self.sponserId
 
 
 
@@ -146,4 +148,4 @@ class ProductImage(models.Model):
         return self.product.title  
 
     def __unicode__(self):
-        return 'ProductImage: ' + self.product      
+        return self.image      

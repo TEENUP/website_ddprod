@@ -515,7 +515,7 @@ def buy(request):
 		if not isSponserIdValid:
 			errorSponserId="Invalid Sponser Id"
 
-
+		pUsername = UserAccount.objects.get(sponserId=parentId)
 		sponserId="".join(random.choice(string.ascii_uppercase+string.digits) for x in range (0,6))
 		print "2"+ sponserId
 		# username=request.POST.get('userName')
@@ -590,7 +590,7 @@ def buy(request):
 			UserRefferal.objects.create(username=username,sponserId=sponserId)
 			UserAccount.objects.create(sponserId=sponserId,username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
 				accountType=accountType,accountNo=accountNo,panNo=panNo,aadhaarNo=aadhaarNo)
-			UserRelation.objects.create(sponserId=sponserId,parentId=parentId)
+			UserRelation.objects.create(childUsername=username,sponserId=sponserId,parentUsername=pUsername.username,parentId=parentId)
 			# Payment
 			insertUser(parentId,sponserId)
 			#set Cookie
