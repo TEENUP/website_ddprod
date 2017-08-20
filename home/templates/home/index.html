@@ -170,7 +170,8 @@ body { float:left;}
                     </a>
                     <div class="caption">
                     <a href='/single?q={{p.productId}}'> <br>
-                    <h4 class="mbr-section-lead lead" style="color:black;">{{ p.title }}  Rs {{ p.price }} </h4>
+                    <h4 class="mbr-section-lead lead" style="color:black;">{{ p.title }} &nbsp &nbsp Rs {{ p.price }} </h4>
+                    </a>
                     <p  class="mbr-section-lead lead" style="color:black;">{{ p.description|truncatewords:15}}</p>
                     <p style="color:black;"><a href="/single?q={{p.productId}}" 
                      class="btn" role="button">View</a>
@@ -259,7 +260,7 @@ body { float:left;}
                         <img src="/media/{{ sp.primaryImage }}" style="width:100%; height:200px;" class="img-responsive" alt="">
                     <div class="caption">
                     <a href='/singles?q={{sp.productId}}'><br> 
-                    <h4  class="mbr-section-lead lead" style="color:black;">{{ sp.title }} Rs {{ sp.price }} </h4> 
+                    <h4  class="mbr-section-lead lead" style="color:black;">{{ sp.title }}&nbsp &nbsp Rs {{ sp.price }} </h4> 
                     <p class="mbr-section-lead lead" style="color:black;">{{ sp.description|truncatewords:15}}</p>
                     <p><a href="/singles?q={{sp.productId}}" 
                      class="btn" role="button">View</a>
