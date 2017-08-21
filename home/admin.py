@@ -11,7 +11,7 @@ from .models import SpecialProduct
 from .models import ProductImage
 from .models import UserRefferal
 
- 
+
 # Register your models here.
 class userAdmin(admin.ModelAdmin):
 	#date_hierarchy = 'timestamp' #updated
@@ -36,6 +36,7 @@ def export_csv(modeladmin, request, queryset):
     	    smart_str(u"sponserId"),
     	    smart_str(u"panNo"),
     	    smart_str(u"aadharNo"),
+    	    smart_str(u"amount"),
     	])
     	for obj in queryset:
     	    writer.writerow([
@@ -43,6 +44,8 @@ def export_csv(modeladmin, request, queryset):
     	        smart_str(obj.sponserId),
     	        smart_str(obj.panNo),
     	        smart_str(obj.aadhaarNo),
+    	        smart_str(obj.amount),
+
     	    ])
     	return response
 export_csv.short_description = u"Export CSV"
