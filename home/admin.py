@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
- 
+from django.http import HttpResponse
 from django.contrib import admin
 from .models import User
 from .models import UserDetails
@@ -24,8 +24,32 @@ class userAdmin(admin.ModelAdmin):
 	# class Meta:
 	# 	model = User
 
+def export_csv(modeladmin, request, queryset):
+    	import csv
+    	from django.utils.encoding import smart_str
+    	response = HttpResponse(content_type='text/csv')
+    	response['Content-Disposition'] = 'attachment; filename=mymodel.csv'
+    	writer = csv.writer(response, csv.excel)
+    	response.write(u'\ufeff'.encode('utf8')) # BOM (optional...Excel needs it to open UTF-8 file properly)
+    	writer.writerow([
+    	    smart_str(u"username"),
+    	    smart_str(u"sponserId"),
+    	    smart_str(u"panNo"),
+    	    smart_str(u"aadharNo"),
+    	])
+    	for obj in queryset:
+    	    writer.writerow([
+    	        smart_str(obj.username),
+    	        smart_str(obj.sponserId),
+    	        smart_str(obj.panNo),
+    	        smart_str(obj.aadhaarNo),
+    	    ])
+    	return response
+export_csv.short_description = u"Export CSV"
+
 class userAccountsAdmin(admin.ModelAdmin):
 	search_fields = ['username','sponserId']
+	actions = [export_csv]
 
 class userDetailsAdmin(admin.ModelAdmin):
 	search_fields = ['username']
@@ -35,10 +59,6 @@ class userRefferalAdmin(admin.ModelAdmin):
 
 class userRelationAdmin(admin.ModelAdmin):
 	search_fields = ['childUsername','parentUsername']
-
-
-
-
 
 
 admin.site.site_header = 'Petals Art Jewellery Administration'
