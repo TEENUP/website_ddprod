@@ -14,15 +14,15 @@ from .models import UserRefferal
 
 # Register your models here.
 class userAdmin(admin.ModelAdmin):
-	#date_hierarchy = 'timestamp' #updated
+	date_hierarchy = 'joiningDate'#'timestamp' #updated
 	search_fields = ['username']
-	#list_display = ['title','price','active','updated']
-	#list_editable = ['price', 'active']
-	#list_filter = ['price','active']
-	#readonly_fields = ['updated','timestamp']
+	list_display = ['username','joiningDate','amount']
+	#list_editable = ['username']
+	list_filter = ['username','joiningDate']
+	readonly_fields = ['username','amount']
 	#prepopulated_fields = {"slug": ("title",)}
-	# class Meta:
-	# 	model = User
+	class Meta:
+		model = User
 
 def export_csv(modeladmin, request, queryset):
     	import csv
@@ -37,6 +37,11 @@ def export_csv(modeladmin, request, queryset):
     	    smart_str(u"panNo"),
     	    smart_str(u"aadharNo"),
     	    smart_str(u"amount"),
+            smart_str(u"bankName"),
+            smart_str(u"IFSCCode"),
+            smart_str(u"branchName"),
+            smart_str(u"accountNumber"),
+            smart_str(u"DateOfJoning"),
     	])
     	for obj in queryset:
     	    writer.writerow([
@@ -45,23 +50,33 @@ def export_csv(modeladmin, request, queryset):
     	        smart_str(obj.panNo),
     	        smart_str(obj.aadhaarNo),
     	        smart_str(obj.amount),
+                smart_str(obj.bankName),
+                smart_str(obj.IFSCCode),
+                smart_str(obj.branchName),
+                smart_str(obj.accountNo),
 
     	    ])
     	return response
 export_csv.short_description = u"Export CSV"
 
 class userAccountsAdmin(admin.ModelAdmin):
-	search_fields = ['username','sponserId']
-	actions = [export_csv]
+    date_hierarchy = 'joiningDate'
+    search_fields = ['username','sponserId']
+    actions = [export_csv]
+    list_display = ('username','sponserId','accountNo','IFSCCode','amount','joiningDate')
+    list_filter = ('username','sponserId','joiningDate')
 
 class userDetailsAdmin(admin.ModelAdmin):
-	search_fields = ['username']
+    search_fields = ['username']
+    list_display = ['username']
 
 class userRefferalAdmin(admin.ModelAdmin):
-	search_fields = ['sponserId', 'username']
+    search_fields = ['sponserId', 'username']
+    list_display = ['username','sponserId']
 
 class userRelationAdmin(admin.ModelAdmin):
-	search_fields = ['childUsername','parentUsername']
+    search_fields = ['childUsername','parentUsername']
+    list_display = ['childUsername','parentUsername']
 
 
 admin.site.site_header = 'Petals Art Jewellery Administration'

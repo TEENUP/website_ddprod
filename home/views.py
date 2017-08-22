@@ -327,7 +327,7 @@ def dashboard(request):
 #changed sponserId to username
 		refferal=UserRefferal.objects.filter(username=username)
 		if refferal.count()>0:
-			refferal=UserRefferal.objects.all(username=username)
+			refferal=UserRefferal.objects.filter(username=username)
 			reff = []
 			for refs in refferal:
 
@@ -385,13 +385,13 @@ def user_profile(request):
 		userDetails=UserDetails.objects.get(username=user.username)
 		accountDetails=UserAccount.objects.filter(username=username)
 		if accountDetails.count()>0:
-			userAccount=UserAccount.objects.get(username=user.username)
+			userAccount=UserAccount.objects.filter(username=username)
 			reff = UserRefferal.objects.filter(username=username)
 			if reff.count()>0:	
-				refferal=UserRefferal.objects.get(username=user.username)
-				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount,'refferal':refferal})
+				refferal=UserRefferal.objects.filter(username=user.username)
+				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount[0],'refferal':refferal})
 			else:
-				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount})
+				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount[0]})
 		else:
 			return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails})
 	else:

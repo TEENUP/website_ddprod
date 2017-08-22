@@ -44,6 +44,8 @@ class UserAccount(models.Model):
     panNo = models.CharField(max_length=200,default="Blank")
     aadhaarNo = models.CharField(max_length=200,default="Blank")
     amount = models.FloatField(blank=True,default=0)
+    joiningDate = models.DateTimeField(default=timezone.now,blank=True)
+    #add time period 
     #panCard = models.BinaryField(default="Blank")
     #aadhaarCard = models.BinaryField(default="Blank")
     photo = models.BinaryField(default="Blank")
