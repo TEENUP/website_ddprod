@@ -60,6 +60,8 @@ class UserRelation(models.Model):
     sponserId = models.CharField(max_length=10)
     parentUsername = models.CharField(max_length=20)
     parentId = models.CharField(max_length=10)
+    cashRewardPrentWillRecieve = models.FloatField(blank=True,default=0)
+
 
     def saveRelation(self):
         # self.published_date = timezone.now()
@@ -71,6 +73,7 @@ class UserRelation(models.Model):
 class UserRefferal(models.Model):
     username = models.CharField(max_length=10)
     sponserId = models.CharField(max_length=10)
+    monthlyCashbackAmount = models.FloatField(blank=True,default=0)
 
     def saveRefferal(self):
         self.save()
