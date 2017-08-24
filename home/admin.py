@@ -19,7 +19,7 @@ class userAdmin(admin.ModelAdmin):
 	list_display = ['username','joiningDate','amount']
 	#list_editable = ['username']
 	list_filter = ['username','joiningDate']
-	readonly_fields = ['username','amount']
+	readonly_fields = ['username','amount','password','joiningDate']
 	#prepopulated_fields = {"slug": ("title",)}
 	class Meta:
 		model = User
@@ -54,6 +54,7 @@ def export_csv(modeladmin, request, queryset):
                 smart_str(obj.IFSCCode),
                 smart_str(obj.branchName),
                 smart_str(obj.accountNo),
+                smart_str(obj.joiningDate),
 
     	    ])
     	return response
@@ -64,19 +65,23 @@ class userAccountsAdmin(admin.ModelAdmin):
     search_fields = ['username','sponserId']
     actions = [export_csv]
     list_display = ('username','sponserId','accountNo','IFSCCode','amount','joiningDate')
-    list_filter = ('username','sponserId','joiningDate')
+    list_filter = ('username','joiningDate')
+    readonly_fields = ['username','sponserId','accountNo','IFSCCode','holderName','bankName','branchName','accountType','panNo','aadhaarNo','amount','joiningDate']
 
 class userDetailsAdmin(admin.ModelAdmin):
     search_fields = ['username']
     list_display = ['username']
+    readonly_fields = ['username','firstName','lastName','phoneNo','address','email']
 
 class userRefferalAdmin(admin.ModelAdmin):
     search_fields = ['sponserId', 'username']
     list_display = ['username','sponserId']
+    readonly_fields = ['username','sponserId']
 
 class userRelationAdmin(admin.ModelAdmin):
     search_fields = ['childUsername','parentUsername']
     list_display = ['childUsername','parentUsername']
+    readonly_fields = ['childUsername','sponserId','parentUsername','parentId']
 
 
 admin.site.site_header = 'Petals Art Jewellery Administration'

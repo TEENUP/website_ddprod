@@ -8,8 +8,7 @@ class User(models.Model):
     username = models.CharField(max_length=20)
     password = models.CharField(max_length=1000,blank=True)
     #plan = models.IntegerField(blank=True)
-    joiningDate = models.DateTimeField(
-            default=timezone.now,blank=True)
+    joiningDate = models.DateTimeField(default=timezone.now,blank=True)
     amount = models.FloatField(blank=True,default=0)
 
     def saveUser(self):
