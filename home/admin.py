@@ -71,16 +71,19 @@ class userAccountsAdmin(admin.ModelAdmin):
 class userDetailsAdmin(admin.ModelAdmin):
     search_fields = ['username']
     list_display = ['username']
+    list_filter = ['username']
     readonly_fields = ['username','firstName','lastName','phoneNo','address','email']
 
 class userRefferalAdmin(admin.ModelAdmin):
     search_fields = ['sponserId', 'username']
     list_display = ['username','sponserId']
+    list_filter = ['username','sponserId']
     readonly_fields = ['username','sponserId']
 
 class userRelationAdmin(admin.ModelAdmin):
     search_fields = ['childUsername','parentUsername']
     list_display = ['childUsername','parentUsername']
+    list_filter = ['childUsername','parentUsername','sponserId','parentId']
     readonly_fields = ['childUsername','sponserId','parentUsername','parentId']
 
 

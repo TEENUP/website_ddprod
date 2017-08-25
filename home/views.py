@@ -506,18 +506,26 @@ def buy(request):
 			# Render The page with errors
 			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	'''
+	print "my name is puneet"
+	x = request.GET.get("q",None)
+	print x
+	spProd = SpecialProduct.objects.get(productId = x)
+	spPrice = spProd.price
+	monthlyCashBack = spPrice
+	parentRecieveAfterRefferal = spPrice 
+
 	if request.method == "POST":
 		parentId=request.POST.get('sponserId')
-		print "1"+parentId
+		#print "1"+parentId
 		isSponserIdValid=validateSponserId(parentId)
-		print isSponserIdValid
+		#print isSponserIdValid
 		errorSponserId=""
 		if not isSponserIdValid:
 			errorSponserId="Invalid Sponser Id"
 
 		pUsername = UserAccount.objects.get(sponserId=parentId)
 		sponserId="".join(random.choice(string.ascii_uppercase+string.digits) for x in range (0,6))
-		print "2"+ sponserId
+		#print "2"+ sponserId
 		# username=request.POST.get('userName')
 		# isUsernameValid = validateUsername(username)
 		# errorUsername=""
@@ -533,7 +541,7 @@ def buy(request):
 		# 	errorPassword="Passwords didn't match"
 
 		product = request.POST.get('product')
-		print "4"+product
+		#print "4"+product
 		# firstName= request.POST.get('firstName')
 		# lastName=request.POST.get('lastName')
 		
@@ -574,6 +582,7 @@ def buy(request):
 		if(not isAadharNumberValid):
 			errorAdharNumber = "Invalid Aadhar Number"
 		
+
 		#validation
 		if isSponserIdValid:
 			# h_password=make_pw_hash(username,password)
@@ -587,10 +596,10 @@ def buy(request):
 			print "5"+ username
 			#return redirect('/')
 			print "hello world???"
-			UserRefferal.objects.create(username=username,sponserId=sponserId)
+			UserRefferal.objects.create(username=username,sponserId=sponserId,monthlyCashbackAmount=monthlyCashBack)
 			UserAccount.objects.create(sponserId=sponserId,username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
-				accountType=accountType,accountNo=accountNo,panNo=panNo,aadhaarNo=aadhaarNo)
-			UserRelation.objects.create(childUsername=username,sponserId=sponserId,parentUsername=pUsername.username,parentId=parentId)
+				accountType=accountType,accountNo=accountNo,panNo=panNo,aadhaarNo=aadhaarNo,amount=spPrice)
+			UserRelation.objects.create(childUsername=username,sponserId=sponserId,parentUsername=pUsername.username,parentId=parentId,cashRewardPrentWillRecieve=parentRecieveAfterRefferal)
 			# Payment
 			insertUser(parentId,sponserId)
 			#set Cookie
@@ -600,22 +609,23 @@ def buy(request):
 			id_to_send=make_secure_val(str(sponserId))
 			# print "ID TO SEND"+id_to_send
 			# print "SPONSERID"+sponserId
-			response = redirect('/')
+			# response = redirect('/')
 			#response.set_cookie('user_id', id_to_send)
-			return response
+			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'spProd':spProd})
+			# return response
 		else:
 			# Render The page with errors
 			# options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
 			# options+='<option value="10000">10000</option><option value="10000">30000</option>'
 			# options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
-			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
+			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'spProd':spProd})
 	else:
 		if not isLoggedIn(request):
 			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 			return redirect('/sign_up')
 		else:
 			
-			prod=request.GET.get("productId",None)
+			
 		# 	# if prod=='1':
 		# 	# 	options='<select name="product" class="form-control"><option disabled>PRODUCTS</option><option value="5000" selected="selected">5000</option>'
 		# 	# 	options+='<option value="10000">10000</option><option value="30000">30000</option>'
@@ -642,7 +652,8 @@ def buy(request):
 		# 	# 	options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
 		# 	# greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 		# 	# print options
-			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
+			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','spProd':spProd})
+			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 		
 		
 
@@ -699,7 +710,7 @@ def single(request):
 
 def singles(request):
 		x = request.GET.get("q",None)
-		print x
+		print "aaaaaaaaaaaaa" + x
 		#product = Product.objects.get(productId = x)
 		spProd = SpecialProduct.objects.get(productId = x)
 		print spProd

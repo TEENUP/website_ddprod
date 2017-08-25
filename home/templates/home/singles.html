@@ -83,9 +83,12 @@ body { float:left;}
       <!-- <p style="color:red;">{{ spProd.description|linebreaks }}</p>
        -->
       
-      <form action="/buy">
+      <!-- <form action="/buy">
      <input type="submit" class="btn" value="Buy" />
-      </form>
+      </form> -->
+      <p><a href="/buy?q={{spProd.productId}}" 
+                     class="btn" role="button">BUY</a>
+                    </p>
      </div>
 
 </div>

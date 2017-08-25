@@ -130,7 +130,7 @@ class SpecialProduct(models.Model):
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     active = models.BooleanField(default=True)
     update_defaults = models.BooleanField(default=False)
-    cashBack = models.IntegerField(null=True,default = 0)
+    cashBack = models.FloatField(null=True,default = 0)
     cashBackDescription = models.TextField(null=True, blank=True)
 
 
