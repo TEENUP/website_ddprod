@@ -32,6 +32,8 @@ import re
 from django.core.mail import send_mail
 from django.conf import settings
 
+# matching query for product
+from django.shortcuts import get_object_or_404
 
 regexForSponserId="^[A-Z0-9]*$"
 regexForEmail = "^a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
@@ -506,15 +508,19 @@ def buy(request):
 			# Render The page with errors
 			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber, 'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})
 	'''
-	print "my name is puneet"
-	x = request.GET.get("q",None)
-	print x
-	spProd = SpecialProduct.objects.get(productId = x)
-	spPrice = spProd.price
-	monthlyCashBack = spPrice
-	parentRecieveAfterRefferal = spPrice 
+	# x = request.GET.get("q",None)
+	# #print x
+	# #spProd = SpecialProduct.objects.get(productId = x)
+	# spProd = get_object_or_404(SpecialProduct, productId=x)
+	# print spProd
+	# spPrice = spProd.price
+	# monthlyCashBack = spPrice
+	# parentRecieveAfterRefferal = spPrice
+	
 
 	if request.method == "POST":
+
+		
 		parentId=request.POST.get('sponserId')
 		#print "1"+parentId
 		isSponserIdValid=validateSponserId(parentId)
@@ -540,7 +546,7 @@ def buy(request):
 		# if(not isPasswordValid):
 		# 	errorPassword="Passwords didn't match"
 
-		product = request.POST.get('product')
+		#product = request.POST.get('product')
 		#print "4"+product
 		# firstName= request.POST.get('firstName')
 		# lastName=request.POST.get('lastName')
@@ -556,6 +562,9 @@ def buy(request):
 
 		# email= request.POST.get('email')		
 		# address= request.POST.get('address')
+		spProd = request.POST.get('product')
+		spPrice = request.POST.get('amount')
+
 		holderName=request.POST.get('holderName')
 		IFSCCode=request.POST.get('ifscCode')
 		bankName=request.POST.get('bankName')
@@ -596,10 +605,11 @@ def buy(request):
 			print "5"+ username
 			#return redirect('/')
 			print "hello world???"
-			UserRefferal.objects.create(username=username,sponserId=sponserId,monthlyCashbackAmount=monthlyCashBack)
+
+			UserRefferal.objects.create(username=username,sponserId=sponserId)
 			UserAccount.objects.create(sponserId=sponserId,username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
-				accountType=accountType,accountNo=accountNo,panNo=panNo,aadhaarNo=aadhaarNo,amount=spPrice)
-			UserRelation.objects.create(childUsername=username,sponserId=sponserId,parentUsername=pUsername.username,parentId=parentId,cashRewardPrentWillRecieve=parentRecieveAfterRefferal)
+				accountType=accountType,accountNo=accountNo,panNo=panNo,aadhaarNo=aadhaarNo,productId=spProd,amount=spPrice)
+			UserRelation.objects.create(childUsername=username,sponserId=sponserId,parentUsername=pUsername.username,parentId=parentId)
 			# Payment
 			insertUser(parentId,sponserId)
 			#set Cookie
@@ -609,11 +619,19 @@ def buy(request):
 			id_to_send=make_secure_val(str(sponserId))
 			# print "ID TO SEND"+id_to_send
 			# print "SPONSERID"+sponserId
-			# response = redirect('/')
+			response = redirect('/')
 			#response.set_cookie('user_id', id_to_send)
-			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'spProd':spProd})
-			# return response
+			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'spProd':spProd})
+			return response
 		else:
+			x = request.GET.get("q",None)
+			#print x
+			#spProd = SpecialProduct.objects.get(productId = x)
+			spProd = get_object_or_404(SpecialProduct, productId=x)
+			print spProd
+			spPrice = spProd.price
+			monthlyCashBack = spPrice
+			parentRecieveAfterRefferal = spPrice
 			# Render The page with errors
 			# options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
 			# options+='<option value="10000">10000</option><option value="10000">30000</option>'
@@ -624,6 +642,17 @@ def buy(request):
 			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 			return redirect('/sign_up')
 		else:
+			print "my name is puneet"
+			x = request.GET.get("q",None)
+			print x
+			
+			spProd = get_object_or_404(SpecialProduct, productId=x)
+			print spProd
+			#spProd = SpecialProduct.objects.get(productId = x)
+			spPrice = spProd.price
+			print spPrice
+			monthlyCashBack = spPrice
+			parentRecieveAfterRefferal = spPrice 
 			
 			
 		# 	# if prod=='1':

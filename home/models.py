@@ -44,6 +44,8 @@ class UserAccount(models.Model):
     aadhaarNo = models.CharField(max_length=200,default="Blank")
     amount = models.FloatField(blank=True,default=0)
     joiningDate = models.DateTimeField(default=timezone.now,blank=True)
+    productId = models.CharField(max_length=20, unique=False)
+
     #add time period 
     #panCard = models.BinaryField(default="Blank")
     #aadhaarCard = models.BinaryField(default="Blank")
@@ -130,7 +132,7 @@ class SpecialProduct(models.Model):
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     active = models.BooleanField(default=True)
     update_defaults = models.BooleanField(default=False)
-    cashBack = models.FloatField(null=True,default = 0)
+    cashBack = models.IntegerField(null=True,default = 0)
     cashBackDescription = models.TextField(null=True, blank=True)
 
 
