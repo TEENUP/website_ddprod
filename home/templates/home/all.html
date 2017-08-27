@@ -5,53 +5,194 @@
 {% load staticfiles %}
 
 
-<div class='row'>
-<b><p align='center' style="font-size:160%;"> Products </p></b>
+<style>
+body { float:left;}
+.success { background-color: black;
+            color: #ffffff;}
+.btn {background-color: black;
+        color: #ffffff ;}
+.button {
+    display: block;
+    width: 115px;
+    height: 40px;
+    background: #000;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
 
-</div>
-    <div class='row'>
-      {% for product in showProducts %}
-      <div class='col-lg-3'>
 
-        <div class="thumbnail">
-            <div style="width:100%; margin: 0 auto;">
+</style>
 
-              <a href='/single?q={{product.productId}}'>
-                <!-- <div class='background_img_thumb' style="height:200px; background-image: url('/media/{{ product.primaryImage }}');"></div> -->
-               <!--  <div class='background_img_thumb' style="height:200px;"></div> -->
-                 <img class='img-responsive'src="/media/{{ product.primaryImage }}" style="width:100%; height:150px;" />
 
-              </a>
+
+
+
+<section id="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Trending Products</h2>
+                     <hr class="primary">
+                </div>
             </div>
-                
-            
-          <!-- <div style="
-            width:100%;
-            margin: 0 auto;">
+        </div>
 
-              <a href='/single?q={{product.productId}}'>
-                <div class='background_img_thumb' style="height:100px;"></div>
-              </a>
-            </div>    -->
+       <!--  <div class="success">
+        <nobr align = "center">Get cashback upto 150%</nobr>
+        </div> -->
+       <!--  <div class="success">
+        <center><b>Get cashback upto 150%</b></center>
+        </div> -->
         
 
-            <div class="caption">
-            <a href='/single?q={{product.productId}}'> 
-            <h3>{{ product.title }}</h3>
-            <p>{{ product.description|truncatewords:15}}</p>
-            <p><a href="/single?q={{product.productId}}" 
-                class="btn btn-primary" role="button">View</a>
-            </p>
+
+
+
+        <!-- Write Plans Here -->
+
+        <!--<section id="portfolio" class="bg-light-gray">-->
+        <div class="container">
+            <div class="row">
+                {% for sp in specialProduct %}
+                
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href='/singles?q={{sp.productId}}'>
+                    <div class="success">
+                <center><b>+{{ sp.cashBack }}% Cashback</b></center>
+                </div>
+                    <a href="/singles?q={{sp.productId}}" class="portfolio-link">
+                        <img src="/media/{{ sp.primaryImage }}" style="width:100%; height:200px;" class="img-responsive" alt="">
+                    <div class="caption">
+                    <a href='/singles?q={{sp.productId}}'><br> 
+                    <h4  class="mbr-section-lead lead" style="color:black;">{{ sp.title }}&nbsp &nbsp Rs {{ sp.price }} </h4> 
+                </a>
+                    <p class="mbr-section-lead lead" style="color:black;">{{ sp.description|truncatewords:15}}</p>
+                    <p><a href="/singles?q={{sp.productId}}" 
+                     class="button" role="button">View</a>
+                    </p>
+                    </div>
+                </div>    
+                {% endfor %}
+                <!-- <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/5.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>T shirt's</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/4.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Shoes</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/3.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Jacket's</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/2.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Shirt's</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/1.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Suit's</h4>
+                    </div>
+                </div> -->
             </div>
-
         </div>
-      </div>  
-
-      {% cycle "" "" "" "" "" "</div><br/><hr/><div class='row'>"%}
-      {% endfor %}
+    </section> 
 
 
-      
-      </div>  
+    <section id="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Products</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <!-- Write Plans Here -->
+
+        <!--<section id="portfolio" class="bg-light-gray">-->
+        <div class="container">
+            <div class="row">
+                {% for p in showProducts %}
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="/single?q={{p.productId}}" class="portfolio-link">
+                        <img src="/media/{{ p.primaryImage }}" style="width:100%; height:200px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="caption">
+                    <a href='/single?q={{p.productId}}'> <br>
+                    <h4 class="mbr-section-lead lead" style="color:black;">{{ p.title }} &nbsp &nbsp Rs {{ p.price }} </h4>
+                    </a>
+                    <p  class="mbr-section-lead lead" style="color:black;">{{ p.description|truncatewords:15}}</p>
+                    <p style="color:black;"><a href="/single?q={{p.productId}}" 
+                     class="button" role="button">View</a>
+                    </p>
+                    </div>
+                </div>    
+                {% endfor %}
+                <!-- <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/5.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>T shirt's</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/4.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Shoes</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/3.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Jacket's</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/2.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Shirt's</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
+                        <img src={% static 'img/portfolio/fullsize/1.jpg' %} class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Suit's</h4>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section> 
 
 {% endblock %}      

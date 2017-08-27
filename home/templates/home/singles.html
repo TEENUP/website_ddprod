@@ -32,7 +32,7 @@ body { float:left;}
                     <div class="col-xs-10" id="slider">
                         <!-- Top part of the slider -->
                         <div class="row">
-                            <div class="col-sm-7" id="carousel-bounding-box">
+                            <div style="padding-left: 1cm;"class="col-sm-7" id="carousel-bounding-box">
                                 <div class="carousel slide" id="myCarousel">
                                     <!-- Carousel items -->
                                     <div class="success" >
@@ -69,7 +69,9 @@ body { float:left;}
                                 </div>
   <div class='col-sm-5'>
     
-      <h1 style="color:black;"><b>{{ spProd.title }}</b></h1>
+      <h1 style="color:black; "><b>{{ spProd.title }}</b> <a style="background-color: #000;float:right;color:white;font-size:20px" href="/buy?q={{spProd.productId}}" 
+                     class="btn btn-info btn-md" role="button">BUY NOW</a></h1>
+
     
     
     
@@ -86,9 +88,9 @@ body { float:left;}
       <!-- <form action="/buy">
      <input type="submit" class="btn" value="Buy" />
       </form> -->
-      <p><a href="/buy?q={{spProd.productId}}" 
-                     class="btn" role="button">BUY</a>
-                    </p>
+      <!-- <p><a href="/buy?q={{spProd.productId}}" 
+                     class="btn btn-info" role="button">BUY NOW</a>
+                    </p> -->
      </div>
 
 </div>
@@ -140,7 +142,7 @@ body { float:left;}
                     
                 </div><!--/Slider-->
 
-                <div class="row hidden-xs" id="slider-thumbs">
+                <div style="padding-left: 0.3cm;"class="row hidden-xs" id="slider-thumbs">
                         <!-- Bottom switcher of slider -->
                         <ul class="hide-bullets">
                             <li class="col-sm-1">

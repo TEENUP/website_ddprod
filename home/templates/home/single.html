@@ -12,6 +12,7 @@ list-style:none;
 margin-left: -40px;
 margin-top:20px;
 }
+span.align-right { text-align:right; }
 </style>
 <br>
 <br>
@@ -26,7 +27,7 @@ margin-top:20px;
                     <div class="col-xs-10" id="slider">
                         <!-- Top part of the slider -->
                         <div class="row">
-                            <div class="col-sm-7" id="carousel-bounding-box">
+                            <div style="padding-left: 1cm;"class="col-sm-7" id="carousel-bounding-box">
                                 <div class="carousel slide" id="myCarousel">
                                     <!-- Carousel items -->
                                     <div class="carousel-inner">
@@ -81,7 +82,8 @@ margin-top:20px;
   </div> -->
    <div class='col-sm-5'>
     
-      <h1 style="color:black;">{{ product.title }}</h1>
+      <h1 style="color:black;">{{ product.title }} <a style="background-color: #000;float:right;color:white;font-size:20px" href="/buyProducts?q={{product.productId}}" class="btn" role="button">BUY NOW</a>
+      </h1>
     
     
     
@@ -93,9 +95,9 @@ margin-top:20px;
       <!-- <p style="color:red;">{{ spProd.description|linebreaks }}</p>
        -->
       
-      <form action="/buy">
-     <input type="submit" class="btn" value="Buy" />
-      </form>
+      <!-- <form  action="/buy">
+      <button class="btn btn-success" type="submit">BUY NOW</button>
+      </form> -->
        </div>
    
 
@@ -148,7 +150,7 @@ margin-top:20px;
                     
                 </div><!--/Slider-->
 
-                <div class="row hidden-xs" id="slider-thumbs">
+                <div style="padding-left: 0.3cm;"class="row hidden-xs" id="slider-thumbs">
                         <!-- Bottom switcher of slider -->
                         <ul class="hide-bullets">
                             <li class="col-sm-1">

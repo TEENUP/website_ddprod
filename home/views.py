@@ -696,7 +696,11 @@ def buyProducts(request):
 			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 			return redirect('/sign_up')
 	else:
-		return render(request,'home/buyProducts.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
+
+		x = request.GET.get("q",None)
+		product = Product.objects.get(productId = x)
+
+		return render(request,'home/buyProducts.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','product':product})
 
 
 def slide(request):
