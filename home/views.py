@@ -242,7 +242,7 @@ def sign_up(request):
 		address= request.POST.get('address')
 		
 		#validation
-		if isUsernameValid and isPasswordValid:
+		if isUsernameValid and isPasswordValid and isPhoneNumberValid:
 			h_password=make_pw_hash(username,password)
 			User.objects.create(username=username,password=h_password)
 			UserDetails.objects.create(username=username,firstName=firstName,lastName=lastName, phoneNo=phoneNo,email=email,address=address)
@@ -325,37 +325,47 @@ def dashboard(request):
 		# Logout link
 		user_id= request.COOKIES['user_id']
 		username=check_secure_val(user_id)
+		print username
 		usr=User.objects.get(username=username)
 #changed sponserId to username
 		refferal=UserRefferal.objects.filter(username=username)
-		if refferal.count()>0:
-			refferal=UserRefferal.objects.filter(username=username)
-			reff = []
-			for refs in refferal:
-
-				objs=treeGenerate(refs.sponserId)
-				listOfUserObjects=[]
-				listOfUserDetailsObjects=[]
-				for obj in objs:
-					sid,pid=obj.sponserId,obj.parentId
-					u=User.objects.get(sponserId=sid)
-					ud=UserDetails.objects.get(username=u.username)
-					listOfUserObjects.append(u)
-					listOfUserDetailsObjects.append(ud)
-				objsTemp=[listOfUserObjects,listOfUserDetailsObjects]
-				temp=[]
-				for i in range(0,len(objsTemp[0])):
-					t=[]
-					t.append(objsTemp[1][i].firstName)
-					t.append(objsTemp[1][i].lastName)
-					t.append(objsTemp[1][i].username)
-					t.append(objsTemp[0][i].plan)
-					t.append(objsTemp[1][i].email)
-					temp.append(t)
-				reff.append(temp)	
-			return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'temp':temp,'user':usr,'num':len(objs)})
-		else:
-			return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':usr,'num':0})
+		print refferal
+		children = UserRelation.objects.filter(parentUsername=username)
+		print children
+		# if refferal.count()>0:
+		# 	refferal=UserRefferal.objects.filter(username=username)
+		# 	reff = []
+		# 	for refs in refferal:
+		# 		objs=treeGenerate(refs.sponserId)
+		# 		listOfUserObjects=[]
+		# 		listOfUserDetailsObjects=[]
+		# 		for obj in objs:
+		# 			print obj
+		# 			sid,pid=obj.sponserId,obj.parentId
+		# 			print sid
+		# 			print pid
+		# 			u=User.objects.get(sponserId=sid)
+		# 			print u
+		# 			ud=UserDetails.objects.get(username=u.username)
+		# 			print ud
+		# 			listOfUserObjects.append(u)
+		# 			listOfUserDetailsObjects.append(ud)
+		# 		objsTemp=[listOfUserObjects,listOfUserDetailsObjects]
+		# 		print objsTemp
+		# 		temp=[]
+		# 		for i in range(0,len(objsTemp[0])):
+		# 			t=[]
+		# 			t.append(objsTemp[1][i].firstName)
+		# 			t.append(objsTemp[1][i].lastName)
+		# 			t.append(objsTemp[1][i].username)
+		# 			t.append(objsTemp[0][i].plan)
+		# 			t.append(objsTemp[1][i].email)
+		# 			temp.append(t)
+		# 		reff.append(temp)	
+			
+			#return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'temp':temp,'user':usr,'num':len(objs),'reff':refferal,'relation':objs})
+		#else:
+		return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':usr,'reff':refferal,'relation':children})
 
 
 	else:
@@ -524,9 +534,9 @@ def buy(request):
 		parentId=request.POST.get('sponserId')
 		#print "1"+parentId
 		isSponserIdValid=validateSponserId(parentId)
-		#print isSponserIdValid
+		print isSponserIdValid
 		errorSponserId=""
-		if not isSponserIdValid:
+		if (not isSponserIdValid):
 			errorSponserId="Invalid Sponser Id"
 
 		pUsername = UserAccount.objects.get(sponserId=parentId)
@@ -579,6 +589,7 @@ def buy(request):
 		
 		panNo=request.POST.get('panCardNumber')
 		isPanNumberValid = validatePanCArd(panNo)
+		print isPanNumberValid
 		errorPanNumber= ""
 		if(not isPanNumberValid):
 			errorPanNumber = "Invalid Pan Number"
@@ -587,6 +598,7 @@ def buy(request):
 		
 		aadhaarNo = request.POST.get('aadhaarCardNumber')
 		isAadharNumberValid = validateAadharCard(aadhaarNo)
+		print isAadharNumberValid
 		errorAdharNumber = ""
 		if(not isAadharNumberValid):
 			errorAdharNumber = "Invalid Aadhar Number"
@@ -624,19 +636,19 @@ def buy(request):
 			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'spProd':spProd})
 			return response
 		else:
-			x = request.GET.get("q",None)
-			#print x
-			#spProd = SpecialProduct.objects.get(productId = x)
-			spProd = get_object_or_404(SpecialProduct, productId=x)
-			print spProd
-			spPrice = spProd.price
-			monthlyCashBack = spPrice
-			parentRecieveAfterRefferal = spPrice
+			# x = request.GET.get("q",None)
+			# #print x
+			# #spProd = SpecialProduct.objects.get(productId = x)
+			# spProd = get_object_or_404(SpecialProduct, productId=x)
+			# print spProd
+			# spPrice = spProd.price
+			# monthlyCashBack = spPrice
+			# parentRecieveAfterRefferal = spPrice
 			# Render The page with errors
 			# options='<select name="product" class="form-control"><option selected="selected" disabled>PRODUCTS</option><option value="5000">5000</option>'
 			# options+='<option value="10000">10000</option><option value="10000">30000</option>'
 			# options+='<option value="10000">50000</option><option value="10000">90000</option></select>'
-			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'spProd':spProd})
+			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})#,'spProd':spProd})
 	else:
 		if not isLoggedIn(request):
 			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'

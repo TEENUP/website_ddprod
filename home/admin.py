@@ -86,7 +86,7 @@ class userRefferalAdmin(admin.ModelAdmin):
 
 class userRelationAdmin(admin.ModelAdmin):
     search_fields = ['childUsername','parentUsername']
-    list_display = ['childUsername','parentUsername']
+    list_display = ['childUsername','sponserId','parentUsername','parentId']
     list_filter = ['childUsername','parentUsername','sponserId','parentId']
 
     #readonly_fields = ['childUsername','sponserId','parentUsername','parentId']

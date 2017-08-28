@@ -124,7 +124,32 @@ footer {
                             </div>
                         </div>
                     </div>
-                </div>
+
+            <div class="row">
+                    <h1>Hello {{user.username}}, You have {{num}} member(s):- </h1>
+    {% for ref in reff %}
+            <div class="row">
+                <!-- <h1>  {{ reff.sponserId }}  </h1> -->
+                
+                <h1>  {{ ref.sponserId }}  </h1>
+        {% for related in relation %}
+            <div class="row">
+                <!-- <h1>  {{ reff.sponserId }}  </h1> -->
+                {% if ref.sponserId == related.parentId %}
+                <h1>  {{ related.parentId }} {{related.parentUsername}}  {{related.sponserId}} {{related.childUsername}}</h1>
+                {% endif %}
+            </div>
+        {% endfor %}
+                
+            </div>
+    {% endfor %}
+             
+            </div>
+
+
+
+
+<!--                 </div>
 {% if temp %}
             <div class="row">
                 <h1>Hello {{user.username}}, You have {{num}} member(s):- </h1>
@@ -154,7 +179,7 @@ footer {
                     </table>
                 </div>
             </div>
-{%endif%}
+{%endif%} -->
             </div>
     </div>
     
