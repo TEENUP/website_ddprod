@@ -27,7 +27,7 @@ SECURE_SSL_REDIRECT = False
 SECRET_KEY = '0@b@#6jnix=m*ta5gcew*0@ns8=6ol0te3*#kk4o%ma4=ei$6g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['127.0.0.1' , '.pythonanywhere.com' ,'www.petalsart.in']

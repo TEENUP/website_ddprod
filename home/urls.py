@@ -22,4 +22,4 @@ urlpatterns = [
     url(r'^buyProducts/', views.buyProducts, name='buyProducts'),
     url(r'^paymentGateway/', views.paymentGateway, name='paymentGateway'),
     url(r'^popup/', views.popup, name='popup'),
-]
+] 
