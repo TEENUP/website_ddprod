@@ -10,6 +10,7 @@ from .models import Product
 from .models import SpecialProduct
 from .models import ProductImage
 from .models import UserRefferal
+from .models import NormalProductsBoughtList
 
 
 # Register your models here.
@@ -25,7 +26,7 @@ class userAdmin(admin.ModelAdmin):
 	class Meta:
 		model = User
 
-def export_csv(modeladmin, request, queryset):
+def export_csvForTrendingProducts(modeladmin, request, queryset):
     	import csv
     	from django.utils.encoding import smart_str
     	response = HttpResponse(content_type='text/csv')
@@ -33,7 +34,12 @@ def export_csv(modeladmin, request, queryset):
     	writer = csv.writer(response, csv.excel)
     	response.write(u'\ufeff'.encode('utf8')) # BOM (optional...Excel needs it to open UTF-8 file properly)
     	writer.writerow([
-    	    smart_str(u"username"),
+            smart_str(u"username"),           
+    	    smart_str(u"firstName"),
+            smart_str(u"lastName"),
+            smart_str(u"address"),
+            smart_str(u"phoneNo"),
+            smart_str(u"email"),
     	    smart_str(u"sponserId"),
     	    smart_str(u"panNo"),
     	    smart_str(u"aadharNo"),
@@ -46,7 +52,12 @@ def export_csv(modeladmin, request, queryset):
     	])
     	for obj in queryset:
     	    writer.writerow([
-    	        smart_str(obj.username),
+                smart_str(obj.username),
+                smart_str(obj.firstName),
+                smart_str(obj.lastName),
+                smart_str(obj.address),
+                smart_str(obj.phoneNo),
+                smart_str(obj.email),
     	        smart_str(obj.sponserId),
     	        smart_str(obj.panNo),
     	        smart_str(obj.aadhaarNo),
@@ -59,16 +70,52 @@ def export_csv(modeladmin, request, queryset):
 
     	    ])
     	return response
-export_csv.short_description = u"Export CSV"
+export_csvForTrendingProducts.short_description = u"Export CSV"
+
+
+def export_csvForNormalProducts(modeladmin, request, queryset):
+        import csv
+        from django.utils.encoding import smart_str
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=mymodel.csv'
+        writer = csv.writer(response, csv.excel)
+        response.write(u'\ufeff'.encode('utf8')) # BOM (optional...Excel needs it to open UTF-8 file properly)
+        writer.writerow([
+            smart_str(u"username"),           
+            smart_str(u"firstName"),
+            smart_str(u"lastName"),
+            smart_str(u"address"),
+            smart_str(u"phoneNo"),
+            smart_str(u"email"),
+            smart_str(u"product"),
+            smart_str(u"amount"),
+            smart_str(u"boughtOn"),
+         
+        ])
+        for obj in queryset:
+            writer.writerow([
+                smart_str(obj.username),
+                smart_str(obj.firstName),
+                smart_str(obj.lastName),
+                smart_str(obj.address),
+                smart_str(obj.phoneNo),
+                smart_str(obj.email),
+                smart_str(obj.product),
+                smart_str(obj.amount),
+                smart_str(obj.boughtDate),
+
+            ])
+        return response
+export_csvForNormalProducts.short_description = u"Export CSV"
 
 class userAccountsAdmin(admin.ModelAdmin):
     date_hierarchy = 'joiningDate'
     search_fields = ['username','sponserId']
-    actions = [export_csv]
+    actions = [export_csvForTrendingProducts]
     list_display = ('username','sponserId','accountNo','IFSCCode','amount','joiningDate')
     list_filter = ('username','joiningDate')
 
-    #readonly_fields = ['username','sponserId','accountNo','IFSCCode','holderName','bankName','branchName','accountType','panNo','aadhaarNo','amount','joiningDate']
+    #readonly_fields = ['username','firstName','lastName','address','phoneNo','email','sponserId','accountNo','IFSCCode','holderName','bankName','branchName','accountType','panNo','aadhaarNo','amount','joiningDate']
 
 class userDetailsAdmin(admin.ModelAdmin):
     search_fields = ['username']
@@ -91,6 +138,16 @@ class userRelationAdmin(admin.ModelAdmin):
 
     #readonly_fields = ['childUsername','sponserId','parentUsername','parentId']
 
+class NormalProductsBoughtListAdmin(admin.ModelAdmin):
+    date_hierarchy = 'boughtDate'
+    search_fields = ['username']
+    actions = [export_csvForNormalProducts]
+    list_display = ('username','product')
+    list_filter = ('username','boughtDate')
+
+    # readonly_fields = ['username','firstName','lastName','address','phoneNo','email','product','amount','boughtDate']
+
+
 
 admin.site.site_header = 'Petals Art Jewellery Administration'
 admin.site.register(User, userAdmin)	
@@ -101,5 +158,6 @@ admin.site.register(Product)
 admin.site.register(SpecialProduct)
 admin.site.register(ProductImage)
 admin.site.register(UserRefferal, userRefferalAdmin)
+admin.site.register(NormalProductsBoughtList,NormalProductsBoughtListAdmin)
 
 

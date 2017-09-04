@@ -33,6 +33,11 @@ class UserDetails(models.Model):
 
 class UserAccount(models.Model):
     username = models.CharField(max_length=20)#foreign key
+    firstName= models.CharField(max_length=100,default="Blank")
+    lastName=models.CharField(max_length=100,default="Blank")
+    phoneNo = PhoneNumberField(default="Blank")
+    address = models.TextField(default="Blank")
+    email = models.EmailField(default="Blank")
     sponserId = models.CharField(max_length=10,primary_key=True)
     accountNo = models.CharField(max_length=200)
     IFSCCode = models.CharField(max_length=200)
@@ -49,7 +54,7 @@ class UserAccount(models.Model):
     #add time period 
     #panCard = models.BinaryField(default="Blank")
     #aadhaarCard = models.BinaryField(default="Blank")
-    photo = models.BinaryField(default="Blank")
+    #photo = models.BinaryField(default="Blank")
 
     def saveAccountDetails(self):
         # self.published_date = timezone.now()
@@ -81,6 +86,34 @@ class UserRefferal(models.Model):
         self.save()
     def __unicode__(self):
         return 'UserRefferal: ' + self.username +' || '+ self.sponserId
+
+class NormalProductsBoughtList(models.Model):
+    username = models.CharField(max_length=20)#foreign key
+    firstName= models.CharField(max_length=100,default="Blank")
+    lastName= models.CharField(max_length=100,default="Blank")
+    phoneNo = PhoneNumberField(default="Blank")
+    address = models.TextField(default="Blank")
+    email = models.EmailField(default="Blank")
+    product = models.CharField(max_length=20,unique=True)
+    amount = models.DecimalField(decimal_places=2, max_digits=100, default=10000.00)
+    boughtDate = models.DateTimeField(default=timezone.now,blank=True)
+
+    def saveBoughtList(self):
+        self.save()
+    def __unicode__(self):
+        return 'NormalProductsBoughtList: ' + self.username +' || '+ self.product
+
+    # def __unicode__(self):
+    #     return 'UserRefferal: ' + self.username +' || '+ self.sponserId
+
+    # """docstring for NormaProductsBoughtList"""
+    # def __init__(self, arg):
+    #     super (NormaProductsBoughtList, self).__init__()
+    #     self.arg = arg
+
+
+        
+        
 
 
 
