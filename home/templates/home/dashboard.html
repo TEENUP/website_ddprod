@@ -2,29 +2,41 @@
 {% block content %}
 {% load staticfiles %}
 
-    <meta charset="utf-8">
+<!-- side bar  -->
+<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Dashboard-Petals Art Jewellery</title>
 
     <link rel="stylesheet" href={% static 'css/dashboard-demo.css' %}>
-    <link rel="stylesheet" href={% static 'css/dashboard-sidebar-collapse.css' %}>
+    <link rel="stylesheet" href={% static 'css/dashboard-sidebar.css' %}>
 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 
+    <!--  Paper Dashboard core CSS    -->
+    <link href={% static 'css/paper-dashboard.css' %} rel="stylesheet"/>
+    <!--  Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href={% static 'css/themify-icons_dashboard.css' %} rel="stylesheet">
 
-    <aside class="sidebar-left-collapse">
 
-        <a href="#" class="company-logo">Logo</a>
+<div class="downFromTop">
+    <div class="wrapper">
+
+
+        <aside class="sidebar-left-collapse">
+
+        <a href="#" class="company-logo">P.A.J</a>
 
         <div class="sidebar-links">
 
             <div class="link-blue selected">
 
                 <a href="#">
-                    <i class="fa fa-picture-o"></i>Photography
+                    <i class="fa fa-picture-o"></i>Products
                 </a>
 
                 <ul class="sub-links">
@@ -84,19 +96,13 @@
         </div>
 
     </aside>
+    
+    
+</div>
+</div>
 
-    <div class="main-content">
 
-        <div class="menu">
-
-            
-
-           
-        </div>
-
-    </div>
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
     <script>
 
         $(function () {
@@ -115,162 +121,27 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% endblock %}
-
-    <!--  Paper Dashboard core CSS    -->
-    <!-- <link href={% static 'css/paper-dashboard.css' %} rel="stylesheet"/> -->
-    <!--  Fonts and icons     -->
-   <!--  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-    <link href={% static 'css/themify-icons_dashboard.css' %} rel="stylesheet"> -->
-
-
-<!-- <div class="downFromTop">
-    <div class="wrapper"> -->
-
-        <!-- <div class="sidebar-wrapper">
-            <ul class="nav">
-                <li class="active">
-                    <a href="dashboard.html">
-                        <i class="ti-panel"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="/user_profile">
-                        <i class="ti-user"></i>
-                        <p>User Profile</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div> -->
-    <!-- <div class="main-panel">
-    <div class="content">
-            <div class="container-fluid"> 
-            <div class="row"> -->
-                    <!-- <div class="col-lg-4 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-warning text-center">
-                                            <i class="ti-server"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Products</p>
-                                            1
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="col-lg-4 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-success text-center">
-                                            <i class="ti-wallet"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Amount</p>
-                                            Rs. {{user.amount}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="col-lg-4 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-info text-center">
-                                            <i class="ti-user"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Members</p>
-                                            {{num}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-           <!--  <div class="row">
-                    <h1>Hello {{user.username}}, You have {{num}} member(s):- </h1>
-    {% for ref in reff %}
-            <div class="row"> -->
-                <!-- <h1>  {{ reff.sponserId }}  </h1> -->
-                
-                <!-- <h1>  {{ ref.sponserId }}  </h1>
-        {% for related in relation %}
-            <div class="row"> -->
-                <!-- <h1>  {{ reff.sponserId }}  </h1> -->
-     <!--            {% if ref.sponserId == related.parentId %}
-                <h1>  {{ related.parentId }} {{related.parentUsername}}  {{related.sponserId}} {{related.childUsername}}</h1>
-                {% endif %}
-            </div>
-        {% endfor %}
-                
-            </div>
-    {% endfor %}
-             
-            </div>
-    </div>
-    </div>
-    </div>
-</div>
-</div>
-</div>
- -->
-
-
-
-    <!--   Core JS Files   
+      <!-- Core JS Files    -->
     <script src={% static 'js/jquery-1.10.2_dashboard.js' %} type="text/javascript"></script>
 	<script src={% static 'js/bootstrap.min_dashboard.js' %}type="text/javascript"></script>
 
-	  Checkbox, Radio & Switch Plugins 
+	  <!-- Checkbox, Radio & Switch Plugins  -->
 	<script src={% static 'js/bootstrap-checkbox-radio_dashboard.js' %}></script>
 
-	  Charts Plugin 
+	  <!-- Charts Plugin  -->
 	<script src={% static 'js/chartist.min_dashboard.js' %}></script>
 
-      Notifications Plugin    
+      <!-- Notifications Plugin     -->
     <script src={% static 'js/bootstrap-notify_dashboard.js' %}></script>
 
-      Google Maps Plugin    
+      <!-- Google Maps Plugin     -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
-     Paper Dashboard Core javascript and methods for Demo purpose 
+     <!-- Paper Dashboard Core javascript and methods for Demo purpose  -->
 	<script src={% static 'js/paper-dashboard.js' %}></script>
 
-	 Paper Dashboard DEMO methods, don't include it in your project! 
-	<script src={% static 'js/demo_dashboard.js' %}></script> -->
+	 <!-- Paper Dashboard DEMO methods, don't include it in your project!  -->
+	<script src={% static 'js/demo_dashboard.js' %}></script>
 
 
 
@@ -481,4 +352,20 @@
                     &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>
                 </div>
             </div>
-        </footer> -->
+        </footer>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
