@@ -10,6 +10,42 @@ body { float:left;}
             color: #ffffff;}
 .btn {background-color: black;
         color: #ffffff ;}
+
+
+
+.style_prevu_kit
+{
+    display:inline-block;
+    border:0;
+    /*width:196px;
+    height:210px;*/
+    position: relative;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1); 
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1); 
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1);
+    transition: all 200ms ease-in;
+    transform: scale(1);   
+
+}
+.style_prevu_kit:hover
+{
+    box-shadow: 0px 0px 150px #000000;
+    z-index: 2;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.2);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.2);   
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.2);
+    transition: all 200ms ease-in;
+    transform: scale(1.2);
+}
+
+
+
 </style>
 <title>Petals Art Jewellery</title>
     <header>
@@ -180,7 +216,7 @@ body { float:left;}
                     <div class="success">
                 <center><b>+{{ sp.cashBack }}% Cashback</b></center>
                 </div>
-                    <a href="/singles?q={{sp.productId}}" class="portfolio-link">
+                    <a href="/singles?q={{sp.productId}}" class="portfolio-link style_prevu_kit">
                         <img src="/media/{{ sp.primaryImage }}" style="width:100%; height:200px;" class="img-responsive" alt="">
                     <div class="caption">
                     <a href='/singles?q={{sp.productId}}'><br> 
@@ -254,7 +290,7 @@ body { float:left;}
             <div class="row">
                 {% for p in prod %}
                 <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="/single?q={{p.productId}}" class="portfolio-link">
+                    <a href="/single?q={{p.productId}}" class="portfolio-link style_prevu_kit">
                         <img src="/media/{{ p.primaryImage }}" style="width:100%; height:200px;" class="img-responsive" alt="">
                     </a>
                     <div class="caption">

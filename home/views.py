@@ -373,7 +373,60 @@ def dashboard(request):
 	# return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 
 def products(request):
-	return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','buy':'/buy'})
+	if isLoggedIn(request):
+		# usr=User.objects.get(sponserId=sponserId)
+		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		# Logout link
+		user_id= request.COOKIES['user_id']
+		username=check_secure_val(user_id)
+		print username
+		usr=User.objects.get(username=username)
+#changed sponserId to username
+		refferal=UserRefferal.objects.filter(username=username)
+		print refferal
+		children = UserRelation.objects.filter(parentUsername=username)
+		print children
+		# if refferal.count()>0:
+		# 	refferal=UserRefferal.objects.filter(username=username)
+		# 	reff = []
+		# 	for refs in refferal:
+		# 		objs=treeGenerate(refs.sponserId)
+		# 		listOfUserObjects=[]
+		# 		listOfUserDetailsObjects=[]
+		# 		for obj in objs:
+		# 			print obj
+		# 			sid,pid=obj.sponserId,obj.parentId
+		# 			print sid
+		# 			print pid
+		# 			u=User.objects.get(sponserId=sid)
+		# 			print u
+		# 			ud=UserDetails.objects.get(username=u.username)
+		# 			print ud
+		# 			listOfUserObjects.append(u)
+		# 			listOfUserDetailsObjects.append(ud)
+		# 		objsTemp=[listOfUserObjects,listOfUserDetailsObjects]
+		# 		print objsTemp
+		# 		temp=[]
+		# 		for i in range(0,len(objsTemp[0])):
+		# 			t=[]
+		# 			t.append(objsTemp[1][i].firstName)
+		# 			t.append(objsTemp[1][i].lastName)
+		# 			t.append(objsTemp[1][i].username)
+		# 			t.append(objsTemp[0][i].plan)
+		# 			t.append(objsTemp[1][i].email)
+		# 			temp.append(t)
+		# 		reff.append(temp)	
+			
+			#return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'temp':temp,'user':usr,'num':len(objs),'reff':refferal,'relation':objs})
+		#else:
+		return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':usr,'reff':refferal,'relation':children})
+
+
+	else:
+		return redirect('/')
+	# return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
+	#return render(request, 'home/products.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','buy':'/buy'})
 	"""if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
 		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'

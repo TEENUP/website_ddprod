@@ -1,342 +1,436 @@
 {% extends 'home/base.html' %}
 {% block content %}
-
 {% load staticfiles %}
 
-<head>
-
-    <style>
-#myDIV1 {
-    width: 100%;
-    padding: 50px 0;
-    text-align: center;
-    background-color: lightblue;
-    margin-top:20px;
-}
-#myDIV2 {
-    width: 100%;
-    padding: 50px 0;
-    text-align: center;
-    background-color: yellow;
-    margin-top:20px;
-}
-#myDIV3 {
-    width: 100%;
-    padding: 50px 0;
-    text-align: center;
-    background-color: darkblue;
-    margin-top:20px;
-}
-#myDIV4 {
-    width: 100%;
-    padding: 50px 0;
-    text-align: center;
-    background-color: red;
-    margin-top:20px;
-}
-#myDIV5 {
-    width: 100%;
-    padding: 50px 0;
-    text-align: center;
-    background-color: green;
-    margin-top:20px;
-}
-</style>
-
-    <meta charset="utf-8">
+<!-- side bar  -->
+<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>Products</title>
+    <title>Dashboard-Petals Art Jewellery</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href={% static 'css/bootstrap.min_plans.css' %} rel="stylesheet">
+    <link rel="stylesheet" href={% static 'css/dashboard-demo.css' %}>
+    <link rel="stylesheet" href={% static 'css/dashboard-sidebar.css' %}>
 
-    <!-- Custom CSS -->
-    <link href={% static 'css/shop-item_plans.css' %} rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!--  Paper Dashboard core CSS    -->
+    <link href={% static 'css/paper-dashboard.css' %} rel="stylesheet"/>
+    <!--  Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href={% static 'css/themify-icons_dashboard.css' %} rel="stylesheet">
 
-</head>
 
-<body>
+<div class="downFromTop">
+    <div class="wrapper">
+
+
+        <aside class="sidebar-left-collapse">
+
+        <a href="#" class="company-logo">P.A.J</a>
+
+        <div class="sidebar-links">
+
+            <div class="link-blue selected">
+
+                <a href="/dashboard">
+                    <i class="fa fa-picture-o"></i>DashBoard
+                </a>
+
+                <!-- <ul class="sub-links">
+                    <li><a href="#">Portraits</a></li>
+                    <li><a href="#">Landscape</a></li>
+                    <li><a href="#">Studio shots</a></li>
+                    <li><a href="#">Macros</a></li>
+                </ul>
+ -->
+            </div>
+
+            <div class="link-red">
+
+                <a href="/user_profile">
+                    <i class="fa fa-heart-o"></i>User Profile
+                </a>
+
+                <!-- <ul class="sub-links">
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                </ul> -->
+
+            </div>
+
+            <div class="link-yellow">
+
+                <a href="/products">
+                    <i class="fa fa-keyboard-o"></i>Products
+                </a>
+
+                <!-- <ul class="sub-links">
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                </ul> -->
+
+            </div>
+
+           <!--  <div class="link-green">
+
+                <a href="#">
+                    <i class="fa fa-map-marker"></i>
+                </a>
+
+                <ul class="sub-links">
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                </ul>
+
+            </div> -->
+
+        </div>
+
+    </aside>
     
+    
+                
 
-    <!-- Page Content -->
-    <div class="container">
+    <div class="main-panel">
+    <div class="content">
+            <div class="container-fluid"> 
+            <div class="content">
+            <div class="container-fluid">
+                 <div class="row">
+                    <!-- startloophere for refferal ids -->
+                    {% for reffs in reff %}
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="content">
+                                <p class="description text-center">
+                                    <b>{{ reffs.sponserId }}</b>
+                                </p>
+                        {% for rel in relation %}
+                            {% if reffs.username == rel.parentUsername %}
+                        <div class="card">
+                            <div class="content">
+                                <div class="link-yellow">
+                                  <ul class="sub-links">
+                                      <li>{{ rel.childUsername }}</li>
+                                      <li>{{ rel.sponserId }}</li>
+                                 </ul>
 
-        <div class="row">
+                                </div>
+                        </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
 
-            <div class="col-md-3">
-                <p class="lead">Product Categories</p>
-                <div class="list-group">
-                    <button onclick="myFunction1()">Category 1</button> <!--<a href="#" class="list-group-item active">Category 1</a>-->
-                    <br>
-                    <button onclick="myFunction2()">Category 2</button> <!--<a href="#" class="list-group-item active">Category 2</a>-->
-                    <br>
-                    <button onclick="myFunction3()">Category 3</button> <!--<a href="#" class="list-group-item active">Category 3</a>-->
-                    <br>
-                    <button onclick="myFunction4()">Category 4</button> <!--<a href="#" class="list-group-item active">Category 4</a>-->
-                    <br>
-                    <button onclick="myFunction5()">Category 5</button> <!--<a href="#" class="list-group-item active">Category 5</a>-->
-                    <br>
-                    <input onclick="myFunction1()" type="image" src="{% static 'img/portfolio/fullsize/6.jpg' %}" alt="{alternate text}" />
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
-
-
-        <div class="col-md-9">
-            <div id="myDIV1" class="col-md-9">
-
-                <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/800x300" alt="">
-                    <div class="caption-full">
-                        <h4 class="pull-right">Rs 5000</h4>
-                        <h4><a href="#">Category 1</a>
-                        </h4>
-                        <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                        <p>Want to make these reviews work? Check out
-                            <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                            </strong>over at maxoffsky.com!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                    </div>
-                    
-                </div>
-
-                <div class="well">
-
-                    <div class="text-right">
-<<<<<<< HEAD
-                        <a class="btn btn-success" href={{buyAnotherProduct}}>BUY</a>
-=======
-                        <a class="btn btn-success" href="/sign_up?productId=1">BUY</a>
->>>>>>> dad612665391d4786b87b7acb082c969b0f49b14
-                    </div>
-                    
-                </div>
-
-            </div>
-
-
-
-
-            <div id="myDIV2" class="col-md-9">
-
-                <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/800x300" alt="">
-                    <div class="caption-full">
-                        <h4 class="pull-right">Rs 10000</h4>
-                        <h4><a href="#">Category 2</a>
-                        </h4>
-                        <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                        <p>Want to make these reviews work? Check out
-                            <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                            </strong>over at maxoffsky.com!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                    </div>
-                </div>    
-                <div class="well">
-
-                    <div class="text-right">
-<<<<<<< HEAD
-                        <a class="btn btn-success" href={{buyAnotherProduct}}>BUY</a>
-=======
-                        <a class="btn btn-success" href="/sign_up?productId=2">BUY</a>
->>>>>>> dad612665391d4786b87b7acb082c969b0f49b14
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div id="myDIV3" class="col-md-9">
-
-                <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/800x300" alt="">
-                    <div class="caption-full">
-                        <h4 class="pull-right">Rs 30000</h4>
-                        <h4><a href="#">Category 3</a>
-                        </h4>
-                        <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                        <p>Want to make these reviews work? Check out
-                            <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                            </strong>over at maxoffsky.com!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                    </div>
-                </div>
-                <div class="well">
-
-                    <div class="text-right">
-<<<<<<< HEAD
-                        <a class="btn btn-success" href={{buyAnotherProduct}}>BUY</a>
-=======
-                        <a class="btn btn-success" href="/sign_up?productId=3">BUY</a>
->>>>>>> dad612665391d4786b87b7acb082c969b0f49b14
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div id="myDIV4" class="col-md-9">
-
-                <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/800x300" alt="">
-                    <div class="caption-full">
-                        <h4 class="pull-right">Rs 50000</h4>
-                        <h4><a href="#">Category 4</a>
-                        </h4>
-                        <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                        <p>Want to make these reviews work? Check out
-                            <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                            </strong>over at maxoffsky.com!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                    </div>
-                </div>
-               <div class="well">
-
-                    <div class="text-right">
-<<<<<<< HEAD
-                        <a class="btn btn-success" href={{buyAnotherProduct}}>BUY</a>
-=======
-                        <a class="btn btn-success" href="/sign_up?productId=4">BUY</a>
->>>>>>> dad612665391d4786b87b7acb082c969b0f49b14
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div id="myDIV5" class="col-md-9">
-
-                <div class="thumbnail">
-                    <img class="img-responsive" src="http://placehold.it/800x300" alt="">
-                    <div class="caption-full">
-                        <h4 class="pull-right">Rs 90000</h4>
-                        <h4><a href="#">Category 5</a>
-                        </h4>
-                        <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                        <p>Want to make these reviews work? Check out
-                            <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                            </strong>over at maxoffsky.com!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                    </div>
-                </div>
-                <div class="well">
-
-                    <div class="text-right">
-<<<<<<< HEAD
-                        <a class="btn btn-success" href={{buyAnotherProduct}}>BUY</a>
-=======
-                        <a class="btn btn-success" href="/sign_up?productId=5">BUY</a>
->>>>>>> dad612665391d4786b87b7acb082c969b0f49b14
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
-        </div>
-
     </div>
 
+
+
+
+    </div>
+    </div>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
     <script>
-    var a = document.getElementById('myDIV1');
-    var b = document.getElementById('myDIV2');
-    var c = document.getElementById('myDIV3');
-    var d = document.getElementById('myDIV4');
-    var e = document.getElementById('myDIV5');
-    //a.style.display = 'none';
-    b.style.display = 'none';
-    c.style.display = 'none';
-    d.style.display = 'none';
-    e.style.display = 'none';
-function myFunction1() {
-    
-    if (a.style.display === 'none') {
-        a.style.display = 'block';
-        b.style.display = 'none';
-        c.style.display = 'none';
-        d.style.display = 'none';
-        e.style.display = 'none';
-    } else {
-        a.style.display = 'none';
-    }
-}
 
-function myFunction2() {
-    
-    if (b.style.display === 'none') {
-        b.style.display = 'block';
-        a.style.display = 'none';
-        c.style.display = 'none';
-        d.style.display = 'none';
-        e.style.display = 'none';
-    } else {
-        b.style.display = 'none';
-    }
-}
+        $(function () {
 
-function myFunction3() {
-    
-    if (c.style.display === 'none') {
-        c.style.display = 'block';
-        a.style.display = 'none';
-        b.style.display = 'none';
-        d.style.display = 'none';
-        e.style.display = 'none';
-    } else {
-        c.style.display = 'none';
-    }
-}
+            var links = $('.sidebar-links > div');
 
-function myFunction4() {
-    
-    if (d.style.display === 'none') {
-        d.style.display = 'block';
-        b.style.display = 'none';
-        c.style.display = 'none';
-        a.style.display = 'none';
-        e.style.display = 'none';
-    } else {
-        d.style.display = 'none';
-    }
-}
+            links.on('click', function () {
 
-function myFunction5() {
-    
-    if (e.style.display === 'none') {
-        e.style.display = 'block';
-        b.style.display = 'none';
-        c.style.display = 'none';
-        a.style.display = 'none';
-        d.style.display = 'none';
-    } else {
-        e.style.display = 'none';
-    }
-}
-</script>
+                links.removeClass('selected');
+                $(this).addClass('selected');
+
+            });
+        });
+
+    </script>
 
 
-    <!-- /.container -->
-    <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src={% static 'js/jquery_plans.js' %}></script>
+      <!-- Core JS Files    -->
+    <script src={% static 'js/jquery-1.10.2_dashboard.js' %} type="text/javascript"></script>
+    <script src={% static 'js/bootstrap.min_dashboard.js' %}type="text/javascript"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src={% static 'js/bootstrap.min_plans.js' %}></script>
+      <!-- Checkbox, Radio & Switch Plugins  -->
+    <script src={% static 'js/bootstrap-checkbox-radio_dashboard.js' %}></script>
 
-</body>
+      <!-- Charts Plugin  -->
+    <script src={% static 'js/chartist.min_dashboard.js' %}></script>
+
+      <!-- Notifications Plugin     -->
+    <script src={% static 'js/bootstrap-notify_dashboard.js' %}></script>
+
+      <!-- Google Maps Plugin     -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+     <!-- Paper Dashboard Core javascript and methods for Demo purpose  -->
+    <script src={% static 'js/paper-dashboard.js' %}></script>
+
+     <!-- Paper Dashboard DEMO methods, don't include it in your project!  -->
+    <script src={% static 'js/demo_dashboard.js' %}></script>
+
+
+
+
+<!-- <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-warning text-center">
+                                            <i class="ti-server"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Capacity</p>
+                                            105GB
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-reload"></i> Updated now
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-success text-center">
+                                            <i class="ti-wallet"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Revenue</p>
+                                            $1,345
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-calendar"></i> Last day
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-danger text-center">
+                                            <i class="ti-pulse"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Errors</p>
+                                            23
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-timer"></i> In the last hour
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-info text-center">
+                                            <i class="ti-twitter-alt"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Followers</p>
+                                            +45
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-reload"></i> Updated now
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Users Behavior</h4>
+                                <p class="category">24 Hours performance</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartHours" class="ct-chart"></div>
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-info"></i> Open
+                                        <i class="fa fa-circle text-danger"></i> Click
+                                        <i class="fa fa-circle text-warning"></i> Click Second Time
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-reload"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Email Statistics</h4>
+                                <p class="category">Last Campaign Performance</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-info"></i> Open
+                                        <i class="fa fa-circle text-danger"></i> Bounce
+                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-timer"></i> Campaign sent 2 days ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title">2015 Sales</h4>
+                                <p class="category">All products including Taxes</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartActivity" class="ct-chart"></div>
+
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        <i class="fa fa-circle text-info"></i> Tesla Model S
+                                        <i class="fa fa-circle text-warning"></i> BMW 5 Series
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="ti-check"></i> Data information certified
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+
+                        <li>
+                            <a href="http://www.creative-tim.com">
+                                Creative Tim
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://blog.creative-tim.com">
+                               Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://www.creative-tim.com/license">
+                                Licenses
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright pull-right">
+                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>
+                </div>
+            </div>
+        </footer>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% endblock %}

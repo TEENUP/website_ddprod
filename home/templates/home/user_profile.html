@@ -3,15 +3,20 @@
 
 {% load staticfiles %}
 
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>Dashboard-Petals Art Jewellery</title>
 
+    <link rel="stylesheet" href={% static 'css/dashboard-demo.css' %}>
+    <link rel="stylesheet" href={% static 'css/dashboard-sidebar.css' %}>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 
     <!--  Paper Dashboard core CSS    -->
     <link href={% static 'css/paper-dashboard.css' %} rel="stylesheet"/>
-
-
-
-
     <!--  Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
@@ -20,30 +25,64 @@
 
 <div class="downFromTop">
     <div class="wrapper">
-    <div class="sidebar" data-background-color="white" data-active-color="danger">
 
-    <!--
-        Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
-        Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
-    -->
 
-        <div class="sidebar-wrapper">
-            <ul class="nav">
-                <li>
-                    <a href="/dashboard">
-                        <i class="ti-panel"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="/user_profile">
-                        <i class="ti-user"></i>
-                        <p>User Profile</p>
-                    </a>
-                </li>
-            </ul>
+        <aside class="sidebar-left-collapse">
+
+        <a href="/home" class="company-logo">P.A.J</a>
+
+        <div class="sidebar-links">
+
+            <div class="link-blue selected">
+
+                <a href="/dashboard">
+                    <i class="fa fa-picture-o"></i>DashBoard
+                </a>
+
+                <!-- <ul class="sub-links">
+                    <li><a href="#">Portraits</a></li>
+                    <li><a href="#">Landscape</a></li>
+                    <li><a href="#">Studio shots</a></li>
+                    <li><a href="#">Macros</a></li>
+                </ul> -->
+
+            </div>
+
+            <div class="link-red">
+
+                <a href="/user_profile">
+                    <i class="fa fa-heart-o"></i>User Profile
+                </a>
+
+                <!-- <ul class="sub-links">
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                </ul> -->
+
+            </div>
+
+            <div class="link-yellow">
+
+                <a href="/products">
+                    <i class="fa fa-keyboard-o"></i>Products
+                </a>
+
+                <!-- <ul class="sub-links">
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                </ul>
+ -->
+            </div>
+
         </div>
-    </div>
+
+    </aside>
+
+
 
     <div class="main-panel">
     <div class="content">
@@ -66,19 +105,6 @@
                                 </p>
                             </div>
                             <hr>
-                            <!-- <div class="text-center">
-                                <div class="row">
-                                    <div class="col-md-3 col-md-offset-1">
-                                        <h5>1<br /><small>Products</small></h5>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h5>X<br /><small>Members</small></h5>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h5>{{user.amount}}<br /><small>Amount</small></h5>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -91,42 +117,42 @@
                             <div class="content">
                                     <div class="row">
                                          <div class="header">
-                                        	<h5 class="title"><b>Username</b><br />
-		                                    	<small>{{user.username}}</small>
-		                                  	</h5>
+                                            <h5 class="title"><b>Username</b><br />
+                                                <small>{{user.username}}</small>
+                                            </h5>
                 
                                         </div>
                                          <div class="header">
                                             <h5 class="title"><b>First Name</b><br />
-		                                    	<small>{{userDetails.firstName}}</small>
-		                                  	</h5>
+                                                <small>{{userDetails.firstName}}</small>
+                                            </h5>
                                             </div>
                         
                                             <div class="header">
                                             <h5 class="title"><b>Last Name</b><br />
-		                                    	<small>{{userDetails.lastName}}</small>
-		                                  	</h5>
+                                                <small>{{userDetails.lastName}}</small>
+                                            </h5>
                                           </div>
                                 
                                     </div>
                                     <div class="row">
                                          <div class="header">
                                             <h5 class="title"><b>Phone Number</b><br />
-		                                    	<small>{{userDetails.phoneNo}}</small>
-		                                  	</h5>
+                                                <small>{{userDetails.phoneNo}}</small>
+                                            </h5>
                                         </div>
                                          <div class="header">
                                             <h5 class="title"><b>Email</b><br />
-		                                    	<small>{{userDetails.email}}</small>
-		                                  	</h5>
+                                                <small>{{userDetails.email}}</small>
+                                            </h5>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                          <div class="header">
                                             <h5 class="title"><b>Address</b><br />
-		                                    	<small>{{userDetails.address}}</small>
-		                                  	</h5>
+                                                <small>{{userDetails.address}}</small>
+                                            </h5>
                                         </div>
                                     </div>
                             </div>
@@ -140,14 +166,14 @@
                             <div class="content">
                                     <div class="row">
                                          <div class="header">
-                                        	<h5 class="title"><b>Account Holder Name</b><br />
-		                                    	<small>{{userAccount.holderName}}</small>
-		                                  	</h5>
+                                            <h5 class="title"><b>Account Holder Name</b><br />
+                                                <small>{{userAccount.holderName}}</small>
+                                            </h5>
                                           </div>
                                      <div class="header">
                                             <h5 class="title"><b>Account Number</b><br />
-		                                    	<small>{{userAccount.accountNo}}</small>
-		                                  	</h5>
+                                                <small>{{userAccount.accountNo}}</small>
+                                            </h5>
                                           </div>
                                         
                                     </div>
@@ -156,20 +182,20 @@
                                         
                                          <div class="header">
                                             <h5 class="title"><b>IFSC Code</b><br />
-		                                    	<small>{{userAccount.IFSCCode}}</small>
-		                                  	</h5>
+                                                <small>{{userAccount.IFSCCode}}</small>
+                                            </h5>
                                           </div>
                                         
                                          <div class="header">
                                             <h5 class="title"><b>Bank</b><br />
-		                                    	<small>{{userAccount.bankName}}</small>
-		                                  	</h5>
+                                                <small>{{userAccount.bankName}}</small>
+                                            </h5>
                                           </div>
                                         
                                          <div class="header">
                                             <h5 class="title"><b>Branch</b><br />
-		                                    	<small>{{userAccount.branchName}}</small>
-		                                  	</h5>
+                                                <small>{{userAccount.branchName}}</small>
+                                            </h5>
                                           </div>
                                         
                                     </div>
@@ -178,13 +204,13 @@
                                         
                                          <div class="header">
                                             <h5 class="title"><b>PAN Number</b><br />
-		                                    	<small>{{userAccount.panNo}}</small>
-		                                  	</h5>
+                                                <small>{{userAccount.panNo}}</small>
+                                            </h5>
                                         </div>
                                          <div class="header">
                                             <h5 class="title"><b>Aadhaar Number</b><br />
-		                                    	<small>{{userAccount.aadhaarNo}}</small>
-		                                  	</h5>
+                                                <small>{{userAccount.aadhaarNo}}</small>
+                                            </h5>
                                         </div>
                                     </div>
                             </div>
@@ -196,39 +222,72 @@
 
             </div>
     </div>
-    
-
-        
-
     </div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+</div>
 </div>
 
-</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+    <script>
+
+        $(function () {
+
+            var links = $('.sidebar-links > div');
+
+            links.on('click', function () {
+
+                links.removeClass('selected');
+                $(this).addClass('selected');
+
+            });
+        });
+
+    </script>
 
 
 
+      <!-- Core JS Files    -->
+    <script src={% static 'js/jquery-1.10.2_dashboard.js' %} type="text/javascript"></script>
+    <script src={% static 'js/bootstrap.min_dashboard.js' %}type="text/javascript"></script>
 
-    <!--   Core JS Files   -->
-        <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
-	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+      <!-- Checkbox, Radio & Switch Plugins  -->
+    <script src={% static 'js/bootstrap-checkbox-radio_dashboard.js' %}></script>
 
-	<!--  Checkbox, Radio & Switch Plugins -->
-	<script src="assets/js/bootstrap-checkbox-radio.js"></script>
+      <!-- Charts Plugin  -->
+    <script src={% static 'js/chartist.min_dashboard.js' %}></script>
 
-	<!--  Charts Plugin -->
-	<script src="assets/js/chartist.min.js"></script>
+      <!-- Notifications Plugin     -->
+    <script src={% static 'js/bootstrap-notify_dashboard.js' %}></script>
 
-    <!--  Notifications Plugin    -->
-    <script src="assets/js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
+      <!-- Google Maps Plugin     -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
-    <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
-	<script src="assets/js/paper-dashboard.js"></script>
+     <!-- Paper Dashboard Core javascript and methods for Demo purpose  -->
+    <script src={% static 'js/paper-dashboard.js' %}></script>
 
-	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-	<script src="assets/js/demo.js"></script>
+     <!-- Paper Dashboard DEMO methods, don't include it in your project!  -->
+    <script src={% static 'js/demo_dashboard.js' %}></script>
+
+
+
+    
+
+
+
+
 
 
 {% endblock %}

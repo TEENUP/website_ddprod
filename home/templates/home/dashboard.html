@@ -35,38 +35,53 @@
 
             <div class="link-blue selected">
 
-                <a href="#">
-                    <i class="fa fa-picture-o"></i>Products
+                <a href="/dashboard">
+                    <i class="fa fa-picture-o"></i>DashBoard
                 </a>
 
-                <ul class="sub-links">
+                <!-- <ul class="sub-links">
                     <li><a href="#">Portraits</a></li>
                     <li><a href="#">Landscape</a></li>
                     <li><a href="#">Studio shots</a></li>
                     <li><a href="#">Macros</a></li>
                 </ul>
-
+ -->
             </div>
 
             <div class="link-red">
 
-                <a href="#">
-                    <i class="fa fa-heart-o"></i>Favorites
+                <a href="/user_profile">
+                    <i class="fa fa-heart-o"></i>User Profile
                 </a>
 
-                <ul class="sub-links">
+                <!-- <ul class="sub-links">
                     <li><a href="#">Link 1</a></li>
                     <li><a href="#">Link 2</a></li>
                     <li><a href="#">Link 3</a></li>
                     <li><a href="#">Link 4</a></li>
-                </ul>
+                </ul> -->
 
             </div>
 
             <div class="link-yellow">
 
+                <a href="/products">
+                    <i class="fa fa-keyboard-o"></i>Products
+                </a>
+
+                <!-- <ul class="sub-links">
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                </ul> -->
+
+            </div>
+
+           <!--  <div class="link-green">
+
                 <a href="#">
-                    <i class="fa fa-keyboard-o"></i>Projects
+                    <i class="fa fa-map-marker"></i>
                 </a>
 
                 <ul class="sub-links">
@@ -76,28 +91,78 @@
                     <li><a href="#">Link 4</a></li>
                 </ul>
 
-            </div>
-
-            <div class="link-green">
-
-                <a href="#">
-                    <i class="fa fa-map-marker"></i>Places
-                </a>
-
-                <ul class="sub-links">
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <li><a href="#">Link 3</a></li>
-                    <li><a href="#">Link 4</a></li>
-                </ul>
-
-            </div>
+            </div> -->
 
         </div>
 
     </aside>
     
     
+                
+
+    <div class="main-panel">
+    <div class="content">
+            <div class="container-fluid"> 
+            <div class="content">
+            <div class="container-fluid">
+                 <div class="row">
+                    <!-- startloophere for refferal ids -->
+                    {% for reffs in reff %}
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="content">
+                                <p class="description text-center">
+                                    <b>{{ reffs.sponserId }}</b>
+                                </p>
+                        {% for rel in relation %}
+                            {% if reffs.username == rel.parentUsername %}
+                        <div class="card">
+                            <div class="content">
+                                <div class="link-yellow">
+                                  <ul class="sub-links">
+                                      <li>{{ rel.childUsername }}</li>
+                                      <li>{{ rel.sponserId }}</li>
+                                 </ul>
+
+                                </div>
+                        </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    </div>
+    </div>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </div>
 
