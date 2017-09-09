@@ -118,7 +118,7 @@ def home_list(request):
 
 	if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
-		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
 		return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'spProd':spProd,'prod':prod})
@@ -199,7 +199,7 @@ def contact_us(request):
 	else:	
 		if isLoggedIn(request):
 			# usr=User.objects.get(sponserId=sponserId)
-			greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+			greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
 			logout='<a class="page-scroll" href="/logout">Logout</a>'
 			# Can take email and name
 			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout})#,'errorEmail':errorEmail})
@@ -277,7 +277,7 @@ def login(request):
 				print "qwertyqwerty" + user_id
 				id_to_send=make_secure_val(str(user_id))
 				print "asdsasdsad" + id_to_send
-				response = redirect('/dashboard')
+				response = redirect('/myHome')
 				response.set_cookie('user_id', id_to_send)
 				return response
 			else:
@@ -301,7 +301,7 @@ def login(request):
 def about_us(request):
 	if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
-		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
 		return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout})
@@ -320,7 +320,7 @@ def dashboard(request):
 	# User.objects.filter(sponserId='3').delete()
 	if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
-		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
 		user_id= request.COOKIES['user_id']
@@ -375,7 +375,7 @@ def dashboard(request):
 def products(request):
 	if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
-		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
 		user_id= request.COOKIES['user_id']
@@ -442,7 +442,7 @@ def products(request):
 def user_profile(request):
 	if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
-		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		user_id= request.COOKIES['user_id']
 		username=check_secure_val(user_id)
@@ -472,7 +472,7 @@ def logout(request):
 def thanks(request):
 	if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
-		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		# Logout link
 		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout})
@@ -784,7 +784,7 @@ def popup(request):
 def myHome(request):
 	if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
-		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
 		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		user_id= request.COOKIES['user_id']
 		username=check_secure_val(user_id)
