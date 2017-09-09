@@ -27,7 +27,7 @@
     <div class="wrapper">
 
 
-        <aside class="sidebar-left-collapse">
+        <aside style="background-color: #000"class="sidebar-left-collapse">
 
         <a href="#" class="company-logo">P.A.J</a>
 
@@ -63,20 +63,20 @@
 
             </div>
 
-            <div class="link-yellow">
+            <!-- <div class="link-yellow">
 
                 <a href="/products">
                     <i class="fa fa-keyboard-o"></i>Products
                 </a>
 
-                <!-- <ul class="sub-links">
+                <ul class="sub-links">
                     <li><a href="#">Link 1</a></li>
                     <li><a href="#">Link 2</a></li>
                     <li><a href="#">Link 3</a></li>
                     <li><a href="#">Link 4</a></li>
-                </ul> -->
+                </ul>
 
-            </div>
+            </div> -->
 
            <!--  <div class="link-green">
 
@@ -110,12 +110,12 @@
                     {% for reffs in reff %}
                     <div class="col-lg-3">
                         <div class="card">
-                            <div class="content">
+                            <div style="background-color:#000"class="content">
                                 <p class="description text-center">
                                     <b>{{ reffs.sponserId }}</b>
                                 </p>
                         {% for rel in relation %}
-                            {% if reffs.username == rel.parentUsername %}
+                            {% if reffs.sponserId == rel.parentId %}
                         <div class="card">
                             <div class="content">
                                 <div class="link-yellow">
@@ -168,7 +168,7 @@
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
-    <script>
+     <script>
 
         $(function () {
 
@@ -182,7 +182,7 @@
             });
         });
 
-    </script>
+     </script>
 
 
 

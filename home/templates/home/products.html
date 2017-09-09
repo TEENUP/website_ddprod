@@ -1,8 +1,8 @@
 {% extends 'home/base.html' %}
 {% block content %}
+
 {% load staticfiles %}
 
-<!-- side bar  -->
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,9 +27,9 @@
     <div class="wrapper">
 
 
-        <aside class="sidebar-left-collapse">
+        <aside style="background-color: #000" class="sidebar-left-collapse">
 
-        <a href="#" class="company-logo">P.A.J</a>
+        <a href="/home" class="company-logo">P.A.J</a>
 
         <div class="sidebar-links">
 
@@ -44,8 +44,8 @@
                     <li><a href="#">Landscape</a></li>
                     <li><a href="#">Studio shots</a></li>
                     <li><a href="#">Macros</a></li>
-                </ul>
- -->
+                </ul> -->
+
             </div>
 
             <div class="link-red">
@@ -74,78 +74,155 @@
                     <li><a href="#">Link 2</a></li>
                     <li><a href="#">Link 3</a></li>
                     <li><a href="#">Link 4</a></li>
-                </ul> -->
-
-            </div>
-
-           <!--  <div class="link-green">
-
-                <a href="#">
-                    <i class="fa fa-map-marker"></i>
-                </a>
-
-                <ul class="sub-links">
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <li><a href="#">Link 3</a></li>
-                    <li><a href="#">Link 4</a></li>
                 </ul>
-
-            </div> -->
+ -->
+            </div>
 
         </div>
 
     </aside>
-    
-    
-                
+
+
 
     <div class="main-panel">
     <div class="content">
             <div class="container-fluid"> 
             <div class="content">
             <div class="container-fluid">
-                 <div class="row">
-                    <!-- startloophere for refferal ids -->
-                    {% for reffs in reff %}
-                    <div class="col-lg-3">
-                        <div class="card">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card card-user">
+                            <!-- <div class="image"></div> -->
                             <div class="content">
-                                <p class="description text-center">
-                                    <b>{{ reffs.sponserId }}</b>
-                                </p>
-                        {% for rel in relation %}
-                            {% if reffs.username == rel.parentUsername %}
-                        <div class="card">
-                            <div class="content">
-                                <div class="link-yellow">
-                                  <ul class="sub-links">
-                                      <li>{{ rel.childUsername }}</li>
-                                      <li>{{ rel.sponserId }}</li>
-                                 </ul>
-
+                                <div class="author">
+                                  <!-- <img class="avatar border-white" src="" alt="Photo"/> -->
+                                  <h4 class="title">{{userDetails.firstName}} {{userDetails.lastName}}<br />
+                                     <small>{{user.username}}</small>
+                                  </h4>
                                 </div>
+                                <p class="description text-center">
+                                <h1>Hello {{user.username}},</h1> here you can see your details.
+                                </p>
+                            </div>
+                            <hr>
                         </div>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title"><b>USER PROFILE</b></h4>
+                            </div>
+                            <div class="content">
+                                    <div class="row">
+                                         <div class="header">
+                                            <h5 class="title"><b>Username</b><br />
+                                                <small>{{user.username}}</small>
+                                            </h5>
+                
+                                        </div>
+                                         <div class="header">
+                                            <h5 class="title"><b>First Name</b><br />
+                                                <small>{{userDetails.firstName}}</small>
+                                            </h5>
+                                            </div>
+                        
+                                            <div class="header">
+                                            <h5 class="title"><b>Last Name</b><br />
+                                                <small>{{userDetails.lastName}}</small>
+                                            </h5>
+                                          </div>
+                                
+                                    </div>
+                                    <div class="row">
+                                         <div class="header">
+                                            <h5 class="title"><b>Phone Number</b><br />
+                                                <small>{{userDetails.phoneNo}}</small>
+                                            </h5>
+                                        </div>
+                                         <div class="header">
+                                            <h5 class="title"><b>Email</b><br />
+                                                <small>{{userDetails.email}}</small>
+                                            </h5>
+                                        </div>
+                                    </div>
 
-
+                                    <div class="row">
+                                         <div class="header">
+                                            <h5 class="title"><b>Address</b><br />
+                                                <small>{{userDetails.address}}</small>
+                                            </h5>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><b>ACCOUNT DETAILS</b></h4>
+                            </div>
+                            <div class="content">
+                                    <div class="row">
+                                         <div class="header">
+                                            <h5 class="title"><b>Account Holder Name</b><br />
+                                                <small>{{userAccount.holderName}}</small>
+                                            </h5>
+                                          </div>
+                                     <div class="header">
+                                            <h5 class="title"><b>Account Number</b><br />
+                                                <small>{{userAccount.accountNo}}</small>
+                                            </h5>
+                                          </div>
+                                        
+                                    </div>
+
+                                    <div class="row">
+                                        
+                                         <div class="header">
+                                            <h5 class="title"><b>IFSC Code</b><br />
+                                                <small>{{userAccount.IFSCCode}}</small>
+                                            </h5>
+                                          </div>
+                                        
+                                         <div class="header">
+                                            <h5 class="title"><b>Bank</b><br />
+                                                <small>{{userAccount.bankName}}</small>
+                                            </h5>
+                                          </div>
+                                        
+                                         <div class="header">
+                                            <h5 class="title"><b>Branch</b><br />
+                                                <small>{{userAccount.branchName}}</small>
+                                            </h5>
+                                          </div>
+                                        
+                                    </div>
+
+                                    <div class="row">
+                                        
+                                         <div class="header">
+                                            <h5 class="title"><b>PAN Number</b><br />
+                                                <small>{{userAccount.panNo}}</small>
+                                            </h5>
+                                        </div>
+                                         <div class="header">
+                                            <h5 class="title"><b>Aadhaar Number</b><br />
+                                                <small>{{userAccount.aadhaarNo}}</small>
+                                            </h5>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-
-
-
+            </div>
     </div>
     </div>
-            
 
 
 
@@ -157,12 +234,8 @@
 
 
 
-
-
-
-
-
-
+    
+    
 </div>
 </div>
 
@@ -170,17 +243,17 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
     <script>
 
-        $(function () {
+        // $(function () {
 
-            var links = $('.sidebar-links > div');
+        //     var links = $('.sidebar-links > div');
 
-            links.on('click', function () {
+        //     links.on('click', function () {
 
-                links.removeClass('selected');
-                $(this).addClass('selected');
+        //         links.removeClass('selected');
+        //         $(this).addClass('selected');
 
-            });
-        });
+        //     });
+        // });
 
     </script>
 
@@ -210,223 +283,7 @@
 
 
 
-
-<!-- <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-warning text-center">
-                                            <i class="ti-server"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Capacity</p>
-                                            105GB
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Updated now
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-success text-center">
-                                            <i class="ti-wallet"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Revenue</p>
-                                            $1,345
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-calendar"></i> Last day
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-danger text-center">
-                                            <i class="ti-pulse"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Errors</p>
-                                            23
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-timer"></i> In the last hour
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-info text-center">
-                                            <i class="ti-twitter-alt"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Followers</p>
-                                            +45
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr />
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Updated now
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Users Behavior</h4>
-                                <p class="category">24 Hours performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Click
-                                        <i class="fa fa-circle text-warning"></i> Click Second Time
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Updated 3 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Email Statistics</h4>
-                                <p class="category">Last Campaign Performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Bounce
-                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="ti-timer"></i> Campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card ">
-                            <div class="header">
-                                <h4 class="title">2015 Sales</h4>
-                                <p class="category">All products including Taxes</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
-
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Tesla Model S
-                                        <i class="fa fa-circle text-warning"></i> BMW 5 Series
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="ti-check"></i> Data information certified
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <footer class="footer">
-            <div class="container-fluid">
-                <nav class="pull-left">
-                    <ul>
-
-                        <li>
-                            <a href="http://www.creative-tim.com">
-                                Creative Tim
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://blog.creative-tim.com">
-                               Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://www.creative-tim.com/license">
-                                Licenses
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>
-                </div>
-            </div>
-        </footer>
-
- -->
-
-
-
-
-
-
-
+    
 
 
 
