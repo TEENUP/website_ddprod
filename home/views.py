@@ -667,12 +667,13 @@ def buy(request):
 			user_id= request.COOKIES['user_id']
 			#print "6 "+ user_id
 			username=check_secure_val(user_id)
+			userDetails = UserDetails.objects.get(username=username)
 			print "5"+ username
 			#return redirect('/')
 			print "hello world???"
 
 			UserRefferal.objects.create(username=username,sponserId=sponserId)
-			UserAccount.objects.create(sponserId=sponserId,username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
+			UserAccount.objects.create(firstName=userDetails.firstName,lastName=userDetails.lastName,phoneNo=userDetails.phoneNo,address=userDetails.address,email=userDetails.email,sponserId=sponserId,username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
 				accountType=accountType,accountNo=accountNo,panNo=panNo,aadhaarNo=aadhaarNo,productId=spProd,amount=spPrice)
 			UserRelation.objects.create(childUsername=username,sponserId=sponserId,parentUsername=pUsername.username,parentId=parentId)
 			# Payment
