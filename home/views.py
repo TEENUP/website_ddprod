@@ -781,6 +781,30 @@ def paymentGateway(request):
 def popup(request):
 	return render(request, 'home/popup.html')
 
+def myHome(request):
+	if isLoggedIn(request):
+		# usr=User.objects.get(sponserId=sponserId)
+		greet='<a class="page-scroll" href="/dashboard">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		user_id= request.COOKIES['user_id']
+		username=check_secure_val(user_id)
+		user=User.objects.get(username=username)
+		userDetails=UserDetails.objects.get(username=user.username)
+		accountDetails=UserAccount.objects.filter(username=username)
+		if accountDetails.count()>0:
+			userAccount=UserAccount.objects.filter(username=username)
+			reff = UserRefferal.objects.filter(username=username)
+			if reff.count()>0:	
+				refferal=UserRefferal.objects.filter(username=user.username)
+				return render(request, 'home/myHome.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount[0],'refferal':refferal})
+			else:
+				return render(request, 'home/myHome.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount[0]})
+		else:
+			return render(request, 'home/myHome.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails})
+	else:
+		return redirect('/')
+
+
 #Product APP 
 def all(request):
 	products = Product.objects.all()
