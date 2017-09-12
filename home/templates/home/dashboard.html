@@ -107,13 +107,20 @@
             <div class="content">
             <div class="container-fluid">
                  <div class="row">
+                    <div class="card">
+                           <!--  <div style="background-color:#ffffff"class="content">
+                                <p color:#000;class="description text-center">
+                                    <span>Product Name</span><span>Referral Id</span><span>Amount</span><span>Invoice Date</span>
+                                </p>
+                                </div>
+                            </div> -->
                     <!-- startloophere for refferal ids -->
                     {% for reffs in reff %}
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div style="background-color:#000"class="content">
                                 <p class="description text-center">
-                                    <b>{{ reffs.sponserId }}</b>
+                                    <b><span>Product Name</span><span>{{ reffs.sponserId }}</span><span>Rs Amount</span><span>Invoice Date</span></b>
                                 </p>
                         {% for rel in relation %}
                             {% if reffs.sponserId == rel.parentId %}

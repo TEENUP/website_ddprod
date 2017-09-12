@@ -35,6 +35,77 @@ from django.conf import settings
 # matching query for product
 from django.shortcuts import get_object_or_404
 
+#### CCAVENUE payment gateway dependencies/libraries and Functions
+
+from Crypto.Cipher import AES
+import md5
+from string import Template
+
+### 32 bit alphanumeric key and Access Code in quotes provided by CCAvenues.
+accessCode = 'AVDV72EI95AN77VDNA' 	
+workingKey = 'F29369319A53923B0415DE92C49FCD15'
+ 
+def pad(data):
+	length = 16 - (len(data) % 16)
+	data += chr(length)*length
+	return data
+
+def encrypt(plainText,workingKey):
+	iv = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+	plainText = pad(plainText)
+	encDigest = md5.new ()
+	encDigest.update(workingKey)
+	enc_cipher = AES.new(encDigest.digest(), AES.MODE_CBC, iv)
+	encryptedText = enc_cipher.encrypt(plainText).encode('hex')
+	return encryptedText
+
+
+
+def decrypt(cipherText,workingKey):
+	iv = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+	decDigest = md5.new ()
+	decDigest.update(workingKey)
+	encryptedText = cipherText.decode('hex')
+	dec_cipher = AES.new(decDigest.digest(), AES.MODE_CBC, iv)
+	decryptedText = dec_cipher.decrypt(encryptedText)
+	return decryptedText
+
+def res(encResp):
+	'''
+	Please put in the 32 bit alphanumeric key in quotes provided by CCAvenues.
+	'''	 
+	# workingKey = 'F29369319A53923B0415DE92C49FCD15'
+	decResp = decrypt(encResp,workingKey)
+	data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
+	data = data + decResp.replace('=','</td><td>')
+	data = data.replace('&','</td></tr><tr><td>')
+	data = data + '</td></tr></table>'
+	
+	html = '''\
+	<html>
+		<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<title>Response Handler</title>
+		</head>
+		<body>
+			<center>
+				<font size="4" color="blue"><b>Response Page</b></font>
+				<br>
+				$response
+			</center>
+			<br>
+		</body>
+	</html>
+	'''
+	fin = Template(html).safe_substitute(response=data)
+	return fin
+
+
+
+
+
+### Regular Expressions for dataEntries
+
 regexForSponserId="^[A-Z0-9]*$"
 regexForEmail = "^a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 regexForPanCard = "^[A-Z]{5}[0-9]{4}[A-Z]$"
@@ -537,6 +608,63 @@ def contact(request):
 	template='home/newContact.html'
 	return render(request,template,context)
 
+##### CCAvenues RequestHandler
+
+# def login_buy():
+# 	p_merchant_id = "147110"
+# 	p_order_id = sponserId
+# 	p_currency = "INR"
+# 	p_amount = spPrice
+# 	p_redirect_url = "http://192.168.2.49:8085/ccavResponseHandler"
+# 	p_cancel_url = "http://192.168.2.49:8085/ccavResponseHandler"
+# 	p_language = "EN"
+# 	p_billing_name = "userDetails.firstName" + "userDetails.lastName"
+# 	p_billing_address = "userDetails.address"
+# 	p_billing_city = "Delhi"
+# 	p_billing_state = "Delhi"
+# 	p_billing_zip = "110085"
+# 	p_billing_country = "India"
+# 	p_billing_tel = "userDetails.phoneNo"
+# 	p_billing_email = "userDetails.email"
+# 	p_delivery_name = "userDetails.firstName" + "userDetails.lastName"
+# 	p_delivery_address = "userDetails.address"
+# 	p_delivery_city = "Delhi"
+# 	p_delivery_state = "Delhi"
+# 	p_delivery_zip = "110085"
+# 	p_delivery_country = "India"
+# 	p_delivery_tel ="userDetails.phoneNo"
+# 	p_merchant_param1 = "userDetails.email"
+# 	p_merchant_param2 = ""
+# 	p_merchant_param3 = ""
+# 	p_merchant_param4 = ""
+# 	p_merchant_param5 = ""
+#  	p_promo_code = ""
+# 	p_customer_identifier = ""
+	
+	
+
+# 	merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language+'&'+'billing_name='+p_billing_name+'&'+'billing_address='+p_billing_address+'&'+'billing_city='+p_billing_city+'&'+'billing_state='+p_billing_state+'&'+'billing_zip='+p_billing_zip+'&'+'billing_country='+p_billing_country+'&'+'billing_tel='+p_billing_tel+'&'+'billing_email='+p_billing_email+'&'+'delivery_name='+p_delivery_name+'&'+'delivery_address='+p_delivery_address+'&'+'delivery_city='+p_delivery_city+'&'+'delivery_state='+p_delivery_state+'&'+'delivery_zip='+p_delivery_zip+'&'+'delivery_country='+p_delivery_country+'&'+'delivery_tel='+p_delivery_tel+'&'+'merchant_param1='+p_merchant_param1+'&'+'merchant_param2='+p_merchant_param2+'&'+'merchant_param3='+p_merchant_param3+'&'+'merchant_param4='+p_merchant_param4+'&'+'merchant_param5='+p_merchant_param5+'&'+'promo_code='+p_promo_code+'&'+'customer_identifier='+p_customer_identifier+'&'
+		
+# 	encryption = encrypt(merchant_data,workingKey)
+
+# 	html = '''\
+# <html>
+# <head>
+# 	<title>Sub-merchant checkout page</title>
+# 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+# </head>
+# <body>
+# <form id="nonseamless" method="post" name="redirect" action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"/> 
+# 		<input type="hidden" id="encRequest" name="encRequest" value=$encReq>
+# 		<input type="hidden" name="access_code" id="access_code" value=$xscode>
+# 		<script language='javascript'>document.redirect.submit();</script>
+# </form>    
+# </body>
+# </html>
+# '''
+# 	fin = Template(html).safe_substitute(encReq=encryption,xscode=accessCode)
+			
+# 	return fin	
 
 def buy(request):
 	#you have to write view for adding product into the user
@@ -680,15 +808,86 @@ def buy(request):
 			insertUser(parentId,sponserId)
 			#set Cookie
 			# redirect to homepage
-
-#link payment gateway over here under insert user
 			id_to_send=make_secure_val(str(sponserId))
+#link payment gateway over here under insert user
+### CCAVenues Payment Gateway 
+			p_merchant_id = "147110"
+			p_order_id = sponserId
+			p_currency = "INR"
+			p_amount = spPrice
+			p_redirect_url = "http://192.168.2.49:8085/ccavResponseHandler"
+			p_cancel_url = "http://192.168.2.49:8085/ccavResponseHandler"
+			p_language = "EN"
+			p_billing_name = "userDetails.firstName" + "userDetails.lastName"
+			p_billing_address = "userDetails.address"
+			p_billing_city = "Delhi"
+			p_billing_state = "Delhi"
+			p_billing_zip = "110085"
+			p_billing_country = "India"
+			p_billing_tel = "userDetails.phoneNo"
+			p_billing_email = "userDetails.email"
+			p_delivery_name = "userDetails.firstName" + "userDetails.lastName"
+			p_delivery_address = "userDetails.address"
+			p_delivery_city = "Delhi"
+			p_delivery_state = "Delhi"
+			p_delivery_zip = "110085"
+			p_delivery_country = "India"
+			p_delivery_tel ="userDetails.phoneNo"
+			p_merchant_param1 = "userDetails.email"
+			p_merchant_param2 = ""
+			p_merchant_param3 = ""
+			p_merchant_param4 = ""
+			p_merchant_param5 = ""
+ 			p_promo_code = ""
+			p_customer_identifier = ""
+	
+	
+
+			merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language+'&'+'billing_name='+p_billing_name+'&'+'billing_address='+p_billing_address+'&'+'billing_city='+p_billing_city+'&'+'billing_state='+p_billing_state+'&'+'billing_zip='+p_billing_zip+'&'+'billing_country='+p_billing_country+'&'+'billing_tel='+p_billing_tel+'&'+'billing_email='+p_billing_email+'&'+'delivery_name='+p_delivery_name+'&'+'delivery_address='+p_delivery_address+'&'+'delivery_city='+p_delivery_city+'&'+'delivery_state='+p_delivery_state+'&'+'delivery_zip='+p_delivery_zip+'&'+'delivery_country='+p_delivery_country+'&'+'delivery_tel='+p_delivery_tel+'&'+'merchant_param1='+p_merchant_param1+'&'+'merchant_param2='+p_merchant_param2+'&'+'merchant_param3='+p_merchant_param3+'&'+'merchant_param4='+p_merchant_param4+'&'+'merchant_param5='+p_merchant_param5+'&'+'promo_code='+p_promo_code+'&'+'customer_identifier='+p_customer_identifier+'&'
+		
+			encryption = encrypt(merchant_data,workingKey)
+
+			# html = '''\
+			# <html>
+			# <head>
+			# <title>Sub-merchant checkout page</title>
+			# <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+			# </head>
+			# <body>
+			# <form id="nonseamless" method="post" name="redirect" action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"/> 
+			# <input type="hidden" id="encRequest" name="encRequest" value=$encReq>
+			# <input type="hidden" name="access_code" id="access_code" value=$xscode>
+			# <script language='javascript'>document.redirect.submit();</script>
+			# </form>    
+			# </body>
+			# </html>
+			# '''
+			#fin = Template(html).safe_substitute(encReq=encryption,xscode=accessCode)
+			
+			#return fin
+
+			return render(request, 'home/payment.html', {'encReq':encryption,'xscode':accessCode})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
 			# print "ID TO SEND"+id_to_send
 			# print "SPONSERID"+sponserId
-			response = redirect('/')
+			response = redirect('/') ##uncomment it afterwards
 			#response.set_cookie('user_id', id_to_send)
 			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber,'spProd':spProd})
-			return response
+			return response ##uncomment it afterwards
 		else:
 			# x = request.GET.get("q",None)
 			# #print x

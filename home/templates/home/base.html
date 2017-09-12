@@ -50,11 +50,14 @@
 <style>
 .navbar {
   /*background:transparent;*/
-  background-color: #000;
+  /*background-color: #000;*/
   /*border-color:grey;
   margin-bottom:0px;
   font-family: 'Droid Serif', serif;
   font-size:20px;*/
+}
+.button-color{
+    color: #f05f40;
 }
 </style>
 </head>
@@ -74,13 +77,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="" href="{{about}}">About</a>
+                        <a class="button-color" href="{{about}}">About</a>
                     </li>
                     <li>
-                        <a class="" href="{{products}}">Products</a>
+                        <a class="button-color" href="{{products}}">Products</a>
                     </li>
                     <li>
-                        <a class="" href="{{contact}}">Contact</a>
+                        <a class="button-color" href="{{contact}}">Contact</a>
                     </li>
                     <li>
                         {{greet|safe}}
