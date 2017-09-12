@@ -29,7 +29,7 @@
 
 
         <aside style="background-color: #e7e7e7"class="sidebar-left-collapse">
-            <div style="text-align: center"><a href="/myHome" class="company-logo"><img height="180" width="180" src="/static/img/backgrounds/logo.jpg"></a></div>
+            <div style="text-align: center"><a href="/myHome" class="company-logo"><img height="180" width="170" src="/static/img/backgrounds/logo.jpg"></a></div>
         
 
         <div class="sidebar-links">
@@ -98,6 +98,21 @@
 
     </aside>
     
+    <style> 
+#main {
+    width: 440px;
+    height: 40px;
+    border: 1px solid black;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+}
+
+#main div {
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */    
+    flex: 1;
+}
+</style>
     
                 
 
@@ -115,13 +130,19 @@
                                 </div>
                             </div> -->
                     <!-- startloophere for refferal ids -->
-                    {% for reffs in reff %}
+                    {% for reffs in accounts %}
                     <div class="col-lg-6">
                         <div class="card">
                             <div style="background-color:#000"class="content">
-                                <p class="description text-center">
+                                <!-- <p class="description text-center">
                                     <b><span>Product Name</span><span>{{ reffs.sponserId }}</span><span>Rs Amount</span><span>Invoice Date</span></b>
-                                </p>
+                                </p> -->
+                            <div id="main">
+                                <div style="background-color:coral;">{{ reffs.productId }}</div>
+                                <div style="background-color:lightblue;">{{ reffs.sponserId }}</div>  
+                                <div style="background-color:lightgreen;">Rs {{ reffs.amount }}</div>
+                                <div style="background-color:lightpink;">{{ reffs.joiningDate }}</div>
+                            </div>
                         {% for rel in relation %}
                             {% if reffs.sponserId == rel.parentId %}
                         <div class="card">

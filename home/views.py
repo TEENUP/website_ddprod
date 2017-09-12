@@ -111,6 +111,7 @@ regexForEmail = "^a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 regexForPanCard = "^[A-Z]{5}[0-9]{4}[A-Z]$"
 regexForMobileNumber ="^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$"
 regexForAadharCard = "^\d{4}\s\d{4}\s\d{4}$"
+regexForUserName = "^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$"
 SECRET="qwerty"
 
 def make_salt():
@@ -247,6 +248,11 @@ def validateUsername(username):
 	if user.count()>0:
 		return False
 	return True
+def validateUsername2(username):
+	isUserNameValid = not not re.match(regexForUserName,username)
+	if not isUserNameValid:
+		return False
+	return True
 
 def validatePassword(password,confirmPassword):
 	if password == confirmPassword:
@@ -288,6 +294,10 @@ def sign_up(request):
 		errorUsername=""
 		if(not isUsernameValid):
 			errorUsername="User Already Exists"
+		isUsernameValid = validateUsername2(username)
+		errorUsername=""
+		if(not isUsernameValid):
+			errorUsername="User Name is not appropriate it must contain one character and alphanumneric and it must not contain any spaces"
 
 		password=request.POST.get('password')
 		confirmPassword=request.POST.get('confirmPassword')
@@ -400,6 +410,7 @@ def dashboard(request):
 		usr=User.objects.get(username=username)
 #changed sponserId to username
 		refferal=UserRefferal.objects.filter(username=username)
+		accounts=UserAccount.objects.filter(username=username)
 		print refferal
 		children = UserRelation.objects.filter(parentUsername=username)
 		print children
@@ -436,7 +447,7 @@ def dashboard(request):
 			
 			#return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'temp':temp,'user':usr,'num':len(objs),'reff':refferal,'relation':objs})
 		#else:
-		return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':usr,'reff':refferal,'relation':children})
+		return render(request, 'home/dashboard.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':usr,'reff':refferal,'relation':children,'accounts':accounts})
 
 
 	else:
