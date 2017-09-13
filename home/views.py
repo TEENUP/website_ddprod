@@ -74,31 +74,32 @@ def res(encResp):
 	'''
 	Please put in the 32 bit alphanumeric key in quotes provided by CCAvenues.
 	'''	 
-	# workingKey = 'F29369319A53923B0415DE92C49FCD15'
+	workingKey = 'F29369319A53923B0415DE92C49FCD15'
 	decResp = decrypt(encResp,workingKey)
 	data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
 	data = data + decResp.replace('=','</td><td>')
 	data = data.replace('&','</td></tr><tr><td>')
 	data = data + '</td></tr></table>'
 	
-	html = '''\
-	<html>
-		<head>
-			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-			<title>Response Handler</title>
-		</head>
-		<body>
-			<center>
-				<font size="4" color="blue"><b>Response Page</b></font>
-				<br>
-				$response
-			</center>
-			<br>
-		</body>
-	</html>
-	'''
-	fin = Template(html).safe_substitute(response=data)
-	return fin
+	# html = '''\
+	# <html>
+	# 	<head>
+	# 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	# 		<title>Response Handler</title>
+	# 	</head>
+	# 	<body>
+	# 		<center>
+	# 			<font size="4" color="blue"><b>Response Page</b></font>
+	# 			<br>
+	# 			$response
+	# 		</center>
+	# 		<br>
+	# 	</body>
+	# </html>
+	# '''
+	# fin = Template(html).safe_substitute(response=data)
+	# return fin
+	return render(request, 'home/ccavResponseHandler.html', {'Response':data})
 
 
 
@@ -826,8 +827,8 @@ def buy(request):
 			p_order_id = sponserId
 			p_currency = "INR"
 			p_amount = spPrice
-			p_redirect_url = "www.petalsart.in"
-			p_cancel_url = "www.petalsart.in"
+			p_redirect_url = "home/ccavResponseHandler.html"
+			p_cancel_url = "home/ccavResponseHandler.html"
 			p_language = "EN"
 			p_billing_name = "userDetails.firstName" + "userDetails.lastName"
 			p_billing_address = "userDetails.address"
@@ -961,7 +962,9 @@ def buy(request):
 			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 		
 		
-
+def ccavResponseHandler():
+    plainText = res(request.get('encResp'))
+    return plainText
 
 
 	#return render(request,'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
