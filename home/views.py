@@ -826,8 +826,8 @@ def buy(request):
 			p_order_id = sponserId
 			p_currency = "INR"
 			p_amount = spPrice
-			p_redirect_url = "www.petalsart.in/ccavResponseHandler"
-			p_cancel_url = "www.petalsart.in/ccavResponseHandler"
+			p_redirect_url = "www.petalsart.in"
+			p_cancel_url = "www.petalsart.in"
 			p_language = "EN"
 			p_billing_name = "userDetails.firstName" + "userDetails.lastName"
 			p_billing_address = "userDetails.address"
