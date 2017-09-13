@@ -46,4 +46,5 @@ urlpatterns = [
     url(r'^paymentGateway/', include('home.urls')),
     url(r'^popup/', include('home.urls')),
     url(r'^myHome/', include('home.urls')),
+    #url(r'^ccavResponseHandler/', include('home.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

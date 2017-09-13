@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^paymentGateway/', views.paymentGateway, name='paymentGateway'),
     url(r'^popup/', views.popup, name='popup'),
     url(r'^myHome/', views.myHome, name='myHome'),
+    #url(r'^ccavResponseHandler/', views.ccavResponseHandler, name='ccavResponseHandler'),
 
 ] 
