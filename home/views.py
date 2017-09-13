@@ -17,7 +17,7 @@ from django.contrib.auth import (
 
 	)
 
-
+from django.views.decorators.csrf import csrf_exempt
 from .forms import ContactForm
 from django.shortcuts import render, Http404
 # from django.template import RequestContext
@@ -961,7 +961,7 @@ def buy(request):
 			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','spProd':spProd})
 			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 		
-		
+@csrf_exempt	
 def ccavResponseHandler(request):
 	if request.method == "POST":
 		plainText = request.POST.get('encResp')
