@@ -967,7 +967,7 @@ def ccavResponseHandler(request):
 		plainText = res(request.POST.get('encResp'))
 		print "gateway"
 		print plainText
-		#return render(request)
+		return plainText
 
 
 	#return render(request,'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
