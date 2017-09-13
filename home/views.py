@@ -70,36 +70,36 @@ def decrypt(cipherText,workingKey):
 	decryptedText = dec_cipher.decrypt(encryptedText)
 	return decryptedText
 
-def res(encResp):
-	'''
-	Please put in the 32 bit alphanumeric key in quotes provided by CCAvenues.
-	'''	 
-	workingKey = 'F29369319A53923B0415DE92C49FCD15'
-	decResp = decrypt(encResp,workingKey)
-	data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
-	data = data + decResp.replace('=','</td><td>')
-	data = data.replace('&','</td></tr><tr><td>')
-	data = data + '</td></tr></table>'
+# def res(encResp):
+# 	'''
+# 	Please put in the 32 bit alphanumeric key in quotes provided by CCAvenues.
+# 	'''	 
+# 	workingKey = 'F29369319A53923B0415DE92C49FCD15'
+# 	decResp = decrypt(encResp,workingKey)
+# 	data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
+# 	data = data + decResp.replace('=','</td><td>')
+# 	data = data.replace('&','</td></tr><tr><td>')
+# 	data = data + '</td></tr></table>'
 	
-	# html = '''\
-	# <html>
-	# 	<head>
-	# 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	# 		<title>Response Handler</title>
-	# 	</head>
-	# 	<body>
-	# 		<center>
-	# 			<font size="4" color="blue"><b>Response Page</b></font>
-	# 			<br>
-	# 			$response
-	# 		</center>
-	# 		<br>
-	# 	</body>
-	# </html>
-	# '''
-	# fin = Template(html).safe_substitute(response=data)
-	# return fin
-	return render(request, 'home/ccavResponseHandler.html', {'Response':data})
+# 	# html = '''\
+# 	# <html>
+# 	# 	<head>
+# 	# 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+# 	# 		<title>Response Handler</title>
+# 	# 	</head>
+# 	# 	<body>
+# 	# 		<center>
+# 	# 			<font size="4" color="blue"><b>Response Page</b></font>
+# 	# 			<br>
+# 	# 			$response
+# 	# 		</center>
+# 	# 		<br>
+# 	# 	</body>
+# 	# </html>
+# 	# '''
+# 	# fin = Template(html).safe_substitute(response=data)
+# 	# return fin
+# 	return render(request, 'home/ccavResponseHandler.html', {'Response':data})
 
 
 
@@ -964,10 +964,18 @@ def buy(request):
 		
 def ccavResponseHandler(request):
 	if request.method == "POST":
-		plainText = res(request.POST.get('encResp'))
+		plainText = request.POST.get('encResp')
+		workingKey = 'F29369319A53923B0415DE92C49FCD15'
+		decResp = decrypt(plainText,workingKey)
+		data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
+		data = data + decResp.replace('=','</td><td>')
+		data = data.replace('&','</td></tr><tr><td>')
+		data = data + '</td></tr></table>'
+
 		print "gateway"
 		print plainText
-		return plainText
+		return render(request, 'home/ccavResponseHandler.html', {'Response':data})
+		
 
 
 	#return render(request,'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
