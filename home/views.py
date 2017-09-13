@@ -827,8 +827,8 @@ def buy(request):
 			p_order_id = sponserId
 			p_currency = "INR"
 			p_amount = spPrice
-			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler"
-			p_cancel_url = "https://www.petalsart.in/ccavResponseHandler"
+			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
+			p_cancel_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_language = "EN"
 			p_billing_name = "userDetails.firstName" + "userDetails.lastName"
 			p_billing_address = "userDetails.address"
@@ -962,12 +962,12 @@ def buy(request):
 			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 		
 		
-def ccavResponseHandler():
+def ccavResponseHandler(self):
 	if request.method == "POST":
 		plainText = res(request.POST.get('encResp'))
 		print "gateway"
 		print plainText
-		return plainText
+		#return render(request)
 
 
 	#return render(request,'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
