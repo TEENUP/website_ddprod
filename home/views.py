@@ -963,8 +963,9 @@ def buy(request):
 		
 		
 def ccavResponseHandler():
-    plainText = res(request.get('encResp'))
-    return plainText
+	if request.method == "POST":
+		plainText = res(request.POST.get('encResp'))
+		return plainText
 
 
 	#return render(request,'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
