@@ -830,7 +830,7 @@ def buy(request):
 			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_cancel_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_language = "EN"
-			p_billing_name = userDetails.firstName + userDetails.lastName
+			p_billing_name = userDetails.firstName + ' ' + userDetails.lastName
 			p_billing_address = userDetails.address
 			p_billing_city = "Delhi"
 			p_billing_state = "Delhi"
@@ -961,20 +961,20 @@ def buy(request):
 			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','spProd':spProd})
 			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 		
-@csrf_exempt	
+# @csrf_exempt	
 def ccavResponseHandler(request):
 	if request.method == "POST":
 		plainText = request.POST.get('encResp')
 		workingKey = 'F29369319A53923B0415DE92C49FCD15'
 		decResp = decrypt(plainText,workingKey)
-		data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
-		data = data + decResp.replace('=','</td><td>')
-		data = data.replace('&','</td></tr><tr><td>')
-		data = data + '</td></tr></table>'
+		# data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
+		# data = data + decResp.replace('=','</td><td>')
+		# data = data.replace('&','</td></tr><tr><td>')
+		# data = data + '</td></tr></table>'
 
 		print "gateway"
 		print plainText
-		return render(request, 'home/ccavResponseHandler.html', {'Response':data})
+		return render(request, 'home/ccavResponseHandler.html', {'Response':decResp})
 		
 
 
