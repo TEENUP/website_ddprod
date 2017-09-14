@@ -1043,9 +1043,9 @@ def buyProducts(request):
 #link payment gateway over here under insert user
 ### CCAVenues Payment Gateway 
 			p_merchant_id = "147110"
-			p_order_id = "product.productId"
+			p_order_id = product.productId
 			p_currency = "INR"
-			p_amount = "product.price"
+			p_amount = product.price
 			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_cancel_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_language = "EN"
