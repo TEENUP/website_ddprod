@@ -1038,6 +1038,8 @@ def buyProducts(request):
 		x = request.POST.get('product-title')
 	 	product = Product.objects.get(title = x)
 		mobile = request.POST.get('mobileNo')
+		price = request.POST.get('amount')
+		
 		
 		if x==product.title:
 #link payment gateway over here under insert user
@@ -1045,7 +1047,7 @@ def buyProducts(request):
 			p_merchant_id = "147110"
 			p_order_id = "xyz"
 			p_currency = "INR"
-			p_amount = product.price
+			p_amount = price
 			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_cancel_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_language = "EN"
