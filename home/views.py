@@ -1054,7 +1054,7 @@ def buyProducts(request):
 			userDetails = UserDetails.objects.get(username=username)
 
 			p_merchant_id = "147110"
-			p_order_id = username
+			p_order_id = product.slug
 			p_currency = "INR"
 			p_amount = price
 			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
