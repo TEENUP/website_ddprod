@@ -138,10 +138,10 @@
                                     <b><span>Product Name</span><span>{{ reffs.sponserId }}</span><span>Rs Amount</span><span>Invoice Date</span></b>
                                 </p> -->
                             <div id="main">
-                                <div style="background-color:coral;">{{ reffs.productId }}</div>
-                                <div style="background-color:lightblue;">{{ reffs.sponserId }}</div>  
-                                <div style="background-color:lightgreen;">Rs {{ reffs.amount }}</div>
-                                <div style="background-color:lightpink;">{{ reffs.joiningDate }}</div>
+                                <div style=""><b style="color:#ffffff";>{{ reffs.productId }}</b></div>
+                                <div style=""><b style="color:#ffffff";>{{ reffs.sponserId }}</b></div>  
+                                <!-- <div style=""><b style="color:#ffffff";>Rs {{ reffs.amount }}</b></div> -->
+                                <div style=""><b style="color:#ffffff";>{{ reffs.joiningDate }}</b></div>
                             </div>
                         {% for rel in relation %}
                             {% if reffs.sponserId == rel.parentId %}
