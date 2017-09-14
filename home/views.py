@@ -1080,7 +1080,7 @@ def buyProducts(request):
 
 			return render(request, 'home/payment.html', {'encReq':encryption,'xscode':accessCode})
 		else:
-			return render(request, 'home/buyProducts.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})#,'spProd':spProd})
+			return render(request, 'home/buyProducts.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up'})
 	else:
 		if not isLoggedIn(request):
 			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
