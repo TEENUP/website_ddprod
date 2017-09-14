@@ -26,7 +26,7 @@ class UserDetails(models.Model):
     email = models.EmailField()
     city = models.CharField(max_length=20,default="delhi")
     state= models.CharField(max_length=20,default="delhi")
-    pinCode = models.IntegerField(max_length=20,default=110001)
+    pinCode = models.IntegerField(default=110001)
 
     def saveDetails(self):
         # self.published_date = timezone.now()
