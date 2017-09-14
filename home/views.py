@@ -1039,7 +1039,7 @@ def buyProducts(request):
 	 	product = Product.objects.get(title = x)
 		mobile = request.POST.get('mobileNo')
 		
-		if x==product.productId:
+		if x==product.title:
 #link payment gateway over here under insert user
 ### CCAVenues Payment Gateway 
 			p_merchant_id = "147110"
