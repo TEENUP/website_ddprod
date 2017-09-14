@@ -982,56 +982,116 @@ def ccavResponseHandler(request):
 
 
 def buyProducts(request):
-	if not isLoggedIn(request):
+	# if not isLoggedIn(request):
+	# 		#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+	# 		return redirect('/sign_up')
+	# else:
+
+	# 	x = request.GET.get("q",None)
+	# 	product = Product.objects.get(productId = x)
+
+
+	# 	p_merchant_id = "147110"
+	# 	p_order_id = product.productId
+	# 	p_currency = "INR"
+	# 	p_amount = product.price
+	# 	p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
+	# 	p_cancel_url = "https://www.petalsart.in/ccavResponseHandler/"
+	# 	p_language = "EN"
+	# 	p_billing_name = "userDetails.firstName" + ' ' + "userDetails.lastName"
+	# 	p_billing_address = "userDetails.address"
+	# 	p_billing_city = "Delhi"
+	# 	p_billing_state = "Delhi"
+	# 	p_billing_zip = "110085"
+	# 	p_billing_country = "India"
+	# 	#p_billing_tel = userDetails.phoneNo
+	# 	p_billing_email = "userDetails.email"
+	# 	p_delivery_name = "userDetails.firstName + userDetails.lastName"
+	# 	p_delivery_address = "userDetails.address"
+	# 	p_delivery_city = "Delhi"
+	# 	p_delivery_state = "Delhi"
+	# 	p_delivery_zip = "110085"
+	# 	p_delivery_country = "India"
+	# 	#p_delivery_tel =userDetails.phoneNo
+	# 	p_merchant_param1 = "userDetails.email"
+	# 	p_merchant_param2 = ""
+	# 	p_merchant_param3 = ""
+	# 	p_merchant_param4 = ""
+	# 	p_merchant_param5 = ""
+ # 		p_promo_code = ""
+	# 	p_customer_identifier = ""
+	
+	
+
+	# 	merchant_data="1049"
+		
+	# 	encryption = encrypt(merchant_data,workingKey)
+
+	# 	return render(request, 'home/payment.html', {'encReq':encryption,'xscode':accessCode})
+
+
+	# 	# return render(request,'home/buyProducts.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','product':product})
+	#you have to write view for adding product into the user
+	#return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
+
+	if request.method == "POST":
+		x = request.POST.get('product-title')
+	 	product = Product.objects.get(title = x)
+		mobile = request.POST.get('mobileNo')
+		
+		if x==product.productId:
+#link payment gateway over here under insert user
+### CCAVenues Payment Gateway 
+			p_merchant_id = "147110"
+			p_order_id = "product.productId"
+			p_currency = "INR"
+			p_amount = "product.price"
+			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
+			p_cancel_url = "https://www.petalsart.in/ccavResponseHandler/"
+			p_language = "EN"
+			p_billing_name = "userDetails.firstName + ' ' + userDetails.lastName"
+			p_billing_address = "userDetails.address"
+			p_billing_city = "Delhi"
+			p_billing_state = "Delhi"
+			p_billing_zip = "110085"
+			p_billing_country = "India"
+			#p_billing_tel = userDetails.phoneNo
+			p_billing_email = "userDetails.email"
+			p_delivery_name = "userDetails.firstName + userDetails.lastName"
+			p_delivery_address = "userDetails.address"
+			p_delivery_city = "Delhi"
+			p_delivery_state = "Delhi"
+			p_delivery_zip = "110085"
+			p_delivery_country = "India"
+			#p_delivery_tel =userDetails.phoneNo
+			p_merchant_param1 = "userDetails.email"
+			p_merchant_param2 = ""
+			p_merchant_param3 = ""
+			p_merchant_param4 = ""
+			p_merchant_param5 = ""
+ 			p_promo_code = ""
+			p_customer_identifier = ""
+	
+	
+
+			merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language+'&'+'billing_name='+p_billing_name+'&'+'billing_address='+p_billing_address+'&'+'billing_city='+p_billing_city+'&'+'billing_state='+p_billing_state+'&'+'billing_zip='+p_billing_zip+'&'+'billing_country='+p_billing_country+'&'+'billing_email='+p_billing_email+'&'+'delivery_name='+p_delivery_name+'&'+'delivery_address='+p_delivery_address+'&'+'delivery_city='+p_delivery_city+'&'+'delivery_state='+p_delivery_state+'&'+'delivery_zip='+p_delivery_zip+'&'+'delivery_country='+p_delivery_country+'&'+'merchant_param1='+p_merchant_param1+'&'+'merchant_param2='+p_merchant_param2+'&'+'merchant_param3='+p_merchant_param3+'&'+'merchant_param4='+p_merchant_param4+'&'+'merchant_param5='+p_merchant_param5+'&'+'promo_code='+p_promo_code+'&'+'customer_identifier='+p_customer_identifier+'&'
+		
+			encryption = encrypt(merchant_data,workingKey)
+
+			return render(request, 'home/payment.html', {'encReq':encryption,'xscode':accessCode})
+		else:
+			return render(request, 'home/buyProducts.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorSponserId':errorSponserId,'errorPanNumber':errorPanNumber,'errorAdharNumber':errorAdharNumber})#,'spProd':spProd})
+	else:
+		if not isLoggedIn(request):
 			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 			return redirect('/sign_up')
-	else:
+		else:
+			x = request.GET.get("q",None)
+			product = Product.objects.get(productId = x)
 
-		x = request.GET.get("q",None)
-		product = Product.objects.get(productId = x)
-
-
-		p_merchant_id = "147110"
-		p_order_id = product.productId
-		p_currency = "INR"
-		p_amount = product.price
-		p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
-		p_cancel_url = "https://www.petalsart.in/ccavResponseHandler/"
-		p_language = "EN"
-		p_billing_name = "userDetails.firstName" + ' ' + "userDetails.lastName"
-		p_billing_address = "userDetails.address"
-		p_billing_city = "Delhi"
-		p_billing_state = "Delhi"
-		p_billing_zip = "110085"
-		p_billing_country = "India"
-		#p_billing_tel = userDetails.phoneNo
-		p_billing_email = "userDetails.email"
-		p_delivery_name = "userDetails.firstName + userDetails.lastName"
-		p_delivery_address = "userDetails.address"
-		p_delivery_city = "Delhi"
-		p_delivery_state = "Delhi"
-		p_delivery_zip = "110085"
-		p_delivery_country = "India"
-		#p_delivery_tel =userDetails.phoneNo
-		p_merchant_param1 = "userDetails.email"
-		p_merchant_param2 = ""
-		p_merchant_param3 = ""
-		p_merchant_param4 = ""
-		p_merchant_param5 = ""
- 		p_promo_code = ""
-		p_customer_identifier = ""
-	
-	
-
-		merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language+'&'+'billing_name='+p_billing_name+'&'+'billing_address='+p_billing_address+'&'+'billing_city='+p_billing_city+'&'+'billing_state='+p_billing_state+'&'+'billing_zip='+p_billing_zip+'&'+'billing_country='+p_billing_country+'&'+'billing_email='+p_billing_email+'&'+'delivery_name='+p_delivery_name+'&'+'delivery_address='+p_delivery_address+'&'+'delivery_city='+p_delivery_city+'&'+'delivery_state='+p_delivery_state+'&'+'delivery_zip='+p_delivery_zip+'&'+'delivery_country='+p_delivery_country+'&'+'merchant_param1='+p_merchant_param1+'&'+'merchant_param2='+p_merchant_param2+'&'+'merchant_param3='+p_merchant_param3+'&'+'merchant_param4='+p_merchant_param4+'&'+'merchant_param5='+p_merchant_param5+'&'+'promo_code='+p_promo_code+'&'+'customer_identifier='+p_customer_identifier+'&'
+			return render(request, 'home/buyProducts.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','product':product})
+			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 		
-		encryption = encrypt(merchant_data,workingKey)
-
-		return render(request, 'home/payment.html', {'encReq':encryption,'xscode':accessCode})
-
-
-		# return render(request,'home/buyProducts.html',{'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','product':product})
-
 
 def slide(request):
 	return render(request, 'home/slide.html')
