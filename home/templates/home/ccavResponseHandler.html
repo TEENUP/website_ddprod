@@ -7,23 +7,46 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 			<title>Response Handler</title>
 
-<div  style="background-color: #000"; class="downFromTop">
-                      <p align="center" style="font-size:34px; color:#ffffff"><b>Products</b></p>
+<div  style="background-color: #000"; class="">
+                      <p align="center" style="font-size:34px; color:#ffffff"><b>Payment Response</b></p>
                
                 </div>
+<style >
+.downFromTop {
+
+	margin-top: 5%;
+}
 
 
-			
-		
+</style>
+{% if Response %}
+<div class="">
 			<center>
 
-				<font size="4" color="blue"><b>Response Page</b></font>
+				<font size="4" color="black"><b>Thank You for buying Product from Petals Art Jewellery Pvt. Ltd.</b></font>
 				<br>
-				<table> {{ Response }}</table>
+			
 				{{ Response }}
-				{{ Response.p_billing_city}}
 			</center>
 			<br>
+</div >
+
+{% else %}
+
+<div class="">
+			<center>
+
+				<font size="4" color="black"><b>Ooops....went something wrong! </b></font>
+				<br>
+			
+				{{ Response }}
+			</center>
+			<br>
+</div>
+
+
+			{% endif %}
+
 		
 
 {% endblock %}
