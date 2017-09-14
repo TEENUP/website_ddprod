@@ -881,7 +881,7 @@ def buy(request):
 			
 			#return fin
 
-			return render(request, 'home/payment.html', {'encReq':encryption,'xscode':accessCode})
+			return render(request, 'home/payment.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','encReq':encryption,'xscode':accessCode})
 
 
 
@@ -1088,7 +1088,7 @@ def buyProducts(request):
 			merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language+'&'+'billing_name='+p_billing_name+'&'+'billing_address='+p_billing_address+'&'+'billing_city='+p_billing_city+'&'+'billing_state='+p_billing_state+'&'+'billing_zip='+p_billing_zip+'&'+'billing_country='+p_billing_country+'&'+'billing_email='+p_billing_email+'&'+'delivery_name='+'&'
 			encryption = encrypt(merchant_data,workingKey)
 
-			return render(request, 'home/payment.html', {'encReq':encryption,'xscode':accessCode})
+			return render(request, 'home/payment.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','encReq':encryption,'xscode':accessCode})
 		else:
 			return render(request, 'home/buyProducts.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up'})
 	else:
