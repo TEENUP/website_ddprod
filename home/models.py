@@ -2,13 +2,14 @@ from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.urlresolvers import reverse
+import datetime
 
 class User(models.Model):
     #sponserId = models.CharField(max_length=10,primary_key=True)
     username = models.CharField(max_length=20)
     password = models.CharField(max_length=1000,blank=True)
     #plan = models.IntegerField(blank=True)
-    joiningDate = models.DateTimeField(default=timezone.now,blank=True)
+    joiningDate = models.DateField(("Date"), default=datetime.date.today)
     amount = models.FloatField(blank=True,default=0)
 
     def saveUser(self):
@@ -51,7 +52,7 @@ class UserAccount(models.Model):
     panNo = models.CharField(max_length=200,default="Blank")
     aadhaarNo = models.CharField(max_length=200,default="Blank")
     amount = models.FloatField(blank=True,default=0)
-    joiningDate = models.DateTimeField(default=timezone.now,blank=True)
+    joiningDate =  models.DateField(("Date"), default=datetime.date.today)
     productId = models.CharField(max_length=20, unique=False)
 
     #add time period 
@@ -99,7 +100,7 @@ class NormalProductsBoughtList(models.Model):
     email = models.EmailField(default="Blank")
     product = models.CharField(max_length=20,unique=True)
     amount = models.DecimalField(decimal_places=2, max_digits=100, default=10000.00)
-    boughtDate = models.DateTimeField(default=timezone.now,blank=True)
+    boughtDate =  models.DateField(("Date"), default=datetime.date.today)
 
     def saveBoughtList(self):
         self.save()
@@ -130,8 +131,8 @@ class Product(models.Model):
     sales_price = models.DecimalField(decimal_places=2, max_digits=100,null=True, blank=True)
     slug = models.SlugField(unique=True)
     productId = models.CharField(max_length=20, unique=True)
-    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    timestamp =  models.DateField(("Date"), default=datetime.date.today)
+    updated =  models.DateField(("Date"), default=datetime.date.today)
     active = models.BooleanField(default=True)
     update_defaults = models.BooleanField(default=False)
 
@@ -164,8 +165,8 @@ class SpecialProduct(models.Model):
     sales_price = models.DecimalField(decimal_places=2, max_digits=100,null=True, blank=True)
     slug = models.SlugField(unique=True)
     productId = models.CharField(max_length=20, unique=True)
-    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    timestamp = models.DateField(("Date"), default=datetime.date.today)
+    updated = models.DateField(("Date"), default=datetime.date.today)
     active = models.BooleanField(default=True)
     update_defaults = models.BooleanField(default=False)
     cashBack = models.IntegerField(null=True,default = 0)
@@ -185,7 +186,7 @@ class ProductImage(models.Model):
     featured = models.BooleanField(default=False)
     thumbnail = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    updated =  models.DateField(("Date"), default=datetime.date.today)
 
     def saveproductImage(self):
         return self.product.title  
