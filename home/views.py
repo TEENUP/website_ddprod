@@ -295,10 +295,10 @@ def sign_up(request):
 		errorUsername=""
 		if(not isUsernameValid):
 			errorUsername="User Already Exists"
-		isUsernameValid = validateUsername2(username)
-		errorUsername=""
-		if(not isUsernameValid):
-			errorUsername="User Name is not appropriate it must contain one character and alphanumneric and it must not contain any spaces"
+		# isUsernameValid = validateUsername2(username)
+		# errorUsername=""
+		# if(not isUsernameValid):
+		# 	errorName="User Name is not appropriate it must contain one character and alphanumneric and it must not contain any spaces"
 
 		password=request.POST.get('password')
 		confirmPassword=request.POST.get('confirmPassword')
@@ -322,19 +322,22 @@ def sign_up(request):
 
 		email= request.POST.get('email')		
 		address= request.POST.get('address')
+		city = request.POST.get('city')
+		state = request.POST.get('state')
+		pinCode = request.POST.get('pinCode')
 		
 		#validation
 		if isUsernameValid and isPasswordValid and isPhoneNumberValid:
 			h_password=make_pw_hash(username,password)
 			User.objects.create(username=username,password=h_password)
-			UserDetails.objects.create(username=username,firstName=firstName,lastName=lastName, phoneNo=phoneNo,email=email,address=address)
+			UserDetails.objects.create(username=username,firstName=firstName,lastName=lastName, phoneNo=phoneNo,email=email,address=address,city=city,state=state,pinCode=pinCode)
 			id_to_send=make_secure_val(str(username))
 			response = redirect('/')
 			response.set_cookie('user_id', id_to_send)
 			return response
 		else:
 			# Render The page with errors
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber})
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber})#,'errorName':errorName})
 	else:
 		if isLoggedIn(request):
 			return redirect('/')
@@ -832,17 +835,17 @@ def buy(request):
 			p_language = "EN"
 			p_billing_name = userDetails.firstName + ' ' + userDetails.lastName
 			p_billing_address = userDetails.address
-			p_billing_city = "Delhi"
-			p_billing_state = "Delhi"
-			p_billing_zip = "110085"
+			p_billing_city = userDetails.city
+			p_billing_state = userDetails.state
+			p_billing_zip = ""
 			p_billing_country = "India"
 			#p_billing_tel = userDetails.phoneNo
 			p_billing_email = userDetails.email
-			p_delivery_name = userDetails.firstName + userDetails.lastName
+			p_delivery_name = userDetails.firstName + ' ' + userDetails.lastName
 			p_delivery_address = userDetails.address
-			p_delivery_city = "Delhi"
-			p_delivery_state = "Delhi"
-			p_delivery_zip = "110085"
+			p_delivery_city = userDetails.city
+			p_delivery_state = userDetails.state
+			p_delivery_zip = ""
 			p_delivery_country = "India"
 			#p_delivery_tel =userDetails.phoneNo
 			p_merchant_param1 = userDetails.email
@@ -1039,34 +1042,40 @@ def buyProducts(request):
 	 	product = Product.objects.get(title = x)
 		mobile = request.POST.get('mobileNo')
 		price = request.POST.get('amount')
+
 		
 		
 		if x==product.title:
 #link payment gateway over here under insert user
 ### CCAVenues Payment Gateway 
+			user_id= request.COOKIES['user_id']
+			#print "6 "+ user_id
+			username=check_secure_val(user_id)
+			userDetails = UserDetails.objects.get(username=username)
+
 			p_merchant_id = "147110"
-			p_order_id = "xyz"
+			p_order_id = username
 			p_currency = "INR"
 			p_amount = price
 			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_cancel_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_language = "EN"
-			p_billing_name = "sagar"
-			p_billing_address = "rohini"
-			p_billing_city = "Delhi"
-			p_billing_state = "Delhi"
-			p_billing_zip = "110085"
+			p_billing_name = userDetails.firstName + ' ' + userDetails.lastName
+			p_billing_address = userDetails.address
+			p_billing_city = userDetails.city
+			p_billing_state = userDetails.state
+			p_billing_zip = ""
 			p_billing_country = "India"
 			#p_billing_tel = userDetails.phoneNo
-			p_billing_email = "s@gmail.com"
-			p_delivery_name = "sagar"
-			p_delivery_address = "rohini"
-			p_delivery_city = "Delhi"
-			p_delivery_state = "Delhi"
-			p_delivery_zip = "110085"
+			p_billing_email = userDetails.email
+			p_delivery_name = userDetails.firstName + ' ' + userDetails.lastName
+			p_delivery_address = userDetails.address
+			p_delivery_city = userDetails.city
+			p_delivery_state = userDetails.state
+			p_delivery_zip = ""
 			p_delivery_country = "India"
 			#p_delivery_tel =userDetails.phoneNo
-			p_merchant_param1 = "s@gmail.com"
+			p_merchant_param1 = userDetails.email
 			p_merchant_param2 = ""
 			p_merchant_param3 = ""
 			p_merchant_param4 = ""
@@ -1076,7 +1085,7 @@ def buyProducts(request):
 	
 	
 
-			merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language+'&'+'billing_name='+p_billing_name+'&'+'billing_address='+p_billing_address+'&'+'billing_city='+p_billing_city+'&'+'billing_state='+p_billing_state+'&'+'billing_zip='+p_billing_zip+'&'+'billing_country='+p_billing_country+'&'+'billing_email='+p_billing_email+'&'+'delivery_name='+p_delivery_name+'&'+'delivery_address='+p_delivery_address+'&'+'delivery_city='+p_delivery_city+'&'+'delivery_state='+p_delivery_state+'&'+'delivery_zip='+p_delivery_zip+'&'+'delivery_country='+p_delivery_country+'&'+'merchant_param1='+p_merchant_param1+'&'
+			merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language+'&'+'billing_name='+p_billing_name+'&'+'billing_address='+p_billing_address+'&'+'billing_city='+p_billing_city+'&'+'billing_state='+p_billing_state+'&'+'billing_zip='+p_billing_zip+'&'+'billing_country='+p_billing_country+'&'+'billing_email='+p_billing_email+'&'+'delivery_name='+'&'
 			encryption = encrypt(merchant_data,workingKey)
 
 			return render(request, 'home/payment.html', {'encReq':encryption,'xscode':accessCode})
