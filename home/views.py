@@ -1045,7 +1045,7 @@ def buyProducts(request):
 			p_merchant_id = "147110"
 			p_order_id = "xyz"
 			p_currency = "INR"
-			p_amount = 100
+			p_amount = product.price
 			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_cancel_url = "https://www.petalsart.in/ccavResponseHandler/"
 			p_language = "EN"
