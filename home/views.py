@@ -961,7 +961,7 @@ def buy(request):
 			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','spProd':spProd})
 			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 		
- @csrf_exempt	
+@csrf_exempt	
 def ccavResponseHandler(request):
 	if request.method == "POST":
 		plainText = request.POST.get('encResp')
