@@ -8,7 +8,6 @@ from .models import UserAccount
 from .models import UserRelation
 from .models import Product
 from .models import SpecialProduct
-from .models import ProductImage
 from .models import UserRefferal
 from .models import NormalProductsBoughtList
 
@@ -156,7 +155,7 @@ admin.site.register(UserAccount, userAccountsAdmin)
 admin.site.register(UserRelation, userRelationAdmin)
 admin.site.register(Product)
 admin.site.register(SpecialProduct)
-admin.site.register(ProductImage)
+
 admin.site.register(UserRefferal, userRefferalAdmin)
 admin.site.register(NormalProductsBoughtList,NormalProductsBoughtListAdmin)
 

@@ -196,13 +196,14 @@ def home_list(request):
 
 	if isLoggedIn(request):
 		# usr=User.objects.get(sponserId=sponserId)
-		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
-		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		greet='<a class="" href="/myHome">Dashboard</a>'
+		logout='<a class="" href="/logout">Logout</a>'
 		# Logout link
 		return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'spProd':spProd,'prod':prod})
 	else:
-			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'spProd':spProd,'prod':prod})
+			greet='<a class="" href="/sign_up">Sign Up</a>'
+			greet1='<a class="" href="/login">Login</a>'
+			return render(request, 'home/index.html', {'home':'#page-top','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'greet1':greet1,'spProd':spProd,'prod':prod})
 
 def validateSponserId(sponserId):
 	if len(sponserId)!=6:
@@ -253,8 +254,6 @@ def validateUsername(username):
 	user=User.objects.filter(username=username)
 	if user.count()>0:
 		return False
-	return True
-def validateUsername2(username):
 	isUserNameValid = not not re.match(regexForUserName,username)
 	if not isUserNameValid:
 		return False
@@ -288,7 +287,8 @@ def contact_us(request):
 			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout})#,'errorEmail':errorEmail})
 		else:
 			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet})
+			greet1='<a class="" href="/login">Login</a>'
+			return render(request, 'home/contact_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'greet1':greet1})
 
 
 
@@ -299,9 +299,9 @@ def sign_up(request):
 		isUsernameValid = validateUsername(username)
 		errorUsername=""
 		if(not isUsernameValid):
-			errorUsername="User Already Exists"
+			errorUsername="UserName Not valid!! (spaces not valid) "
 		# isUsernameValid = validateUsername2(username)
-		# errorUsername=""
+		# errorName=""
 		# if(not isUsernameValid):
 		# 	errorName="User Name is not appropriate it must contain one character and alphanumneric and it must not contain any spaces"
 
@@ -342,14 +342,16 @@ def sign_up(request):
 			return response
 		else:
 			# Render The page with errors
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber})#,'errorName':errorName})
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','errorUsername':errorUsername,'errorPassword':errorPassword, 'errorPhoneNumber':errorPhoneNumber})
 	else:
 		if isLoggedIn(request):
 			return redirect('/')
 		else:
-			greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+			greet='<a class="" href="/sign_up">Sign Up</a>'
+			greet1='<a class="" href="/login">Login</a>'
+
 			# print options
-			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet})
+			return render(request, 'home/sign_up.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'greet1':greet1})
 
 
 def login(request):
@@ -397,7 +399,8 @@ def about_us(request):
 		return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout})
 	else:
 		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-		return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet})
+		greet1='<a class="" href="/login">Login</a>'
+		return render(request, 'home/about_us.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'greet1':greet1})
 
 
 def dashboard(request):
@@ -569,7 +572,8 @@ def thanks(request):
 		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout})
 	else:
 		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
-		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet})
+		greet1='<a class="" href="/login">Login</a>'
+		return render(request, 'home/thanks.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'greet1':greet1})
 
 """
 def contact(request):
@@ -927,6 +931,9 @@ def buy(request):
 			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 			return redirect('/sign_up')
 		else:
+			greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
+			logout='<a class="page-scroll" href="/logout">Logout</a>'
+
 			print "my name is puneet"
 			x = request.GET.get("q",None)
 			print x
@@ -966,12 +973,14 @@ def buy(request):
 		# 	# 	options+='<option value="50000">50000</option><option value="90000">90000</option></select>'
 		# 	# greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 		# 	# print options
-			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','spProd':spProd})
+			return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','spProd':spProd,'greet':greet,'logout':logout})
 			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 		
 @csrf_exempt	
 def ccavResponseHandler(request):
 	if request.method == "POST":
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
 		plainText = request.POST.get('encResp')
 		workingKey = 'F29369319A53923B0415DE92C49FCD15'
 		decResp = decrypt(plainText,workingKey)
@@ -982,7 +991,7 @@ def ccavResponseHandler(request):
 
 		print "gateway"
 		print plainText
-		return render(request, 'home/ccavResponseHandler.html', {'Response':decResp})
+		return render(request, 'home/ccavResponseHandler.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','Response':decResp,'greet':greet,'logout':logout})
 		
 
 
@@ -1058,7 +1067,7 @@ def buyProducts(request):
 			username=check_secure_val(user_id)
 			userDetails = UserDetails.objects.get(username=username)
 
-			#NormalProductsBoughtList.objects.create(username=username,sponserId=sponserId)
+			NormalProductsBoughtList.objects.create(username=username,firstName=userDetails.firstName,lastName=userDetails.lastName,phoneNo=userDetails.phoneNo,address=userDetails.address,email=userDetails.email,product=product,amount=price)
 
 			p_merchant_id = "147110"
 			p_order_id = product.slug
@@ -1103,10 +1112,12 @@ def buyProducts(request):
 			#greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
 			return redirect('/sign_up')
 		else:
+			greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
+			logout='<a class="page-scroll" href="/logout">Logout</a>'
 			x = request.GET.get("q",None)
 			product = Product.objects.get(productId = x)
 
-			return render(request, 'home/buyProducts.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','product':product})
+			return render(request, 'home/buyProducts.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','product':product,'greet':greet,'logout':logout})
 			#return render(request, 'home/buy.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'})
 		
 
@@ -1149,14 +1160,34 @@ def myHome(request):
 
 #Product APP 
 def all(request):
-	products = Product.objects.all()
-	#primaryImages = Product.objects.all()
-	specialProduct = SpecialProduct.objects.all()
-	context = {'showProducts': products,'specialProduct': specialProduct,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'} #"primaryImages": primaryImages}
-	template = 'home/all.html'
-	return render (request, template, context)
+
+	if not isLoggedIn(request):
+		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+		greet1='<a class="page-scroll" href="/login">Login</a>'
+		products = Product.objects.all()
+		#primaryImages = Product.objects.all()
+		specialProduct = SpecialProduct.objects.all()
+		context = {'showProducts': products,'specialProduct': specialProduct,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'greet1':greet1} #"primaryImages": primaryImages}
+		template = 'home/all.html'
+		return render (request, template, context)
+	else:
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		products = Product.objects.all()
+		#primaryImages = Product.objects.all()
+		specialProduct = SpecialProduct.objects.all()
+		context = {'showProducts': products,'specialProduct': specialProduct,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout} #"primaryImages": primaryImages}
+		template = 'home/all.html'
+		return render (request, template, context)
+	
+
+	
 
 def single(request):
+	if not isLoggedIn(request):
+		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+		greet1='<a class="page-scroll" href="/login">Login</a>'
+
 		x = request.GET.get("q",None)
 		print x
 		product = Product.objects.get(productId = x)
@@ -1168,22 +1199,60 @@ def single(request):
 		#images = ProductImage.objects.filter(product=product)
 		#images1 = roduct.objects.filter(product=product)
 
-		context = {'product':product,'images':images,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'}
+		context = {'product':product,'images':images,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'greet1':greet1}
+		template = 'home/single.html'
+		return render (request, template, context) 
+		
+	else:
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+
+
+		x = request.GET.get("q",None)
+		print x
+		product = Product.objects.get(productId = x)
+		#spProd = SpecialProduct.objects.get(productId = x)
+		#print spProd
+		print product
+
+		images = product.productimage_set.all()
+		#images = ProductImage.objects.filter(product=product)
+		#images1 = roduct.objects.filter(product=product)
+
+		context = {'product':product,'images':images,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout}
 		template = 'home/single.html'
 		return render (request, template, context) 
 
 def singles(request):
+	if not isLoggedIn(request):
+		greet='<a class="page-scroll" href="/sign_up">Sign Up</a>'
+		greet1='<a class="page-scroll" href="/login">Login</a>'
+
 		x = request.GET.get("q",None)
 		print "aaaaaaaaaaaaa" + x
 		#product = Product.objects.get(productId = x)
 		spProd = SpecialProduct.objects.get(productId = x)
 		print spProd
+		context = {'spProd':spProd,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'greet1':greet1}
+		template = 'home/singles.html'
+		return render (request, template, context) 
+	else:
+		greet='<a class="page-scroll" href="/myHome">Dashboard</a>'
+		logout='<a class="page-scroll" href="/logout">Logout</a>'
+		
+		x = request.GET.get("q",None)
+		print "aaaaaaaaaaaaa" + x
+		#product = Product.objects.get(productId = x)
+		spProd = SpecialProduct.objects.get(productId = x)
+		print spProd
+		context = {'spProd':spProd,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout}
+		template = 'home/singles.html'
+		return render (request, template, context) 
+		
 		#print product
 
 		#images = product.productimage_set.all()
 		#images = ProductImage.objects.filter(product=product)
 		#images1 = roduct.objects.filter(product=product)
 
-		context = {'spProd':spProd,'home':'/','about':'/about_us','products':'/all','contact':'/contact_us'}
-		template = 'home/singles.html'
-		return render (request, template, context) 
+		
