@@ -130,7 +130,7 @@ class Product(models.Model):
     additionalImage = models.ImageField(upload_to='product/images3/', default ='product/None/placeholderImage.png' )    
     sales_price = models.DecimalField(decimal_places=2, max_digits=100,null=True, blank=True)
     slug = models.SlugField(unique=True)
-    productId = models.CharField(max_length=20, unique=False)
+    productId = models.CharField(max_length=20, unique=True)
     timestamp =  models.DateField(("Date"), default=datetime.date.today)
     updated =  models.DateField(("Date"), default=datetime.date.today)
     active = models.BooleanField(default=True)
@@ -164,7 +164,7 @@ class SpecialProduct(models.Model):
     additionalImage = models.ImageField(upload_to='product/images3/', default ='product/None/placeholderImage.png' )    
     sales_price = models.DecimalField(decimal_places=2, max_digits=100,null=True, blank=True)
     slug = models.SlugField(unique=True)
-    productId = models.CharField(max_length=20, unique=True)
+    productId = models.CharField(max_length=20, unique=False)
     timestamp = models.DateField(("Date"), default=datetime.date.today)
     updated = models.DateField(("Date"), default=datetime.date.today)
     active = models.BooleanField(default=True)
@@ -178,3 +178,18 @@ class SpecialProduct(models.Model):
 
     def __unicode__(self):
         return 'SpecialProduct: ' + self.productId
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product)
+    image = models.ImageField(upload_to='product/images/')
+    featured = models.BooleanField(default=False)
+    thumbnail = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
+    updated =  models.DateField(("Date"), default=datetime.date.today)
+
+    def saveproductImage(self):
+        return self.product.title  
+
+    def __unicode__(self):
+        return self.image      
