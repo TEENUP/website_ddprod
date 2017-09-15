@@ -42,6 +42,11 @@ import md5
 from string import Template
 
 ### 32 bit alphanumeric key and Access Code in quotes provided by CCAvenues.
+## test development phase data
+# accessCode = 'AVDV72EI95AN77VDNA' 	
+# workingKey = 'F29369319A53923B0415DE92C49FCD15'
+
+###production phase data
 accessCode = 'AVDV72EI95AN77VDNA' 	
 workingKey = 'F29369319A53923B0415DE92C49FCD15'
  
@@ -1052,6 +1057,8 @@ def buyProducts(request):
 			#print "6 "+ user_id
 			username=check_secure_val(user_id)
 			userDetails = UserDetails.objects.get(username=username)
+
+			#NormalProductsBoughtList.objects.create(username=username,sponserId=sponserId)
 
 			p_merchant_id = "147110"
 			p_order_id = product.slug
