@@ -990,7 +990,7 @@ def ccavResponseHandler(request):
 		# data = data.replace('&','</td></tr><tr><td>')
 		# data = data + '</td></tr></table>'
 
-		# if data[3]== "order_status=success":
+		# if data[3]== "order_status=Success":
 		# 	user_id= request.COOKIES['user_id']
 		# 	#print "6 "+ user_id
 		# 	username=check_secure_val(user_id)
