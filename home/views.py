@@ -989,6 +989,16 @@ def ccavResponseHandler(request):
 		# data = data + decResp.replace('=','</td><td>')
 		# data = data.replace('&','</td></tr><tr><td>')
 		# data = data + '</td></tr></table>'
+
+		# if data[3]== "order_status=success":
+		# 	user_id= request.COOKIES['user_id']
+		# 	#print "6 "+ user_id
+		# 	username=check_secure_val(user_id)
+		# 	userDetails = UserDetails.objects.get(username=username)
+
+		# 	NormalProductsBoughtList.objects.create(username=username,firstName=userDetails.firstName,lastName=userDetails.lastName,phoneNo=userDetails.phoneNo,address=userDetails.address,email=userDetails.email,product=product,amount=price)
+
+
 		print "paymentGateway"
 		print data
 		# print plainText
@@ -1067,7 +1077,6 @@ def buyProducts(request):
 			#print "6 "+ user_id
 			username=check_secure_val(user_id)
 			userDetails = UserDetails.objects.get(username=username)
-
 			NormalProductsBoughtList.objects.create(username=username,firstName=userDetails.firstName,lastName=userDetails.lastName,phoneNo=userDetails.phoneNo,address=userDetails.address,email=userDetails.email,product=product,amount=price)
 
 			p_merchant_id = "147110"
