@@ -82,7 +82,7 @@ class UserRelation(models.Model):
 
 
 class UserRefferal(models.Model):
-    username = models.CharField(max_length=10)
+    username = models.CharField(max_length=20)
     sponserId = models.CharField(max_length=10)
     monthlyCashbackAmount = models.FloatField(blank=True,default=0)
 
@@ -243,7 +243,7 @@ class UserRelationActual(models.Model):
 
 
 class UserRefferalActual(models.Model):
-    username = models.CharField(max_length=10)
+    username = models.CharField(max_length=20)
     sponserId = models.CharField(max_length=10)
     monthlyCashbackAmount = models.FloatField(blank=True,default=0)
 

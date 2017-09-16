@@ -117,7 +117,7 @@ regexForEmail = "^a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 regexForPanCard = "^[A-Z]{5}[0-9]{4}[A-Z]$"
 regexForMobileNumber ="^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$"
 regexForAadharCard = "^\d{4}\s\d{4}\s\d{4}$"
-regexForUserName = "^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$"
+regexForUserName = "^[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$"
 SECRET="qwerty"
 
 def make_salt():

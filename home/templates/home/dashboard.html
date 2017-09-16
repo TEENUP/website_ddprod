@@ -31,7 +31,7 @@
     <div class="wrapper">
 
 
-        <aside style="background-color: #e7e7e7"class="sidebar-left-collapse">
+        <aside style="background-color: #000"class="sidebar-left-collapse">
             <div style="text-align: center"><a href="/myHome" class="company-logo"><img height="100%" width="100%" src="/static/img/backgrounds/logo.jpg"></a></div>
         
 
@@ -105,7 +105,7 @@
 #main {
     width: 100%;
     height: 100%;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     display: -webkit-flex; /* Safari */
     display: flex;
 }
@@ -133,16 +133,21 @@
                                 </div>
                             </div> -->
                     <!-- startloophere for refferal ids -->
+                    <MARQUEE behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"><b>"Use any of the Referral ID shown below to refer others"</b></MARQUEE>
+                    <br>
+                    <br>
+
+
                     {% for reffs in accounts %}
                     <div class="col-lg-6">
                         <div class="card">
-                            <div style="background-color:#000"class="content">
+                            <div style="background-color:#424949"class="content">
                                 <!-- <p class="description text-center">
                                     <b><span>Product Name</span><span>{{ reffs.sponserId }}</span><span>Rs Amount</span><span>Invoice Date</span></b>
                                 </p> -->
                             <div id="main">
                                 <div style=""><b style="color:#ffffff";>{{ reffs.productId }}</b></div>
-                                <div style=""><b style="color:#ffffff";>{{ reffs.sponserId }}</b></div>  
+                                <div style=""><b style="color:#ffffff";>Reff. ID-{{ reffs.sponserId }}</b></div>  
                                 <!-- <div style=""><b style="color:#ffffff";>Rs {{ reffs.amount }}</b></div> -->
                                 <div style=""><b style="color:#ffffff";>{{ reffs.joiningDate }}</b></div>
                             </div>
