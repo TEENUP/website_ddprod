@@ -1012,9 +1012,9 @@ def ccavResponseHandler(request):
 				slug = Product.objects.get(slug=tag[1])
 				NormalProductsBoughtList.objects.create(username=username,firstName=userDetails.firstName,lastName=userDetails.lastName,phoneNo=userDetails.phoneNo,address=userDetails.address,email=userDetails.email,product=slug,amount=slug.price)
 			elif tag[0] == "T":
-				userReff = UserRefferal.objects.get(sponserId=sponserId)
-				userAcc = UserAccount.objects.get(sponserId=sponserId)
-				userRel = UserRelation.objects.get(sponserId=sponserId)
+				userReff = UserRefferal.objects.get(sponserId=tag[1])
+				userAcc = UserAccount.objects.get(sponserId=tag[1])
+				userRel = UserRelation.objects.get(sponserId=tag[1])
 				UserRefferalActual.objects.create(username=userReff.username,sponserId=userReff.sponserId)
 				UserAccountActual.objects.create(firstName=userAcc.firstName,lastName=userAcc.lastName,phoneNo=userAcc.phoneNo,address=userAcc.address,email=userAcc.email,sponserId=userAcc.sponserId,username=userAcc.username,holderName=userAcc.holderName,IFSCCode=userAcc.IFSCCode,bankName=userAcc.bankName,branchName=userAcc.branchName,
 				accountType=userAcc.accountType,accountNo=userAcc.accountNo,panNo=userAcc.panNo,aadhaarNo=userAcc.aadhaarNo,productId=userAcc.productId,amount=userAcc.amount)
