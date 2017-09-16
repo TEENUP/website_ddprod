@@ -984,14 +984,15 @@ def ccavResponseHandler(request):
 		plainText = request.POST.get('encResp')
 		workingKey = 'F29369319A53923B0415DE92C49FCD15'
 		decResp = decrypt(plainText,workingKey)
-		data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
-		data = data + decResp.replace('=','</td><td>')
-		data = data.replace('&','</td></tr><tr><td>')
-		data = data + '</td></tr></table>'
-
-		print "gateway"
-		print plainText
-		return render(request, 'home/ccavResponseHandler.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','Response':decResp,'greet':greet,'logout':logout})
+		data = re.split("&", decResp)
+		# data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
+		# data = data + decResp.replace('=','</td><td>')
+		# data = data.replace('&','</td></tr><tr><td>')
+		# data = data + '</td></tr></table>'
+		print "paymentGateway"
+		print data
+		# print plainText
+		return render(request, 'home/ccavResponseHandler.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','Response':decResp,'properResponse':data,'greet':greet,'logout':logout})
 		
 
 
