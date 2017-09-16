@@ -10,6 +10,9 @@ from .models import Product
 from .models import SpecialProduct
 from .models import UserRefferal
 from .models import NormalProductsBoughtList
+from .models import UserAccountActual
+from .models import UserRelationActual
+from .models import UserRefferalActual
 
 
 # Register your models here.
@@ -116,6 +119,17 @@ class userAccountsAdmin(admin.ModelAdmin):
 
     #readonly_fields = ['username','firstName','lastName','address','phoneNo','email','sponserId','accountNo','IFSCCode','holderName','bankName','branchName','accountType','panNo','aadhaarNo','amount','joiningDate']
 
+class userAccountsActualAdmin(admin.ModelAdmin):
+    date_hierarchy = 'joiningDate'
+    search_fields = ['username','sponserId']
+    actions = [export_csvForTrendingProducts]
+    list_display = ('username','sponserId','accountNo','IFSCCode','amount','joiningDate')
+    list_filter = ('username','joiningDate')
+
+    #readonly_fields = ['username','firstName','lastName','address','phoneNo','email','sponserId','accountNo','IFSCCode','holderName','bankName','branchName','accountType','panNo','aadhaarNo','amount','joiningDate']
+
+
+
 class userDetailsAdmin(admin.ModelAdmin):
     search_fields = ['username']
     list_display = ['username']
@@ -130,7 +144,22 @@ class userRefferalAdmin(admin.ModelAdmin):
 
     #readonly_fields = ['username','sponserId']
 
+class userRefferalActualAdmin(admin.ModelAdmin):
+    search_fields = ['sponserId', 'username']
+    list_display = ['username','sponserId']
+    list_filter = ['username','sponserId']
+
+    #readonly_fields = ['username','sponserId']
+
+
 class userRelationAdmin(admin.ModelAdmin):
+    search_fields = ['childUsername','parentUsername']
+    list_display = ['childUsername','sponserId','parentUsername','parentId']
+    list_filter = ['childUsername','parentUsername','sponserId','parentId']
+
+    #readonly_fields = ['childUsername','sponserId','parentUsername','parentId']
+
+class userRelationActualAdmin(admin.ModelAdmin):
     search_fields = ['childUsername','parentUsername']
     list_display = ['childUsername','sponserId','parentUsername','parentId']
     list_filter = ['childUsername','parentUsername','sponserId','parentId']
@@ -158,5 +187,7 @@ admin.site.register(SpecialProduct)
 
 admin.site.register(UserRefferal, userRefferalAdmin)
 admin.site.register(NormalProductsBoughtList,NormalProductsBoughtListAdmin)
-
+admin.site.register(UserAccountActual, userAccountsActualAdmin)
+admin.site.register(UserRelationActual, userRelationActualAdmin)
+admin.site.register(UserRefferalActual, userRefferalActualAdmin)
 

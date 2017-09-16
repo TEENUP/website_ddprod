@@ -192,4 +192,62 @@ class ProductImage(models.Model):
         return self.product.title  
 
     def __unicode__(self):
-        return self.image      
+        return self.image  
+
+
+
+class UserAccountActual(models.Model):
+    username = models.CharField(max_length=20)#foreign key
+    firstName= models.CharField(max_length=100,default="Blank")
+    lastName=models.CharField(max_length=100,default="Blank")
+    phoneNo = PhoneNumberField(default="Blank")
+    address = models.TextField(default="Blank")
+    email = models.EmailField(default="Blank")
+    sponserId = models.CharField(max_length=10,primary_key=True)
+    accountNo = models.CharField(max_length=200)
+    IFSCCode = models.CharField(max_length=200)
+    holderName = models.CharField(max_length=100)
+    bankName = models.CharField(max_length=200)
+    branchName = models.CharField(max_length=200,default="Blank")
+    accountType = models.BooleanField()
+    panNo = models.CharField(max_length=200,default="Blank")
+    aadhaarNo = models.CharField(max_length=200,default="Blank")
+    amount = models.FloatField(blank=True,default=0)
+    joiningDate =  models.DateField(("Date"), default=datetime.date.today)
+    productId = models.CharField(max_length=20, unique=False)
+
+    #add time period 
+    #panCard = models.BinaryField(default="Blank")
+    #aadhaarCard = models.BinaryField(default="Blank")
+    #photo = models.BinaryField(default="Blank")
+
+    def saveAccountDetails(self):
+        # self.published_date = timezone.now()
+        self.save()
+    def __unicode__(self):
+        return 'UserAccountActual: ' + self.username + ' || ' + self.sponserId
+
+class UserRelationActual(models.Model):
+    childUsername = models.CharField(max_length=20)
+    sponserId = models.CharField(max_length=10)
+    parentUsername = models.CharField(max_length=20)
+    parentId = models.CharField(max_length=10)
+    cashRewardPrentWillRecieve = models.FloatField(blank=True,default=0)
+
+
+    def saveRelation(self):
+        # self.published_date = timezone.now()
+        self.save()
+    def __unicode__(self):
+        return 'saveRelationActual: ' + self.childUsername+ ' || ' + self.sponserId + ' || ' + self.parentUsername + ' || ' + self.parentId
+
+
+class UserRefferalActual(models.Model):
+    username = models.CharField(max_length=10)
+    sponserId = models.CharField(max_length=10)
+    monthlyCashbackAmount = models.FloatField(blank=True,default=0)
+
+    def saveRefferal(self):
+        self.save()
+    def __unicode__(self):
+        return 'UserRefferalActual: ' + self.username +' || '+ self.sponserId    
