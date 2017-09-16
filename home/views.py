@@ -836,7 +836,7 @@ def buy(request):
 #link payment gateway over here under insert user
 ### CCAVenues Payment Gateway 
 			p_merchant_id = "147110"
-			p_order_id = sponserId
+			p_order_id = "T-"+sponserId
 			p_currency = "INR"
 			p_amount = spPrice
 			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
@@ -996,22 +996,35 @@ def ccavResponseHandler(request):
 		userDetails = UserDetails.objects.get(username=username)
 
 		prodSlug = re.split("=",data[0])
+		tag = re.split("-",prodSlug[1])
+
 		status = re.split("=",data[3])
 
-		slug = Product.objects.get(slug=prodSlug[1])
+
+		
+
 
 
 
 		if status[1] == "Success":
 			
-			if prodSlug[1] == slug.slug:
+			if tag[0] == "N":
+				slug = Product.objects.get(slug=tag[1])
 				NormalProductsBoughtList.objects.create(username=username,firstName=userDetails.firstName,lastName=userDetails.lastName,phoneNo=userDetails.phoneNo,address=userDetails.address,email=userDetails.email,product=slug,amount=slug.price)
-
+			elif tag[0] == "T":
+				userReff = UserRefferal.objects.get(username=username)
+				userAcc = UserAccount.objects.get(username=username)
+				userRel = UserRelation.objects.get(username=username)
+				UserRefferal.objects.create(username=username,sponserId=sponserId)
+				UserAccount.objects.create(firstName=userDetails.firstName,lastName=userDetails.lastName,phoneNo=userDetails.phoneNo,address=userDetails.address,email=userDetails.email,sponserId=sponserId,username=username,holderName=holderName,IFSCCode=IFSCCode,bankName=bankName,branchName=branchName,
+				accountType=accountType,accountNo=accountNo,panNo=panNo,aadhaarNo=aadhaarNo,productId=spProd,amount=spPrice)
+				UserRelation.objects.create(childUsername=username,sponserId=sponserId,parentUsername=pUsername.username,parentId=parentId)
+				
 
 		print "paymentGateway"
 		print data
 		# print plainText
-		return render(request, 'home/ccavResponseHandler.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','Response':decResp,'properResponse':data,'greet':greet,'logout':logout})
+		return render(request, 'home/ccavResponseHandler.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','signup':'/sign_up','Response':decResp,'properResponse':data,'greet':greet,'logout':logout,'status':status})
 		
 
 
@@ -1089,7 +1102,7 @@ def buyProducts(request):
 			# NormalProductsBoughtList.objects.create(username=username,firstName=userDetails.firstName,lastName=userDetails.lastName,phoneNo=userDetails.phoneNo,address=userDetails.address,email=userDetails.email,product=product,amount=price)
 
 			p_merchant_id = "147110"
-			p_order_id = product.slug
+			p_order_id = "N-"+product.slug
 			p_currency = "INR"
 			p_amount = price
 			p_redirect_url = "https://www.petalsart.in/ccavResponseHandler/"
