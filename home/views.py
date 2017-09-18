@@ -153,8 +153,8 @@ def insertUser(parentId,childId):
 	calculate(parentId,childId)
 	
 def calculate(rootSponserId,sponserId):
-	parentObj=UserAccountActual.objects.get(sponserId=rootSponserId)
-	childObj=UserAccountActual.objects.get(sponserId=sponserId)
+	parentObj=UserAccount.objects.get(sponserId=rootSponserId)
+	childObj=UserAccount.objects.get(sponserId=sponserId)
 	amountAdd=0
 	#parentObj.amount+=(childObj.plan)*0.1
 	#parentObj.saveUser()
