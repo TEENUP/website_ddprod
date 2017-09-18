@@ -153,8 +153,8 @@ def insertUser(parentId,childId):
 	calculate(parentId,childId)
 	
 def calculate(rootSponserId,sponserId):
-	parentObj=UserAccount.objects.get(sponserId=rootSponserId)
-	childObj=UserAccount.objects.get(sponserId=sponserId)
+	parentObj=UserAccountActual.objects.get(sponserId=rootSponserId)
+	childObj=UserAccountActual.objects.get(sponserId=sponserId)
 	amountAdd=0
 	#parentObj.amount+=(childObj.plan)*0.1
 	#parentObj.saveUser()
@@ -212,7 +212,7 @@ def validateSponserId(sponserId):
 	if not isValid:
 		return False
 	else:
-		user=UserAccount.objects.filter(sponserId=sponserId)
+		user=UserAccountActual.objects.filter(sponserId=sponserId)
 		if user.count()>0:
 			return True
 		else:
@@ -421,10 +421,10 @@ def dashboard(request):
 		print username
 		usr=User.objects.get(username=username)
 #changed sponserId to username
-		refferal=UserRefferal.objects.filter(username=username)
-		accounts=UserAccount.objects.filter(username=username)
+		refferal=UserRefferalActual.objects.filter(username=username)
+		accounts=UserAccountActual.objects.filter(username=username)
 		print refferal
-		children = UserRelation.objects.filter(parentUsername=username)
+		children = UserRelationActual.objects.filter(parentUsername=username)
 		print children
 		# if refferal.count()>0:
 		# 	refferal=UserRefferal.objects.filter(username=username)
@@ -542,12 +542,12 @@ def user_profile(request):
 		username=check_secure_val(user_id)
 		user=User.objects.get(username=username)
 		userDetails=UserDetails.objects.get(username=user.username)
-		accountDetails=UserAccount.objects.filter(username=username)
+		accountDetails=UserAccountActual.objects.filter(username=username)
 		if accountDetails.count()>0:
-			userAccount=UserAccount.objects.filter(username=username)
-			reff = UserRefferal.objects.filter(username=username)
+			userAccount=UserAccountActual.objects.filter(username=username)
+			reff = UserRefferalActual.objects.filter(username=username)
 			if reff.count()>0:	
-				refferal=UserRefferal.objects.filter(username=user.username)
+				refferal=UserRefferalActual.objects.filter(username=user.username)
 				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount[0],'refferal':refferal})
 			else:
 				return render(request, 'home/user_profile.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount[0]})
@@ -744,7 +744,7 @@ def buy(request):
 		if (not isSponserIdValid):
 			errorSponserId="Invalid Sponser Id"
 
-		pUsername = UserAccount.objects.get(sponserId=parentId)
+		pUsername = UserAccountActual.objects.get(sponserId=parentId)
 		sponserId="".join(random.choice(string.ascii_uppercase+string.digits) for x in range (0,6))
 		#print "2"+ sponserId
 		# username=request.POST.get('userName')
@@ -1175,12 +1175,12 @@ def myHome(request):
 		username=check_secure_val(user_id)
 		user=User.objects.get(username=username)
 		userDetails=UserDetails.objects.get(username=user.username)
-		accountDetails=UserAccount.objects.filter(username=username)
+		accountDetails=UserAccountActual.objects.filter(username=username)
 		if accountDetails.count()>0:
-			userAccount=UserAccount.objects.filter(username=username)
-			reff = UserRefferal.objects.filter(username=username)
+			userAccount=UserAccountActual.objects.filter(username=username)
+			reff = UserRefferalActual.objects.filter(username=username)
 			if reff.count()>0:	
-				refferal=UserRefferal.objects.filter(username=user.username)
+				refferal=UserRefferalActual.objects.filter(username=user.username)
 				return render(request, 'home/myHome.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount[0],'refferal':refferal})
 			else:
 				return render(request, 'home/myHome.html', {'home':'/','about':'/about_us','products':'/all','contact':'/contact_us','greet':greet,'logout':logout,'user':user,'userDetails':userDetails,'userAccount':userAccount[0]})
