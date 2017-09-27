@@ -23,7 +23,7 @@ class userAdmin(admin.ModelAdmin):
 	#list_editable = ['username']
 	list_filter = ['username','joiningDate']
     
-	readonly_fields = ['username','amount','password','joiningDate']
+	# readonly_fields = ['username','amount','password','joiningDate']
 	#prepopulated_fields = {"slug": ("title",)}
 	class Meta:
 		model = User
@@ -117,7 +117,7 @@ class userAccountsAdmin(admin.ModelAdmin):
     list_display = ('username','sponserId','accountNo','IFSCCode','amount','joiningDate')
     list_filter = ('username','joiningDate')
 
-    readonly_fields = ['username','firstName','lastName','address','phoneNo','email','sponserId','accountNo','IFSCCode','holderName','bankName','branchName','accountType','panNo','aadhaarNo','amount','joiningDate','productId']
+    # readonly_fields = ['username','firstName','lastName','address','phoneNo','email','sponserId','accountNo','IFSCCode','holderName','bankName','branchName','accountType','panNo','aadhaarNo','amount','joiningDate','productId']
 
 class userAccountsActualAdmin(admin.ModelAdmin):
     date_hierarchy = 'joiningDate'
@@ -126,7 +126,7 @@ class userAccountsActualAdmin(admin.ModelAdmin):
     list_display = ('username','sponserId','accountNo','IFSCCode','amount','joiningDate')
     list_filter = ('username','joiningDate')
 
-    readonly_fields = ['username','firstName','lastName','address','phoneNo','email','sponserId','accountNo','IFSCCode','holderName','bankName','branchName','accountType','panNo','aadhaarNo','amount','joiningDate','productId']
+    # readonly_fields = ['username','firstName','lastName','address','phoneNo','email','sponserId','accountNo','IFSCCode','holderName','bankName','branchName','accountType','panNo','aadhaarNo','amount','joiningDate','productId']
 
 
 
@@ -135,21 +135,21 @@ class userDetailsAdmin(admin.ModelAdmin):
     list_display = ['username']
     list_filter = ['username']
 
-    readonly_fields = ['username','firstName','lastName','phoneNo','address','email','city','state','pinCode']
+    # readonly_fields = ['username','firstName','lastName','phoneNo','address','email','city','state','pinCode']
 
 class userRefferalAdmin(admin.ModelAdmin):
     search_fields = ['sponserId', 'username']
     list_display = ['username','sponserId']
     list_filter = ['username','sponserId']
 
-    readonly_fields = ['username','sponserId']
+    # readonly_fields = ['username','sponserId']
 
 class userRefferalActualAdmin(admin.ModelAdmin):
     search_fields = ['sponserId', 'username']
     list_display = ['username','sponserId']
     list_filter = ['username','sponserId']
 
-    readonly_fields = ['username','sponserId']
+    # readonly_fields = ['username','sponserId']
 
 
 class userRelationAdmin(admin.ModelAdmin):
@@ -157,14 +157,14 @@ class userRelationAdmin(admin.ModelAdmin):
     list_display = ['childUsername','sponserId','parentUsername','parentId']
     list_filter = ['childUsername','parentUsername','sponserId','parentId']
 
-    readonly_fields = ['childUsername','sponserId','parentUsername','parentId']
+    # readonly_fields = ['childUsername','sponserId','parentUsername','parentId']
 
 class userRelationActualAdmin(admin.ModelAdmin):
     search_fields = ['childUsername','parentUsername']
     list_display = ['childUsername','sponserId','parentUsername','parentId']
     list_filter = ['childUsername','parentUsername','sponserId','parentId']
 
-    readonly_fields = ['childUsername','sponserId','parentUsername','parentId']
+    # readonly_fields = ['childUsername','sponserId','parentUsername','parentId']
 
 class NormalProductsBoughtListAdmin(admin.ModelAdmin):
     date_hierarchy = 'boughtDate'
@@ -173,7 +173,7 @@ class NormalProductsBoughtListAdmin(admin.ModelAdmin):
     list_display = ('username','product')
     list_filter = ('username','boughtDate')
 
-    readonly_fields = ['username','firstName','lastName','address','phoneNo','email','product','amount','boughtDate']
+    # readonly_fields = ['username','firstName','lastName','address','phoneNo','email','product','amount','boughtDate']
 
 
 

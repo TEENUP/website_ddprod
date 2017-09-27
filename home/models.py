@@ -54,6 +54,7 @@ class UserAccount(models.Model):
     amount = models.FloatField(blank=True,default=0)
     joiningDate =  models.DateField(("Date"), default=datetime.date.today)
     productId = models.CharField(max_length=20, unique=False)
+    modeOfPayment = models.CharField(max_length=20,default="AccountTransferCCAvenue")
 
     #add time period 
     #panCard = models.BinaryField(default="Blank")
@@ -215,6 +216,7 @@ class UserAccountActual(models.Model):
     amount = models.FloatField(blank=True,default=0)
     joiningDate =  models.DateField(("Date"), default=datetime.date.today)
     productId = models.CharField(max_length=20, unique=False)
+    modeOfPayment = models.CharField(max_length=20,default="AccountTransferCCAvenue")
 
     #add time period 
     #panCard = models.BinaryField(default="Blank")
