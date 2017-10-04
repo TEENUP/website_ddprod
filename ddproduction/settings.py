@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['127.0.0.1' , '.pythonanywhere.com' ,'www.petalsart.in']
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_view_permission',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
